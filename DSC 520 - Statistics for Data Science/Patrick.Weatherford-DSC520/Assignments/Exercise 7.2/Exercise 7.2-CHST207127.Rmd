@@ -1,0 +1,228 @@
+---
+title: <span style="color:#B7F06C">EXERCISE 7.2</span>
+author: "Patrick Weatherford"
+date: <span style="color:#5c5c5c;font-size:14px">Last modified:\ `r format(Sys.time(), '%d %B %Y')`</span>
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+    css: "DarkTheme.css"
+geometry: margin=.5in
+---
+***
+
+Load Libraries
+```{r, message=FALSE}
+
+library(ggplot2)
+library(gridExtra)
+library(magrittr)
+
+```
+
+Load Data Frames
+```{r, message=FALSE}
+
+heights_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R/data/r4ds/heights.csv"
+                       , stringsAsFactors = FALSE
+                       , header = TRUE)
+
+survey_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R/data/student-survey.csv"
+                       , stringsAsFactors = FALSE
+                       , header = TRUE)
+
+```
+***
+
+### Assignment 5
+```{r}
+
+## heights & earn
+round(stats::cor(x=heights_df[, c("height","earn")]
+          , use="pairwise"
+          , method="pearson"), 2)
+
+## age & earn
+round(stats::cor(x=heights_df[, c("age","earn")]
+          , use="pairwise"
+          , method="pearson"), 2)
+
+## ed & earn
+round(stats::cor(x=heights_df[, c("ed","earn")]
+          , use="pairwise"
+          , method="pearson"), 2)
+
+## Spurious correlation
+## The following is data on US spending on science, space, and technology in millions of today's dollars
+## and Suicides by hanging strangulation and suffocation for the years 1999 to 2009
+## Compute the correlation between these variables
+tech_spending <- c(18079, 18594, 19753, 20734, 20831, 23029, 23597, 23584, 25525, 27731, 29449)
+suicides <- c(5427, 5688, 6198, 6462, 6635, 7336, 7248, 7491, 8161, 8578, 9000)
+
+round(stats::cor(x=tech_spending, y=suicides
+          , use="pairwise"
+          , method="pearson"), 2)
+
+```
+
+***
+
+### Student Survey
+<br>
+
+#### i. Calculate covariance of all variables
+
+> Covariance can tell us if there is a positive(+) or negative(-) correlation between variables.
+
+```{r}
+
+round(stats::cov(survey_df[,c("TimeReading","TimeTV","Happiness","Gender")]), 2)
+
+```
+<br>
+
+#### ii. Covariance Caveats
+
+> Because covariance is not a standardized measure and is dependent upon the scale of what is being measured, it can really only tell us if there is a positive(+) or negative(-) correlation between the variables. For example, let's say the variable 'TimeReading' is measured in hours and 'TimeTV' is measured in minutes. If we were to convert the variable TimeReading into minutes, the covariance would also increase (example below). To standardize the measure and provide a score that is relevant across any scale of measure, the better alternative would be to use a correlation coefficient. 
+
+```{r}
+
+## TimeReading (hr) vs. TimeTV (min)
+round(stats::cov(survey_df[,c("TimeReading","TimeTV")]), 2)
+
+## timeReading (min) vs. TimeTV (min)
+survey_df$TimeReadingMin <- survey_df$TimeReading * 60
+round(stats::cov(survey_df[,c("TimeReadingMin","TimeTV")]), 2)
+
+
+```
+<br>
+
+#### iii. Which correlation to use.
+
+> Because Pearson's Coefficient assumes normality, linearity, and continuous measures, we need to test for these in the sample data. After that we can then determine which method is best to use.
+
+Testing for linearity
+
+<BLOCKQUOTE>
+All of the variables (minus gender which is dichotomous & discrete) appear to be linear when plotted on a scatter plot. Also, based on the scatter plot, my hypothesis is that: 
+<ul>
+    <li>TimeTV and TimeReading have a negative correlation.
+    <li>TimeTV and Happiness have a positive correlation.
+    <li>TimeReading and Happiness have a negative correlation.
+</BLOCKQUOTE>
+
+
+```{r}
+
+read_tv_plot <- survey_df %>% 
+  ggplot(aes(x=TimeReading, y=TimeTV)) + 
+  geom_smooth(method="lm", formula=y~x) +
+  geom_point(size=2)
+
+read_happy_plot <- survey_df %>% 
+  ggplot(aes(x=TimeReading, y=Happiness)) + 
+  geom_smooth(method="lm", formula=y~x) +
+  geom_point(size=2)
+
+tv_happy_plot <- survey_df %>% 
+  ggplot(aes(x=TimeTV, y=Happiness)) + 
+  geom_smooth(method="lm", formula=y~x) +
+  geom_point(size=2)
+
+gridExtra::grid.arrange(read_tv_plot, read_happy_plot, tv_happy_plot
+                        , ncol=2)
+
+
+
+```
+<br><br>
+
+Testing for Normality
+
+> For an alpha level of .05, all of the variables reject the alternative hypothesis that the data came from a non-normal population and accept the NULL hypothesis that the data came from a normal population.
+
+```{r}
+
+## TimeReading
+stats::shapiro.test(survey_df$TimeReading)["p.value"]
+
+## TimeTV
+stats::shapiro.test(survey_df$TimeTV)["p.value"]
+
+## Happiness
+stats::shapiro.test(survey_df$Happiness)["p.value"]
+
+```
+
+Result
+
+> Because the variables are linear, normal, and continous we can use Pearson's Correlation Coefficient as the method for calculation.
+
+<br>
+
+#### iv. Correlation analysis
+
+##### 1. All variables
+```{r}
+
+round(stats::cor(survey_df[,c("TimeReading","TimeTV","Happiness","Gender")]), 2)
+
+```
+
+##### 2. 2 pairs of variables
+```{r}
+
+stats::cor.test(x=survey_df$TimeTV
+                , y=survey_df$Happiness
+                , method="pearson"
+                , conf.level=.95)
+
+```
+
+##### 3. 2 pairs with CI of 99%
+```{r}
+
+stats::cor.test(x=survey_df$TimeReading
+                , y=survey_df$Gender
+                , method="pearson"
+                , conf.level=.99)
+
+```
+
+##### 4. Correlation Results:
+<BLOCKQUOTE>
+<ul>
+    <li><u>TimeReading / TimeTV</u>: At r = -0.88, this is a very large negative correlation thus, it is highly likely that as TimeReading increase that TimeTV will decrease and vice-versa. 
+    <li><u>TimeReading / Happiness</u>: At r = -0.43, this is a fairly large correlation thus, it is likely that as TimeReading increases that Happiness will decrease and vice-versa. 
+    <li><u>TimeReading / Gender</u>: At r = -0.09, it is not likely that these 2 variables correlate with each other.  
+    <li><u>TimeTV / Happiness</u>: At r = 0.64, this is a very large positive correlation thus, it is highly likely that as TimeTV increase that Happiness will also increase and that if TimeTV decreases that Happiness will also decrease. 
+    <li><u>TimeTV / Gender</u>: At r = 0.01, it is not likely that these 2 variables correlate with each other.
+    <li><u>Happiness / Gender</u>: At r = 0.16, there is a small positive correlation between happiness and gender. Because Gender is a discrete dichotomous variable we cannot use +/- for the correlation to determine direction. 
+</BLOCKQUOTE>
+
+<br> 
+
+#### v. Correlation and Coefficient of Determination
+
+> The coefficient of determination estimates how much variation in one variable can be explained by the variation in another variable as a percentage. For example, for the variables TimeTV and Happiness, it is estimated that these variables can explain 40% of the variation between each other.
+
+```{r}
+
+## Correlation matrix
+round(stats::cor(survey_df[,c("TimeReading","TimeTV","Happiness","Gender")]), 2)
+
+## Coefficient of determination
+round(stats::cor(survey_df[,c("TimeReading","TimeTV","Happiness","Gender")])^2 * 100, 2)
+
+```
+
+#### vi. Does watching more TV cause students to read less?
+> Correlation does not prove causality so cannot say for certain that this is the case BUT, based on the results, we can conclude that it is highly likely that watching more TV is negatively related to reading time.
+
+<br>
+
+#### vii. 

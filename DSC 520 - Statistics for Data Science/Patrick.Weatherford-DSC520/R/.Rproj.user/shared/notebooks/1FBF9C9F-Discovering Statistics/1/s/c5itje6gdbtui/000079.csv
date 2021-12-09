@@ -1,0 +1,5 @@
+"0","## QQPlot of Studentized Residuals"
+"0","album2 %>% "
+"0","  ggplot(aes(sample=studentized.residuals)) + "
+"0","  stat_qq_line() + "
+"0","  stat_qq() "

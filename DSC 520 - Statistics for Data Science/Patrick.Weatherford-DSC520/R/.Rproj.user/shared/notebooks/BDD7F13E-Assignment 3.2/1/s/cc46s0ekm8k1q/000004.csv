@@ -1,0 +1,13 @@
+"0","library(dplyr)"
+"0","library(readxl)"
+"0","library(ggplot2)"
+"0","library(psych)"
+"0","library(pastecs)"
+"0",""
+"0","theme_set(theme_gray())"
+"0",""
+"0","setwd(""C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R"")"
+"2","Warning:"
+"2"," The working directory was changed to C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.
+"
+"0","acs_data <- read.csv(""data/acs-14-1yr-s0201.csv"", stringsAsFactors = FALSE)"

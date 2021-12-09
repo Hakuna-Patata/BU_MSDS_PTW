@@ -1,0 +1,6 @@
+"0",""
+"0","data(iris)"
+"0",""
+"0","data_vect <- iris$Sepal.Length"
+"0",""
+"0","hist(data_vect, col=""#a56cf0"", main=""Histogram"", xlab=""Sepal Length"", border=""black"")"

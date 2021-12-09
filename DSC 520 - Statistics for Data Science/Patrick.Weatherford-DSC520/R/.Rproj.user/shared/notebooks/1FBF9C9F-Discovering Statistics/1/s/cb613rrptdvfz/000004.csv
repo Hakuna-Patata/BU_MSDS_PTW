@@ -1,0 +1,162 @@
+"0",""
+"0","library(boot)"
+"0",""
+"0","bootReg <- function(formula, data, i) {"
+"0","  "
+"0","  d <- data [i,]"
+"0","  fit <- lm(formula, data=d)"
+"0","  return(coef(fit))"
+"0","  "
+"0","}"
+"0",""
+"0","bootResults <- boot(statistic = bootReg"
+"0","    , formula=sales ~ adverts + airplay + attract"
+"0","    , data = album2"
+"0","    , R=2000)"
+"0",""
+"0","bootResults"
+"1","
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+"
+"1","
+Call:
+"
+"1","boot(data = album2, statistic = bootReg, R = 2000, formula = sales ~ 
+"
+"1","    adverts + airplay + attract)
+"
+"1","
+
+Bootstrap Statistics :
+"
+"1","   "
+"1","     original"
+"1","        bias  "
+"1","   std. error"
+"1","
+t1*"
+"1"," -26.61295836"
+"1","  0.4725189754"
+"1"," 16.508713185"
+"1","
+t2*"
+"1","   0.08488483"
+"1","  0.0001813979"
+"1","  0.006772222"
+"1","
+t3*"
+"1","   3.36742517"
+"1","  0.0052248270"
+"1","  0.313487324"
+"1","
+t4*"
+"1","  11.08633520"
+"1"," -0.1145155802"
+"1","  2.269540269"
+"1","
+"
+"0","message(""\n"")"
+"2","
+
+"
+"0","boot.ci(bootResults, type=""bca"", index=1)"
+"1","BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+"
+"1","Based on 2000 bootstrap replicates
+
+"
+"1","CALL : 
+"
+"1","boot.ci(boot.out = bootResults, type = ""bca"", index = 1)
+"
+"1","
+Intervals : "
+"1","
+Level"
+"1"," "
+"1","      BCa          "
+"1","
+95%  "
+"1"," "
+"1","(-57.92,"
+"1"," "
+"1","  7.52 )  "
+"1","
+Calculations and Intervals on Original Scale
+"
+"0","boot.ci(bootResults, type=""bca"", index=2)"
+"1","BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+"
+"1","Based on 2000 bootstrap replicates
+
+"
+"1","CALL : 
+"
+"1","boot.ci(boot.out = bootResults, type = ""bca"", index = 2)
+"
+"1","
+Intervals : "
+"1","
+Level"
+"1"," "
+"1","      BCa          "
+"1","
+95%  "
+"1"," "
+"1","( 0.0715,"
+"1"," "
+"1"," 0.0975 )  "
+"1","
+Calculations and Intervals on Original Scale
+"
+"0","boot.ci(bootResults, type=""bca"", index=3)"
+"1","BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+"
+"1","Based on 2000 bootstrap replicates
+
+"
+"1","CALL : 
+"
+"1","boot.ci(boot.out = bootResults, type = ""bca"", index = 3)
+"
+"1","
+Intervals : "
+"1","
+Level"
+"1"," "
+"1","      BCa          "
+"1","
+95%  "
+"1"," "
+"1","( 2.742,"
+"1"," "
+"1"," 3.971 )  "
+"1","
+Calculations and Intervals on Original Scale
+"
+"0","boot.ci(bootResults, type=""bca"", index=4)"
+"1","BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+"
+"1","Based on 2000 bootstrap replicates
+
+"
+"1","CALL : 
+"
+"1","boot.ci(boot.out = bootResults, type = ""bca"", index = 4)
+"
+"1","
+Intervals : "
+"1","
+Level"
+"1"," "
+"1","      BCa          "
+"1","
+95%  "
+"1"," "
+"1","( 6.31,"
+"1"," "
+"1","15.23 )  "
+"1","
+Calculations and Intervals on Original Scale
+"

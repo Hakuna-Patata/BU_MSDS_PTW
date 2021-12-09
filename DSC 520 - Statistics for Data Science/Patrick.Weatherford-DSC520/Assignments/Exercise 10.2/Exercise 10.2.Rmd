@@ -1,0 +1,307 @@
+---
+title: <span style="color:#B7F06C">EXERCISE 10.2</span>
+author: "Patrick Weatherford"
+date: <span style="color:#5c5c5c;font-size:14px">Last modified:\ `r format(Sys.time(), '%d %B %Y')`</span>
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+    css: "DarkTheme.css"
+header-includes:
+  - \usepackage{placeins}
+---
+
+
+### Packages
+```{r, message=FALSE, warning=FALSE}
+
+library(car)
+library(mlogit)
+library(farff)
+library(Boruta)
+library(dplyr)
+library(rmarkdown)
+library(ggplot2)
+library(cowplot)
+library(kableExtra)
+library(ggcorrplot)
+library(forcats)
+library(MASS)
+library(caTools)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+
+```
+<br>
+
+***
+
+
+
+
+### Thoracic Surgery Logistic Regression
+
+
+#### Load Data Set
+```{r, message=FALSE}
+
+ts_df <- farff::readARFF("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/ThoraricSurgery.arff")
+
+glimpse(ts_df)
+
+```
+
+
+#### Feature Selection and Data Prep
+
+##### Initial Clean
+```{r}
+## Ordering Categorical Variables Where Baseline is Least Frequent
+ts_df$DGN <- forcats::fct_rev(fct_infreq(ts_df$DGN))
+ts_df$PRE6 <- forcats::fct_rev(fct_infreq(ts_df$PRE6))
+ts_df$PRE7 <- forcats::fct_rev(fct_infreq(ts_df$PRE7))
+ts_df$PRE8 <- forcats::fct_rev(fct_infreq(ts_df$PRE8))
+ts_df$PRE9 <- forcats::fct_rev(fct_infreq(ts_df$PRE9))
+ts_df$PRE10 <- forcats::fct_rev(fct_infreq(ts_df$PRE10))
+ts_df$PRE11 <- forcats::fct_rev(fct_infreq(ts_df$PRE11))
+ts_df$PRE14 <- forcats::fct_rev(fct_infreq(ts_df$PRE14))
+ts_df$PRE17 <- forcats::fct_rev(fct_infreq(ts_df$PRE17))
+ts_df$PRE19 <- forcats::fct_rev(fct_infreq(ts_df$PRE19))
+ts_df$PRE25 <- forcats::fct_rev(fct_infreq(ts_df$PRE25))
+ts_df$PRE30 <- forcats::fct_rev(fct_infreq(ts_df$PRE30))
+ts_df$PRE32 <- forcats::fct_rev(fct_infreq(ts_df$PRE32))
+ts_df$Risk1Yr <- forcats::fct_relevel(ts_df$Risk1Yr, levels=c("F","T"))
+ts_df$AGE_RANGE[ts_df$AGE < 30] <- 'Age <= 30'
+ts_df$AGE_RANGE[ts_df$AGE >= 30 & ts_df$AGE <= 39] <- 'Age 30-39'
+ts_df$AGE_RANGE[ts_df$AGE >= 40 & ts_df$AGE <= 49] <- 'Age 40-49'
+ts_df$AGE_RANGE[ts_df$AGE >= 50 & ts_df$AGE <= 59] <- 'Age 50-59'
+ts_df$AGE_RANGE[ts_df$AGE >= 60 & ts_df$AGE <= 69] <- 'Age 60-69'
+ts_df$AGE_RANGE[ts_df$AGE >= 70 & ts_df$AGE <= 79] <- 'Age 70-79'
+ts_df$AGE_RANGE[ts_df$AGE >= 80] <- 'Age >= 80'
+ts_df$AGE_RANGE <- forcats::fct_rev(fct_infreq(ts_df$AGE_RANGE))
+
+rmarkdown::paged_table(ts_df, options = list(rows.print=15))
+```
+
+
+##### Feature Selection
+
+Plot Predictor Variables Against 1 Year Risk Variable
+```{r, warning=FALSE, fig.show='hold',results='hold', fig.height=3}
+
+## Column Chart of Factor Variables
+ggplot(ts_df, aes(x=DGN, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=AGE_RANGE, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE6, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE7, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE8, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE9, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE10, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE11, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE14, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE17, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE19, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE25, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE30, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+ggplot(ts_df, aes(x=PRE32, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat="count", vjust=1.5)
+
+## Box Plot of Continuous Variables
+boxplot(ts_df$PRE4, main="PRE4")
+boxplot(ts_df$PRE5, main="PRE5")
+boxplot(ts_df$AGE, main="Age")
+
+## Correlation Matrix Between Continuous Variables
+cor_mat <- round(cor(ts_df[,c("PRE4","PRE5","AGE")]), 1)
+ggcorrplot(cor_mat, lab = TRUE, hc.order=TRUE, type="lower", title="Variable Correlation")
+
+```
+
+
+> After analysis above, factors where ordered decending based on their frequency to avoid an incomplete information error. Will also further clean up the dataset and add additional criteria before running it through the model.
+>
+> * Create dummy variable for DGN=DGN3 and do away with DGN.
+> * Create dummy variable for AGE>=50 and do away with both the AGE and AGE_RANGE column.
+> * Create dummy variable for the rest of the category variables.
+
+```{r}
+
+## Create dummy variable where DGN=DGN3
+ts_df$DGN3 <- ifelse(ts_df$DGN=="DGN3",1,0)
+
+## Create dummy variable where Age >= 50
+ts_df$OVER_50 <- ifelse(ts_df$AGE >= 50,1,0)
+
+## Create data frame variable with category variable that need to become dummy variables
+ts_df_cat <- dplyr::select(ts_df, PRE6, PRE7, PRE8, PRE9, PRE10, PRE11, PRE14, PRE17, PRE19, PRE25, PRE30, PRE32)
+
+
+## Use sapply() to easily convert all variables in category data frame into dummy variables
+ts_df_dummy <- data.frame(sapply(ts_df_cat, function(x) data.frame(model.matrix(~x-1, data=ts_df_cat))[,-1]))
+
+## Select Columns and Rename to meaningful name
+ts_df_dummy <- ts_df_dummy %>% 
+  dplyr::select(
+    PRE6_PRZ0="PRE6.xPRZ0"
+    , PRE6_PRZ1="PRE6.xPRZ1"
+    , PRE7
+    , PRE8
+    , PRE9
+    , PRE10
+    , PRE11
+    , PRE14_OC13="PRE14.xOC13"
+    , PRE14_OC11="PRE14.xOC11"
+    , PRE14_OC12="PRE14.xOC12"
+    , PRE17
+    , PRE19
+    , PRE25
+    , PRE30
+    , PRE32
+  )
+
+## Remove redundant columns from main data frame
+ts_df <- ts_df[,c("Risk1Yr","PRE4","PRE5","DGN3","OVER_50")]
+
+## Combain main data frame with dummy data frame
+ts_df <- cbind(ts_df, ts_df_dummy)
+
+
+rmarkdown::paged_table(ts_df, options=list(rows.print=15))
+
+
+```
+
+
+
+
+#### Logistic Regression
+
+
+##### Multiple R2 Function
+```{r}
+
+log_r2 <- function(log_model) {
+  dev <- log_model$deviance
+  null_dev <- log_model$null.deviance
+  model_n <- length(log_model$fitted.values)
+  AIC <- log_model$aic
+  R.L <- (null_dev - dev)/null_dev
+  R.CS <- 1-exp(-(null_dev - dev)/model_n)
+  R.N <- R.CS / ( 1 - ( exp (-(null_dev / model_n))))
+  data.frame(
+    "Deviance"=dev
+    , "NULL Devience"=null_dev
+    , "AIC"=log_model$aic
+    , "R.squared L"=R.L
+    , "R.squared CS"=R.CS
+    , "R.squared N"=R.N
+    , "Model N"=model_n
+  )
+}
+
+```
+
+##### Model
+```{r}
+
+ts_glm_all <- glm(Risk1Yr ~ ., data=ts_df, family="binomial")
+
+```
+
+
+##### Summary of Model
+
+> Results from summary:
+>
+> * DGN where equal to DGN3 has a beta of -0.77 and is significant at p < 0.01.
+> * PRE9 where equal to 'F' has a beta of -1.31 and is significant at p < 0.01.
+> * PRE14 where equal to OC11 has a beta of -1.53 and is significant at p < 0.05.
+> * PRE14 where equal to OC12 has a beta of -1.14 and is significant at p < 0.05.
+> * PRE17 where equal to 'F' has a beta of -0.91 and is significant at p < 0.05.
+> * NULL deviance from baseline model = 395.61
+> * Deviance from model = 352.87
+> * Chi-Square Statistic = 42.74
+
+```{r}
+
+summary(ts_glm_all)
+
+```
+
+##### Accuracy of Model on Sample
+
+> Threshold: 0.5
+>
+> * Overall Accuracy: 84%
+> * Mis-classification: 16%
+> * Sensitivity (True Positive Rate): 0%
+> * Specificity (True Negative Rate): 99%
+
+```{r}
+
+ts_df$predicted <- factor(ifelse(predict(ts_glm_all, ts_df)> 0.5, "T","F"), levels=c("T","F"))
+
+table(actual=ts_df$Risk1Yr, predicted=ts_df$predicted)
+
+
+```
+
+<br> 
+
+***
+
+
+
+
+### Binary Classifier Data
+
+#### Load Data Set
+```{r}
+
+bc_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/binary-classifier-data.csv", header = T)
+
+glimpse(bc_df)
+
+```
+
+
+#### Logistic Model
+
+> Results from summary:
+>
+> * 'x' has a beta of -0.0006 and is not significant with p > 0.05.
+> * 'y' has a beta of -0.002 and is significant at p < 0.001
+> * NULL deviance from baseline model = 374.28
+> * Deviance from model = 368.39
+> * Chi-Square Statistic = 5.89
+>
+> Model Accuracy (Threshold 0.5)
+>
+> * Overall accuracy: 58.3%
+> * Misclassification: 41.7%
+> * Sensitivity: 60.9%
+> * Specificity: 55.9%
+
+```{r}
+
+bc_glm_all <- glm(label ~., data=bc_df)
+summary(bc_glm_all)
+
+bc_df$predicted <- ifelse(predict(bc_glm_all, bc_df)> 0.5, 1,0)
+
+conf_matrix <- as.matrix(table(actual=bc_df$label, predicted=bc_df$predicted))
+
+conf_matrix
+model_accuracy_0.5 <- round(100 * sum(conf_matrix[c(1,4)]) / sum(conf_matrix), 1)
+mis_class_0.5 <- 100-model_accuracy_0.5
+sensitivity_0.5 <- round(100 * sum(conf_matrix[c(4)]) / sum(conf_matrix[c(2,4)]), 1)
+specificity_0.5 <- round(100 * sum(conf_matrix[c(1)]) / sum(conf_matrix[c(1,3)]), 1)
+
+model_accuracy_0.5
+mis_class_0.5
+sensitivity_0.5
+specificity_0.5
+
+```
+

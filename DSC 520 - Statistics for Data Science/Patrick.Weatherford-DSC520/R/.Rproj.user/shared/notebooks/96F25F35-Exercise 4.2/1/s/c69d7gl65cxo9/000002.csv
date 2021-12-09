@@ -1,0 +1,4 @@
+"0","housing_df <- readxl::read_excel(path=""C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/week-7-housing.xlsx"""
+"0","                   , sheet=""Sheet2"")"
+"0",""
+"0","hdf <- housing_df"

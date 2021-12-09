@@ -1,0 +1,3 @@
+"0",""
+"0","qqnorm(iris$Sepal.Length); qqline(iris$Sepal.Length)"
+"0",""

@@ -1,0 +1,8 @@
+"0","## Drop redundant variables"
+"0","ts_df$DGN3 <- ifelse(ts_df$DGN==""DGN3"",""T"",""F"")"
+"0","  "
+"0","  # dplyr::select(-c(""PRE8"",""PRE9"",""PRE10"",""PRE11"",""PRE17"",""PRE17"",""PRE19"",""PRE25"",""PRE30"",""PRE32"")) %>% "
+"0","  # dplyr::filter(!DGN %in% c(""DGN6"",""DGN5"",""DGN8"",""DGN1"")"
+"0","  #               , AGE >= 50)"
+"0",""
+"0","rmarkdown::paged_table(ts_df, options = list(rows.print=15))"

@@ -1,0 +1,257 @@
+---
+title: <span style="color:#B7F06C;font-size:60px">Assignment 5.2</span>
+output:
+  html_document: 
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+author: |
+  <span style="color:grey;font-size:17px">Author: Patrick Weatherford</span>
+date: |
+  <span style="color:#5c5c5c;font-size:14px">Last modified: `r format(Sys.time(), '%d %B %Y')`</span>
+    
+---
+
+<!-- CSS Style -->
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 15px;
+    color: #ebc634;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>
+
+***
+<br>
+```{r default-chunk-settings, include=FALSE}
+knitr::opts_chunk$set(
+  comment=''
+)
+options(width = 125) 
+# matrix(runif(100), ncol = 30)
+```
+
+
+### Load Packages for Assignment
+Load appropriate packages for the assignment
+```{r, message=FALSE}
+library(tidyr)
+library(dplyr)
+library(rmarkdown)
+library(gridExtra)
+library(ggplot2)
+library(readxl)
+library(stringr)
+```
+<br>
+
+
+### Read Data Source Into Data Frame
+```{r}
+
+housing_df <- readxl::read_excel(path="C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/week-7-housing.xlsx"
+                   , sheet="Sheet2")
+
+hdf <- housing_df
+
+```
+<br>
+
+
+### Data Transformation
+
+Using either the same dataset(s) you used in the previous weeks’ exercise or a brand-new dataset of your choosing, perform the following transformations (Remember, anything you learn about the Housing dataset in these two weeks can be used for a later exercise!)
+
+<ol style="list-style-type: lower-alpha">
+
+<li> Using the dplyr package, use the 6 different operations to analyze/transform the data - GroupBy, Summarize, Mutate, Filter, Select, and Arrange – Remember this isn’t just modifying data, you are learning about your data also – so play around and start to understand your dataset in more detail
+```{r}
+
+# Calculate outlier criteria
+quants <- stats::quantile(hdf$`Sale Price`, probs=c(.25, .75))
+
+q1 <- as.numeric(quants["25%"])
+q3 <- as.numeric(quants["75%"])
+iqr <- IQR(hdf$`Sale Price`)
+
+low_out <- q1 - (iqr*1.5)
+high_out <- q3 + (iqr*1.5)
+
+
+new_hdf <- hdf %>%
+  dplyr::filter(`Sale Price` > low_out & `Sale Price` < high_out) %>%
+  dplyr::group_by(current_zoning) %>%
+  dplyr::summarise("Zone Median Price"=median(`Sale Price`)) %>%
+  dplyr::right_join(hdf, by="current_zoning") %>%
+  dplyr::mutate("Above Median Price?"=ifelse(`Sale Price`>`Zone Median Price`,"Y","N")) %>%
+  dplyr::select("Sale Date", "Sale Price", "Zone"="current_zoning", "Zone Median Price", "Above Median Price?") %>%
+  dplyr::arrange(desc(`Zone Median Price`), `Sale Price`) %>%
+  rmarkdown::paged_table(options = list(rows.print=30))
+
+new_hdf
+
+```
+<br>
+
+
+<li>Using the purrr package – perform 2 functions on your dataset.  You could use zip_n, keep, discard, compact, etc.
+```{r}
+
+hdf[,c("Sale Price", "square_feet_total_living", "sq_ft_lot")] %>% 
+  purrr::map(sd)
+
+hdf$sale_warning %>%
+  purrr::keep(function(x) !is.na(x)==TRUE) %>% 
+  data.frame() %>% 
+  rmarkdown::paged_table(options = list(rows.print = 20))
+
+```
+<br>
+
+
+<li>Use the cbind and rbind function on your dataset
+```{r}
+
+id <- c(1,2,3,4,5)
+char_var <- c("a","b","c","d","e")
+
+my_df <- data.frame(id, char_var)
+
+cap_char_var <- c("A","B","C","D","E")
+
+new_ob <- c(6,"f","F")
+
+my_df <- cbind(my_df, cap_char_var)
+
+my_df <- rbind(my_df, new_ob)
+  
+my_df
+```
+<br>
+
+
+<li>Split a string, then concatenate the results back together
+```{r}
+
+str_df <- data.frame("str"=c("yo-123", "blahblah-3653", "HakunaPatata-777"))
+
+str_df2 <- str_df$str %>% 
+  stringr::str_split(pattern = "-") %>% 
+  base::Reduce(rbind, .) %>% 
+  base::data.frame() %>% 
+  dplyr::mutate(combined_char = paste0(.$X1, "-", .$X2))
+  
+str_df2
+
+
+```
+<br>
+

@@ -1,0 +1,6 @@
+"0",""
+"0","## Drop redundant variables"
+"0","ts_df <- ts_df %>% "
+"0","  dplyr::select(-c(""PRE8"",""PRE9"",""PRE10"",""PRE11"",""PRE17"",""PRE17"",""PRE19"",""PRE25"",""PRE30"",""PRE32""))"
+"0",""
+"0","rmarkdown::paged_table(ts_df, options = list(rows.print=15))"

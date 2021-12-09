@@ -1,0 +1,424 @@
+---
+title: <span style="color:#B7F06C;font-size:60px">Assignment 3.2</span>
+output:
+  html_document: 
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+author: |
+  <span style="color:grey;font-size:17px">Author: Patrick Weatherford</span>
+date: |
+  <span style="color:#5c5c5c;font-size:14px">Last modified: `r format(Sys.time(), '%d %B %Y')`</span>
+    
+---
+
+<!-- CSS Style -->
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 16px;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>
+
+```{r default-chunk-settings, include=FALSE}
+
+knitr::opts_chunk$set(
+  comment=''
+)
+options(width = 125) 
+# matrix(runif(100), ncol = 30)
+
+```
+
+### Assignment 03
+```{r assignment_03, message=FALSE}
+## Load the ggplot2 package
+library(ggplot2)
+theme_set(theme_minimal())
+
+## Set the working directory to the root of your DSC 520 directory
+setwd("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R")
+
+## Load the `data/r4ds/heights.csv` to
+heights_df <- read.csv("data/r4ds/heights.csv")
+
+# https://ggplot2.tidyverse.org/reference/geom_point.html
+## Using `geom_point()` create three scatterplots for
+
+## `height` vs. `earn`
+ggplot(heights_df, aes(x=height, y=earn)) + geom_point()
+
+## `age` vs. `earn`
+ggplot(heights_df, aes(x=age, y=earn)) + geom_point()
+
+## `ed` vs. `earn`
+ggplot(heights_df, aes(x=ed, y=earn)) + geom_point()
+
+## Re-create the three scatterplots and add a regression trend line using
+## the `geom_smooth()` function
+## `height` vs. `earn`
+library(dplyr)
+
+heights_df %>% 
+  ggplot(
+    aes(x=height, y=earn)
+  ) +
+  geom_point() + 
+  geom_smooth()
+
+## `age` vs. `earn`
+heights_df %>% 
+  ggplot(
+    aes(x=age, y=earn)
+  ) +
+  geom_point() +
+  geom_smooth()
+
+## `ed` vs. `earn`
+heights_df %>% 
+  ggplot(
+    aes(x=ed, y=earn)
+  ) + 
+  geom_point() + 
+  geom_smooth()
+
+## Create a scatterplot of `height`` vs. `earn`.  Use `sex` as the `col` (color) attribute
+heights_df %>% 
+  ggplot(
+    aes(x=height, y=earn, col=sex)
+  ) +
+  geom_point()
+
+
+## Using `ggtitle()`, `xlab()`, and `ylab()` to add a title, x label, and y label to the previous plot
+## Title: Height vs. Earnings
+## X label: Height (Inches)
+## Y Label: Earnings (Dollars)
+heights_df %>% 
+  ggplot(
+    aes(x=height, y=earn, col=sex)
+  ) +
+  geom_point() + 
+  ggtitle("Height vs. Earnings") + 
+  xlab("Height (Inches)") + 
+  ylab("Earnings (Dollars)")
+
+
+# https://ggplot2.tidyverse.org/reference/geom_histogram.html
+## Create a histogram of the `earn` variable using `geom_histogram()`
+heights_df %>% 
+  ggplot(
+    aes(earn)
+  ) + 
+  geom_histogram()
+
+## Create a histogram of the `earn` variable using `geom_histogram()`
+## Use 10 bins
+heights_df %>% 
+  ggplot(
+    aes(earn)
+  ) + 
+  geom_histogram(bins=10)
+
+# https://ggplot2.tidyverse.org/reference/geom_density.html
+## Create a kernel density plot of `earn` using `geom_density()`
+heights_df %>% 
+  ggplot(
+    aes(earn)
+  ) + 
+  geom_density(alpha=0.2, colour="Purple", fill="Purple", size=1.2)
+```
+
+<br>
+
+***
+
+### American Community Survey (2014)
+```{r acs-survey-2014-program-config, results='hide', message=FALSE}
+library(dplyr)
+library(readxl)
+library(ggplot2)
+library(psych)
+library(pastecs)
+
+theme_set(theme_gray())
+
+setwd("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R")
+
+acs_data <- read.csv("data/acs-14-1yr-s0201.csv", stringsAsFactors = FALSE)
+```
+
+<br>
+
+
+<span style="color:white ; font-size:18px">i. What are the elements in your data (including the categories and data types)?</span>
+```{r acs-i}
+str(acs_data)
+summary(acs_data)
+```
+
+<br>
+
+<span style="color:white ; font-size:18px">ii. Please provide the output from the following functions: str(); nrow(); ncol()</span>
+```{r acs-ii}
+# str()
+str(acs_data)
+# nrow()
+nrow(acs_data)
+# ncol()
+ncol(acs_data)
+```
+
+<br>
+
+<span style="color:white ; font-size:18px">iii. Create a Histogram of the HSDegree variable using the ggplot2 package.</span>
+<ol>
+  <li>Set a bin size for the Histogram.</li>
+  <li>Include a Title and appropriate X/Y axis labels on your Histogram Plot.</li>
+</ol>
+```{r acs-iii}
+# iii. Create histogram of HSDegree variable.
+acs_data %>% 
+  ggplot(
+    aes(x=HSDegree)
+  ) +
+  geom_histogram(mapping = aes(y =..density..), binwidth = 1, color="darkgreen", fill="lightgreen", alpha=0.5) + 
+  ggtitle("High School Graduation Rate Frequency") +
+  xlab("Graduation Rate") + 
+  ylab("Density")
+```
+
+<br>
+
+<span style="color:white ; font-size:18px">iv. Answer the following questions based on the Histogram produced:</span>
+<ol>
+  <li>Based on what you see in this histogram, is the data distribution unimodal?
+    <ul>
+      <li><span style="color:yellow">No</span>
+    </ul>
+  <li>Is it approximately symmetrical?
+      <ul>
+      <li><span style="color:yellow">No</span>
+    </ul>
+  <li>Is it approximately bell-shaped?
+    <ul>
+      <li><span style="color:yellow">No</span>
+    </ul>
+  <li>Is it approximately normal?
+    <ul>
+      <li><span style="color:yellow">No</span>
+    </ul>
+  <li>If not normal, is the distribution skewed? If so, in which direction?</span>
+      <ul>
+      <li><span style="color:yellow">The distribution is negatively skewed.</span>
+    </ul>
+  <li>Include a normal curve to the Histogram that you plotted.</span>
+    <ul>
+    <li>
+```{r acs-iv-hist-with-normal-curve}
+acs_data %>% 
+  ggplot(
+    aes(x=HSDegree)
+  ) +
+  geom_histogram(mapping = aes(y =..density..), binwidth = 1, color="darkgreen", fill="lightgreen", alpha=0.5) + 
+  geom_density(size = 1.2, aes(color = "Density")) + 
+  stat_function(fun = dnorm,
+                args = list(mean = mean(acs_data$HSDegree, na.rm=TRUE)
+                            , sd = sd(acs_data$HSDegree, na.rm=TRUE))
+                , aes(color = "Normal Curve")
+                , size = 1.2
+  ) + 
+  ggtitle("High School Graduation Rate Frequency") +
+  labs(
+    x = "Graduation Rate"
+    , y = "Density"
+  ) +
+  scale_color_manual("Legend", values = c("darkgrey", "purple"))
+```
+  </ul>
+<br>
+  <li>Explain whether a normal distribution can accurately be used as a model for this data.
+      <ul>
+      <li><span style="color:yellow">No, a normal distribution should not be used as a model for this data. The data is negatively skewed and has a positive kurtosis.
+      <li>
+```{r acs-iv-7}
+stat.desc(acs_data$HSDegree, basic=FALSE, norm=TRUE)
+```
+</ol>
+
+<br>
+
+<span style="color:white ; font-size:18px">v. Create a Probability Plot of the HSDegree variable.</span>
+```{r acs-v-qqplot}
+
+acs_data %>%
+  ggplot(aes(sample=HSDegree)) +
+  stat_qq_line(size=2, color="#4d4d4d") +
+  stat_qq(size=3, color="blue", alpha=.2) + 
+  labs(
+    x = "Thoretical SD"
+    , y = "Sample"
+    , title = "HSDegree Variable Normality Q-Q Plot"
+  )
+```
+
+<br>
+
+<span style="color:white ; font-size:18px">vi. Answer the following questions based on the Probability Plot:</span>
+<ol>
+    <li>Based on what you see in this probability plot, is the distribution approximately normal? Explain how you know.
+      <ul>
+          <li>
+          <span style="color:yellow">
+          No because there are values that if quantiled, would not fit a normal theoretical quantiled distribution. This is seen by the data points not aligning with the quantile line shown in the graph.
+          </span>
+      </ul>
+    <li>If not normal, is the distribution skewed? If so, in which direction? Explain how you know.
+      <ul>
+          <li><span style="color:yellow">Looking at the qqplot, you can see that the majority of the data points that do <b>NOT</b> align with the qqplot line are on the LEFT side of the theoretical mean/median/mode of a normal distribution. This would indicate that the distribution is negatively skewed.</span>
+      </ul>
+</ol>
+
+<br>
+
+<span style="color:white ; font-size:18px">vii. Now that you have looked at this data visually for normality, you will now quantify normality with numbers using the stat.desc() function. Include a screen capture of the results produced.</span>
+<ul>
+    <li>
+    <span style="color:yellow">
+    
+    </span>
+```{r stastic-values-to-test-normality}
+
+stat.desc(
+  acs_data$HSDegree
+  , basic=FALSE
+  , norm=TRUE
+  ) %>% 
+  round(3) %>% 
+  data.frame() %>% 
+  `colnames<-`(c(NULL)) %>% 
+  rbind("total.observations"=length(acs_data[!is.na(acs_data$HSDegree),"HSDegree"]))
+
+```
+</ul>
+
+<span style="color:white ; font-size:18px">viii. In several sentences provide an explanation of the result produced for skew, kurtosis, and z-scores. In addition, explain how a change in the sample size may change your explanation?</span>
+<ul>
+    <li>
+    <span style="color:yellow">
+    First before we dive into the significance of the skew & kurtosis z-scores we first need to look at how many observations there are in our sample size. If there are over 200 observations in the sample then this is deemed as a large sample size in which case we should look visually at the histogram and observed skew & kurtosis. This is due to the Central Limit Theorem which states that when the sample(s) increases in either size or quantity, the data when normalized should more fit a normal distribution. In this case there are 136 observations so we should then look at the z-scores for the skew and kurtosis to determine normality.
+    <br>
+    <br>
+    This sample size is not large which means that we can say the sample is not normal and also can more confidently suggest that the distribution of the population is not normal if the absolute value of either the skew.2SE or kurt.2SE is greater than 1.96 or less than -1.96. At +/- 1.96 the p-value would be .05 giving us a confidence interval of 95%. The absolute value of skew.2SE (4.030) and kurt.2SE (5.274) are both above 1.96. For this reason we can say that the sample data is not normal and also can more confidently suggest that the population data that the sample data is describing would <b>not</b> fit a normal distribution.
+    </span>
+</ul>
+
+

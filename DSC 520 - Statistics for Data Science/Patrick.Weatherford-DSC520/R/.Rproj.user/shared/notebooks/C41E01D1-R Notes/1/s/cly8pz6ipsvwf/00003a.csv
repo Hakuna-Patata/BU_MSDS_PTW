@@ -1,0 +1,13 @@
+"0","library(ggplot2)"
+"0",""
+"0","d_df <- diamonds"
+"0",""
+"0","d_df %>% "
+"0","  ggplot("
+"0","    aes(x=carat, y=price)"
+"0","  ) + "
+"0","  facet_grid(rows=vars(cut)) + "
+"0","  geom_point(aes(col=cut), alpha=.2) + "
+"0","  geom_smooth()"
+"2","`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = ""cs"")'
+"

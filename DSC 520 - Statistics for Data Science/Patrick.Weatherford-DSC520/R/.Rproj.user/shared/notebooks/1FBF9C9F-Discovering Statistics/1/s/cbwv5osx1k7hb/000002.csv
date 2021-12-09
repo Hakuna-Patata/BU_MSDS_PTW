@@ -1,0 +1,56 @@
+"0","library(tidyr)"
+"0","library(dplyr)"
+"0","library(rmarkdown)"
+"0","library(gridExtra)"
+"0","library(ggplot2)"
+"0","library(readxl)"
+"0","library(car)"
+"0","library(pastecs)"
+"0","library(psych)"
+"0","library(Hmisc)"
+"0","library(polycor)"
+"2","
+Attaching package: ‘polycor’
+
+"
+"2","The following object is masked from ‘package:psych’:
+
+    polyserial
+
+"
+"0","library(boot)"
+"2","
+Attaching package: ‘boot’
+
+"
+"2","The following object is masked from ‘package:survival’:
+
+    aml
+
+"
+"2","The following object is masked from ‘package:lattice’:
+
+    melanoma
+
+"
+"2","The following object is masked from ‘package:psych’:
+
+    logit
+
+"
+"2","The following object is masked from ‘package:car’:
+
+    logit
+
+"
+"0","library(ggm)"
+"2","
+Attaching package: ‘ggm’
+
+"
+"2","The following object is masked from ‘package:Hmisc’:
+
+    rcorr
+
+"
+"0","setwd(""C:/Users/patwea/OneDrive - Bellevue University/BU/R/Discovering Statistics Using R"")"

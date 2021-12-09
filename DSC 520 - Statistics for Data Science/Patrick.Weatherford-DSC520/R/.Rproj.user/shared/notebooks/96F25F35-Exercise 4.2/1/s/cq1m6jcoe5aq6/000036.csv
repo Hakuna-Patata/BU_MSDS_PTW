@@ -1,0 +1,8 @@
+"0",""
+"0","hdf %>% "
+"0","  dplyr::group_by(current_zoning) %>% "
+"0","  dplyr::summarise(""Zone Median Price""=median(`Sale Price`)) %>% "
+"0","  dplyr::right_join(hdf, by=""current_zoning"") %>% "
+"0","  dplyr::mutate(""Above Median Price?""=ifelse(`Sale Price`>`Zone Median Price`,""Y"",""N"")) %>% "
+"0","  dplyr::select(""Sale Date"", ""Sale Price"", ""Zone""=""current_zoning"", ""Zone Median Price"", ""Above Median Price?"", ""Address""=""addr_full"", ""Zip""=""zip5"") %>%"
+"0","  rmarkdown::paged_table()"

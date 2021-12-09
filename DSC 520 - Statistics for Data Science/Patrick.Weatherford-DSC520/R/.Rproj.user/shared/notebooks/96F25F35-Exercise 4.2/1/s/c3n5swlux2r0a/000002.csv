@@ -1,0 +1,8 @@
+"0",""
+"0","hdf$`Sale Price` %>% "
+"0","  aggregate("
+"0","    by=list(""Current Zone""=hdf$current_zoning)"
+"0","    , FUN=median"
+"0","  ) %>% "
+"0","  dplyr::rename(`Median Price`=x) %>% "
+"0","  dplyr::arrange(desc(`Median Price`))"

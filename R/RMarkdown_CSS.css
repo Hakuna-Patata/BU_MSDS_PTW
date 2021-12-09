@@ -1,0 +1,113 @@
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 15px;
+    color: #ebc634;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>

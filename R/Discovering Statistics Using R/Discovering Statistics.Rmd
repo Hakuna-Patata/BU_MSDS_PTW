@@ -1,0 +1,1165 @@
+---
+title: <span style="color:#B7F06C;font-size:60px">Discovering Statistics Using R</span>
+output:
+  html_document: 
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+author: |
+  <span style="color:grey;font-size:17px">Author: Patrick Weatherford</span>
+date: |
+  <span style="color:#5c5c5c;font-size:14px">Last modified: `r format(Sys.time(), '%d %B %Y')`</span>
+    
+---
+
+<!-- CSS Style -->
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 15px;
+    color: #ebc634;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>
+
+***
+<br>
+
+```{r default-chunk-settings, include=FALSE}
+knitr::opts_chunk$set(
+  comment=''
+)
+options(width = 125) 
+# matrix(runif(100), ncol = 30)
+```
+
+Load packages and set working directory
+```{r, message=FALSE}
+library(tidyr)
+library(dplyr)
+library(rmarkdown)
+library(gridExtra)
+library(ggplot2)
+library(readxl)
+library(car)
+library(pastecs)
+library(psych)
+library(Hmisc)
+library(polycor)
+library(boot)
+library(ggm)
+
+setwd("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Discovering Statistics Using R")
+```
+
+
+<br>
+<br>
+
+### Testing the Assumption of Normality
+```{r, message=F, warning=F}
+theme_set(theme_grey())
+
+dlf <- read.delim("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/DownloadFestival(No Outlier).dat"
+                  , header=TRUE
+                  , stringsAsFactors = FALSE)
+
+
+day1_hist <- dlf %>% 
+  ggplot(
+    aes(x=day1)
+  ) + 
+  geom_histogram(
+    mapping = aes(y=..density..)
+    , color = "black"
+    , fill = "white"
+    , binwidth = .1
+  ) +
+  labs(
+    title = "Day 1 Histogram w/Normal Curve"
+    , x = "Hygiene Score \n0(stanky) - 4(fresh)"
+    , y = "Density"
+  ) + 
+  stat_function(
+    fun = dnorm
+    , args = list(
+      mean = mean(dlf$day1, na.rm=TRUE)
+      , sd = sd(dlf$day1, na.rm=TRUE)
+    )
+    , color = "blue"
+    , size = 1
+  )
+
+
+day1_qq <- dlf %>%
+  ggplot(aes(sample=day1)) +
+  stat_qq_line(size=2, color="#4d4d4d") +
+  stat_qq(size=3, color="blue", alpha=.2) + 
+  labs(
+    x = "Thoretical"
+    , y = "Sample"
+    , title = "Day 1 Q-Q Plot"
+  )
+
+day1_box <- dlf %>% 
+  ggplot(aes(gender, day1)) +
+  geom_boxplot() + 
+  labs(
+    x = "Gender"
+    , y = "Hygiene"
+  )
+  
+
+#################################
+day2_hist <- dlf %>% 
+  ggplot(
+    aes(x=day2)
+  ) +
+  geom_histogram(
+    mapping = aes(y=..density..)
+    , color = "black"
+    , fill = "white"
+    , binwidth = .1
+  ) +
+  labs(
+    title = "Day 2 Histogram w/Normal Curve"
+    , x = "Hygiene Score \n0(stanky) - 4(fresh)"
+    , y = "Density"
+  ) + 
+  stat_function(
+    fun = dnorm
+    , args = list(
+      mean = mean(dlf$day2, na.rm=TRUE)
+      , sd = sd(dlf$day2, na.rm=TRUE)
+    )
+    , color = "blue"
+    , size = 1
+  )
+
+day2_qq <- dlf %>%
+  ggplot(aes(sample=day2)) +
+  stat_qq_line(size=2, color="#4d4d4d") +
+  stat_qq(size=3, color="blue", alpha=.2) + 
+  labs(
+    x = "Thoretical"
+    , y = "Sample"
+    , title = "Day 2 Q-Q Plot"
+  )
+
+day2_box <- dlf %>% 
+  ggplot(aes(gender, day2)) +
+  geom_boxplot() + 
+  labs(
+    x = "Gender"
+    , y = "Hygiene"
+  )
+
+
+#################################
+day3_hist <- dlf %>% 
+  ggplot(
+    aes(x=day3)
+  ) + 
+  geom_histogram(
+    mapping = aes(y=..density..)
+    , color = "black"
+    , fill = "white"
+    , binwidth = .1
+  ) +
+  labs(
+    title = "Day 3 Histogram w/Normal Curve"
+    , x = "Hygiene Score \n0(stanky) - 4(fresh)"
+    , y = "Density"
+  ) +  
+  stat_function(
+    fun = dnorm
+    , args = list(
+      mean = mean(dlf$day3, na.rm=TRUE)
+      , sd = sd(dlf$day3, na.rm=TRUE)
+    )
+    , color = "blue"
+    , size = 1
+  )
+
+day3_qq <- dlf %>%
+  ggplot(aes(sample=day3)) +
+  stat_qq_line(size=2, color="#4d4d4d") +
+  stat_qq(size=3, color="blue", alpha=.2) + 
+  labs(
+    x = "Thoretical"
+    , y = "Sample"
+    , title = "Day 3 Q-Q Plot"
+  )
+
+day3_box <- dlf %>% 
+  ggplot(aes(gender, day3)) +
+  geom_boxplot() + 
+  labs(
+    x = "Gender"
+    , y = "Hygiene"
+  )
+
+#################################
+
+
+grid.arrange(day1_hist, day2_hist, day3_hist
+             , day1_qq, day2_qq, day3_qq
+             , day1_box, day2_box, day3_box
+             , ncol=3, nrow=3)
+
+stat.desc(
+  cbind("day1"=dlf$day1, "day2"=dlf$day2, "day3"=dlf$day3)
+  , basic=FALSE
+  , norm=TRUE
+  ) %>% 
+  round(3) %>% 
+  data.frame() %>% 
+  rmarkdown::paged_table(options=list(rows.print=20))
+```
+
+<br>
+<br>
+
+### Exploring Groups of Data
+<BLOCKQUOTE>
+Variables:
+<ul>
+    <li> exam: first year exam scores as a percentage
+    <li> computer: measure of computer literacy
+    <li> lecture: percentage of R lecutres attended
+    <li> numeracy: measure of numerical ability out of 15
+    <li> uni: university (either Duncetown or Sussex)
+</ul>
+
+</BLOCKQUOTE>
+
+Getting descriptive statistic information
+```{r}
+
+rexam <- read.delim("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/RExam.dat", header=T)
+
+rexam$uni <- factor(rexam$uni
+                , levels = c(0:1)
+                , labels = c("Duncetown University", "Sussex University"))
+
+rexam[, c("exam", "computer", "lectures", "numeracy")] %>% 
+  pastecs::stat.desc(basic=F, norm=T) %>% 
+  base::round(digits=3) %>% 
+  rmarkdown::paged_table(options = list(rows.print=20))
+
+```
+<br> 
+
+Plotting variables as histograms with normal curves
+```{r}
+
+exam_hist <- rexam %>%
+  ggplot2::ggplot(aes(exam)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(rexam$exam, na.rm=T), sd=sd(rexam$exam, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="First Year Exam Score (All)"
+    , y="Density"
+    , 
+  )
+
+comp_hist <- rexam %>%
+  ggplot2::ggplot(aes(computer)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(rexam$computer, na.rm=T), sd=sd(rexam$computer, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Computer Literacy (All)"
+    , y="Density"
+  )
+
+lect_hist <- rexam %>%
+  ggplot2::ggplot(aes(lectures)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(rexam$lectures, na.rm=T), sd=sd(rexam$lectures, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="% of Lectures Attended (All)"
+    , y="Density"
+  )
+  
+num_hist <- rexam %>%
+  ggplot2::ggplot(aes(numeracy)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white"
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(rexam$numeracy, na.rm=T), sd=sd(rexam$numeracy, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Numeracy (All)"
+    , y="Density"
+  )
+
+gridExtra::grid.arrange(
+  exam_hist, comp_hist
+  , lect_hist, num_hist
+  , nrow=2, ncol=2
+)
+
+```
+<br>
+
+Running analysis on different groups
+```{r out.width=1000}
+
+by(
+  data=cbind(
+    "Exam"=rexam$exam
+    , "Computer Literacy"=rexam$computer
+    , "Lecture Attendance"=rexam$lectures
+    , "Numeracy"=rexam$numeracy
+    )
+  , INDICES=rexam$uni
+  , FUN=pastecs::stat.desc
+  , basic=FALSE
+  , norm=TRUE
+) 
+
+dunce_data <- rexam %>% 
+  base::subset(rexam$uni=="Duncetown University")
+
+sussex_data <- rexam %>% 
+  base::subset(rexam$uni=="Sussex University")
+
+
+dunce_exam_hist <- dunce_data %>%
+  ggplot2::ggplot(aes(exam)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(dunce_data$exam, na.rm=T), sd=sd(dunce_data$exam, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="First Year Exam Score (Dunce)"
+    , y="Density"
+  )
+
+suss_exam_hist <- sussex_data %>%
+  ggplot2::ggplot(aes(exam)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(sussex_data$exam, na.rm=T), sd=sd(sussex_data$exam, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="First Year Exam Score (Sussex)"
+    , y="Density"
+  )
+
+dunce_num_hist <- dunce_data %>%
+  ggplot2::ggplot(aes(numeracy)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(dunce_data$numeracy, na.rm=T), sd=sd(dunce_data$numeracy, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Numeracy (Dunce)"
+    , y="Density"
+  )
+
+suss_num_hist <- sussex_data %>%
+  ggplot2::ggplot(aes(numeracy)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(sussex_data$numeracy, na.rm=T), sd=sd(sussex_data$numeracy, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Numeracy (Sussex)"
+    , y="Density"
+  )
+
+dunce_comp_hist <- dunce_data %>%
+  ggplot2::ggplot(aes(computer)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth=1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(dunce_data$computer, na.rm=T), sd=sd(dunce_data$computer, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Computer Literacy (Dunce)"
+    , y="Density"
+  )
+
+suss_comp_hist <- sussex_data %>%
+  ggplot2::ggplot(aes(computer)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(sussex_data$computer, na.rm=T), sd=sd(sussex_data$computer, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Computer Literacy (Sussex)"
+    , y="Density"
+  )
+
+dunce_lect_hist <- dunce_data %>%
+  ggplot2::ggplot(aes(lectures)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(dunce_data$lectures, na.rm=T), sd=sd(dunce_data$lectures, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Lecture Attendance (Dunce)"
+    , y="Density"
+  )
+
+suss_lect_hist <- sussex_data %>%
+  ggplot2::ggplot(aes(lectures)) + 
+  ggplot2::geom_histogram(
+    mapping=aes(y=..density..)
+    , color="black"
+    , fill="white" 
+    , binwidth = 1
+    ) +
+  ggplot2::stat_function(
+    fun=dnorm
+    , args=list(mean=mean(sussex_data$lectures, na.rm=T), sd=sd(sussex_data$lectures, na.rm=T))
+    , color="red"
+    , size=1
+    ) + 
+  ggplot2::labs(
+    x="Lecture Attendance (Sussex)"
+    , y="Density"
+  )
+
+gridExtra::grid.arrange(
+  exam_hist, dunce_exam_hist, suss_exam_hist
+  , comp_hist, dunce_comp_hist, suss_comp_hist
+  , lect_hist, dunce_lect_hist, suss_lect_hist
+  , num_hist, dunce_num_hist, suss_num_hist
+  , ncol=3, nrow=4
+)
+
+```
+<br>
+
+Using stat::shapiro.test() function (Shapiro-Wilk) test
+```{r}
+
+
+by(
+    rexam$exam
+  , INDICES=rexam$uni
+  , FUN=shapiro.test
+) 
+
+```
+
+Testing Homogeneity of Variance
+```{r}
+
+car::leveneTest(rexam$exam, rexam$uni)
+
+```
+
+
+```{r}
+
+adverts <- c(5,4,4,6,8)
+packets <- c(8,9,10,13,15)
+advertData <- data.frame(adverts, packets)
+
+advertData %>% 
+  ggplot2::ggplot(aes(x=adverts, y=packets)) + 
+  geom_point()
+
+```
+
+### Correlations
+
+#### Correlation Basics
+```{r}
+options(scipen=999)
+
+eaq_df <- read.table("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Exam Anxiety.dat"
+                     , header=TRUE
+                     , stringsAsFactors=FALSE
+                     , sep=""
+                     , na.strings="NA"
+                     , dec="."
+                     , strip.white=TRUE)
+
+
+## Get correlation from multiple variables
+message("Correlation coefficient using stats::cor()")
+stats::cor(x=eaq_df[,c("Revise","Exam","Anxiety")], use="complete", method="pearson")
+
+
+
+## Get correlation from a pair of variables
+message("\nCorrelation coefficient from pair of variables.")
+stats::cor(x=eaq_df[,c("Exam","Anxiety")], use="complete", method="pearson")
+
+
+## Get correlation using Spearman's correlation
+message("\nSpearman's Correlation Coefficient")
+liarData <- read.delim("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/The Biggest Liar.dat", header=TRUE)
+stats::cor(liarData$Position, liarData$Creativity, method="spearman")
+
+
+## Correlation using Kendall's tau
+message("\nCorrelation using Kendall's tau")
+stats::cor(x=eaq_df[,c("Revise","Exam","Anxiety")], use="complete", method="kendall")
+
+
+## Correlation using Kendall's tau via excluding cases pairwise
+message("\nCorrelation using Kendall's tau via excluding cases pairwise.")
+stats::cor(x=eaq_df[,c("Revise","Exam","Anxiety")], use="pairwise", method="kendall")
+
+
+## Correlation using stats::cor.test()
+message("\nCorrelation using stats::cor.test()")
+stats::cor.test(x=eaq_df$Exam, y=eaq_df$Anxiety, alternative="two.sided", method="pearson", conf.level=.95)
+
+
+## Correlation using Hmisc::rcorr()
+message("\nCorrelation using Hmisc::rcorr()")
+Hmisc::rcorr(x=base::data.matrix(eaq_df), type="pearson")
+```
+
+
+#### Coefficient of Determination
+```{r}
+message("\nGetting the coefficient of determination in % (squaring and multiplying * 100)")
+stats::cor(x=eaq_df[,c("Revise","Exam","Anxiety")], use="pairwise", method="pearson")^2 * 100
+
+```
+
+
+#### Significance Testing of Correlation
+```{r}
+message("\nSpearman Significance Testing using Hmisc::rcorr())")
+liarMatrix <- as.matrix(liarData[,c("Position","Creativity")])
+Hmisc::rcorr(liarMatrix)
+
+
+
+message("\nSpearman Negative Direction Significance Testing using stats::cor.test()")
+cor.test(liarData$Position, liarData$Creativity, alternative="less", method="spearman")
+```
+
+#### Bootstrapping
+```{r}
+## BOOTSTRAPPING!
+message("\nBootstrapping Kendall's tau")
+bootTau <- function(liarData, i)cor(liarData$Position[i], liarData$Creativity[i], use="complete", method="kendall")
+library(boot)
+boot_kendall <- boot::boot(liarData, bootTau, 2000)
+boot_kendall
+boot.ci(boot_kendall)
+```
+
+#### Point-Bisearial Correlation
+```{r}
+## Point-Bisearial Correlation
+message("\nPoint-Biserial Correlation")
+
+catData <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/pbcorr.csv", header=TRUE)
+
+stats::cor.test(catData$time, catData$gender, method="pearson")
+
+```
+
+#### Biserial Correlation
+$$r_b=\frac{r_{pb}\sqrt{pq}}{y}$$
+* rb = bisearal correlation 
+* rpb = point-biserial correlation
+* y = y based on normal distribution table
+* p = probability for larger portion
+* q = probability for smaller portion
+```{r}
+library(polycor)
+
+## Bivariate Correlation
+message("\nBivariate Correlation")
+catData <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/pbcorr.csv", header=TRUE)
+
+polycor::polyserial(catData$time, catData$gender)
+
+##
+
+
+```
+
+#### Partial Correlation
+```{r}
+
+library(ggm)
+
+eaq_df <- read.table("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Exam Anxiety.dat"
+                     , header=TRUE
+                     , stringsAsFactors=FALSE
+                     , sep=""
+                     , na.strings="NA"
+                     , dec="."
+                     , strip.white=TRUE)
+
+examData2 <- eaq_df[, c("Exam","Anxiety","Revise")]
+
+# Correlation 
+message("Correlation of Exam vs. Anxiety")
+stats::cor(examData2[,c("Exam","Anxiety")])["Exam","Anxiety"]
+
+# Partial Correlation
+message("\n", "Partial Correlation of Exam vs. Anxiety (controlling for Revise)")
+pc <- ggm::pcor(c("Exam","Anxiety","Revise"), var(examData2))
+pc
+
+# Partial Correlation Coefficient of Determination
+message("\n", "Partial Correlation Coefficient of Determination")
+round(pc^2 * 100 , 2)
+
+# Partial Correlation Significance
+message("\n", "Partial Correlation Significance")
+ggm::pcor.test(pc, 1, 103)["pvalue"]
+
+```
+<br> 
+
+
+### Linear Regression
+
+#### Simple Regression
+```{r}
+
+library(boot)
+library(car)
+library(QuantPsyc)
+
+
+album1 <- read.table("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Album Sales 1.dat"
+                     , header=TRUE
+                     , stringsAsFactors=FALSE
+                     , sep=""
+                     , na.strings="NA"
+                     , dec="."
+                     , strip.white=TRUE)
+
+
+albumSalesModel <- lm(sales~adverts, data=album1)
+summary(albumSalesModel)
+
+
+```
+
+#### Multiple Regression
+```{r}
+
+album2 <- read.table("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Album Sales 2.dat"
+                     , header=TRUE
+                     , stringsAsFactors=FALSE
+                     , sep=""
+                     , na.strings="NA"
+                     , dec="."
+                     , strip.white=TRUE)
+
+
+## Using 1 predictor (simple)
+albumSales.2 <- lm(sales ~ adverts, data=album2)
+
+
+## Multiple regression with multiple predictors
+albumSales.3 <- lm(sales ~ adverts + airplay + attract, data=album2)
+## OR using update to add onto the simple regression
+albumSales.3 <- update(albumSales.2, .~. + airplay + attract)
+
+summary(albumSales.2)
+summary(albumSales.3)
+
+```
+
+#### Standardized beta (b) values
+```{r}
+sd(album2$adverts)
+sd(album2$airplay)
+sd(album2$attract)
+
+message("\n")
+
+## Standardizing the b-estimates
+QuantPsyc::lm.beta(albumSales.3)
+
+```
+
+#### Confidence Intervals
+```{r}
+
+confint(albumSales.3)
+
+```
+
+#### Comparing Models
+$$F=\frac{(N-k_{2}-1)R^2_{change}}{k_{change}(1-R^2_{2}))}
+$$
+```{r}
+library(magrittr)
+options(scipen=1000)
+
+## Significance of R squared
+f.sig <- function(r,n,k) {
+  r <- ((n-k-1)*(r))/(k*(1-r))
+  return(r)
+}
+
+f.sig.diff <- function(r, n, k, r.compare, k.compare) {
+  r <- ((n-k-1)*(r-r.compare))/((k-k.compare)*(1-r))
+  return(r)
+}
+  
+  
+## Significance of first model
+f.sig(r=0.334648,n=200,k=1) %>% 
+  round(2)
+
+## Significance of change between models
+## N=200
+## k change = change in number of predictors (3-1)=2
+## R squared change = difference between models (  0.334648)
+f.sig.diff(r=0.664668, n=200, k=3, r.compare=0.334648, k.compare=1) %>% 
+  round(2)
+```
+
+
+```{r}
+
+## Using anova() function
+anova(albumSales.2, albumSales.3)
+
+```
+
+
+#### Outliers & Influential Cases
+```{r}
+album2$residuals <- resid(albumSales.3)
+album2$standardized.residuals <- rstandard(albumSales.3)
+album2$studentized.residuals <- rstudent(albumSales.3)
+album2$cooks.distance <- cooks.distance(albumSales.3)
+album2$dfbeta <- dfbeta(albumSales.3)
+album2$dffit <- dffits(albumSales.3)
+album2$leverage <- hatvalues(albumSales.3)
+album2$covariance <- covratio(albumSales.3)
+
+## Large residual is where abs val of std.resid > 2 (1.96 to be exact)
+## If std.resid > 2 (1.96) more than 5% this is a cause for concern
+## If std.resid > 2.5 (2.58) more than 1% this is a cause for concern
+## If std.resid > 3 (3.29) more than .1% this is a cuase for concern
+album2$larg.residual <- abs(album2$standardized.residuals) > 2
+resid_concern <- sum(album2$larg.residual)  / nrow(album2)
+album2_large_resid <- album2[album2$larg.residual,]
+
+
+write.table(album2, "C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Album Sales with Diagnostics.dat", sep="\t", row.names=FALSE)
+```
+
+#### Leverage
+$$Avg.Leverage=\frac{k+1}{n}$$
+```{r}
+
+## Average Leverage
+avg.lev <- function(k,n) {
+  (k+1)/(n)
+}
+
+avg.lev(k=3, n=200)
+avg.lev(k=3, n=200)*2
+avg.lev(k=3, n=200)*3
+
+message("\n\n","Any residuals where leverage greater than x2 or x3 of the avg.lvg is cause for concern. Depends on the statstician on whether to use x2(.04) vs. x3(.06)","\n")
+
+album2_large_resid
+
+```
+
+
+#### Covariance Ratio
+$${CVR}_{1} = 1+ \left [ \frac{3(k+1)}{n} \right ]
+\\{CVR}_{2} = 1- \left [ \frac{3(k+1)}{n} \right ]$$
+
+> Anything outside of above range can be a cause for concern
+
+```{r}
+
+cov.rat.val <- function(k,n) {
+  val1 <- 1+((3*(k+1))/n)
+  val2 <- 1-((3*(k+1))/n)
+  min_val <- min(c(val1,val2))
+  max_val <- max(c(val1,val2))
+  dataFrame <- data.frame(min_val, max_val)
+  return(dataFrame)
+}
+
+cov.rat.val(k=3, n=200)
+
+```
+
+
+#### Assessing Assumption of Independence
+> Testing if residual errors are correlated.
+> 2 - no correlation
+> 0 > x > 1 - positive correlation
+> 3 > x > 4 - negative correlation
+
+```{r}
+
+## Durbin-Watson Test
+dwt(albumSales.3)
+
+```
+
+#### Assessing Assumption of No Multicollinearity
+```{r}
+
+## Variance Inflation Factors
+vif(albumSales.3)
+
+message("\n")
+
+## Tolerance = 1/VIF
+1/vif(albumSales.3)
+
+message("\n")
+
+## Average VIF
+mean(vif(albumSales.3))
+
+
+
+```
+
+
+#### Checking Assumptions Visually
+```{r}
+
+library(ggplot2)
+
+plot(albumSales.3)
+
+## Manually include fitted values onto dataFrame
+album2$fitted.values <- albumSales.3$fitted.values
+
+## Histogram wNormal Curve for Studentized Residuals
+album2 %>% 
+  ggplot(aes(studentized.residuals)
+         , color="black"
+         , fill="white") + 
+  geom_histogram(aes(y=..density..)
+                 , color="black"
+                 , fill="white") + 
+  labs(x="Studentized Residual", y="Density") + 
+  stat_function(fun=dnorm
+                , args=list(
+                    mean=mean(album2$studentized.residuals, na.rm=TRUE)
+                  , sd=sd(album2$studentized.residuals, na.rm=TRUE)
+                  )
+                , color="red"
+                , size=1
+                )
+
+
+## QQPlot of Studentized Residuals
+album2 %>% 
+  ggplot(aes(sample=studentized.residuals)) + 
+  stat_qq_line() + 
+  stat_qq() 
+
+
+
+## Plot of Studentized Residuals vs. Fitted Values
+album2 %>% 
+  ggplot(aes(fitted.values, studentized.residuals)) + 
+  geom_point() + 
+  geom_smooth(method="lm", color="blue") + 
+  labs(x="Fitted Values", y="Studentized Residuals")
+  
+
+
+```
+
+
+#### Robust Regression (bootstrapping)
+```{r}
+
+library(boot)
+
+bootReg <- function(formula, data, i) {
+  
+  d <- data [i,]
+  fit <- lm(formula, data=d)
+  return(coef(fit))
+  
+}
+
+bootResults <- boot(statistic = bootReg
+    , formula=sales ~ adverts + airplay + attract
+    , data = album2
+    , R=2000)
+
+bootResults
+
+message("\n")
+
+boot.ci(bootResults, type="bca", index=1)
+boot.ci(bootResults, type="bca", index=2)
+boot.ci(bootResults, type="bca", index=3)
+boot.ci(bootResults, type="bca", index=4)
+
+```
+
+#### Reporting Findings Example
+> (N)euroticism
+> (E)xtroversion
+> (O)penness
+> (A)greeableness
+> (C)onscientiousness
+
+```{r}
+library(dplyr)
+library(QuantPsyc)
+
+PersonalityData <- read.delim("C:/Users/patwea/OneDrive - Bellevue University/BU/R/Data/Chamorro-Premuzic.dat"
+                     , header=TRUE)
+
+## Create Data Frames for each regression analysis. Done so that missing data
+## will not affect the particular regression results.
+
+neuroticLecturer <- dplyr::select(PersonalityData, Age, Gender, studentN, studentO, studentA, studentC, studentE, lectureN)
+extroLecturer <- dplyr::select(PersonalityData, Age, Gender, studentN, studentO, studentA, studentC, studentE, lecturE)
+openLecturer <- dplyr::select(PersonalityData, Age, Gender, studentN, studentO, studentA, studentC, studentE, lecturO)
+agreeLecturer <- dplyr::select(PersonalityData, Age, Gender, studentN, studentO, studentA, studentC, studentE, lecturA)
+concLecturer <- dplyr::select(PersonalityData, Age, Gender, studentN, studentO, studentA, studentC, studentE, lecturC)
+
+## Remove missing data from variable used in analysis
+neuroticLecturer <- neuroticLecturer[complete.cases(neuroticLecturer),]
+extroLecturer <- extroLecturer[complete.cases(extroLecturer),]
+openLecturer <- openLecturer[complete.cases(openLecturer),]
+agreeLecturer <- agreeLecturer[complete.cases(agreeLecturer),]
+concLecturer <- concLecturer[complete.cases(concLecturer),]
+```
+```{r}
+## Do students want neurotic lecturers
+LecturerN.1 <- lm(lectureN ~ Age + Gender, data=neuroticLecturer)
+LecturerN.2 <- lm(lectureN ~ Age + Gender + studentN + studentE + studentO + studentA + studentC, data=neuroticLecturer)
+
+summary(LecturerN.1)
+summary(LecturerN.2)
+
+## R^2 diff:
+round(summary(LecturerN.2)$r.squared - summary(LecturerN.1)$r.squared, 2)
+
+## ANOVA testing for significance of change
+anova(LecturerN.1, LecturerN.2)
+
+## Standardized Beta Estimates
+lm.beta(LecturerN.1)
+lm.beta(LecturerN.2)
+
+## VIF Variance Inflation Factors
+vif(LecturerN.2)
+
+## Durbin-Watson test
+dwt(LecturerN.2)
+
+## Confidence Intervals
+confint(LecturerN.2)
+
+## Histogram of Residuals
+hist(rstudent(LecturerN.2))
+
+
+
+```
+

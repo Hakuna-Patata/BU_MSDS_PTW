@@ -1,0 +1,989 @@
+---
+title: <span style="color:#B7F06C">EXERCISE 8.2</span>
+author: "Patrick Weatherford"
+date: <span style="color:#5c5c5c;font-size:14px">Last modified:\ `r format(Sys.time(), '%d %B %Y')`</span>
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+    css: "DarkTheme.css"
+---
+***
+
+Load Libraries
+```{r, message=FALSE}
+options(scipen = 1000)
+
+library(ggplot2)
+library(gridExtra)
+library(magrittr)
+library(ggm)
+library(rmarkdown)
+library(QuantPsyc)
+library(dplyr)
+library(RColorBrewer)
+library(car)
+library(forcats)
+
+```
+
+Load Data Sets
+```{r}
+
+heights_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/r4ds/heights.csv"
+                       , stringsAsFactors = F
+                       , header = T)
+
+
+housing_df <- readxl::read_excel(path="C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/week-7-housing.xlsx"
+                   , sheet="Sheet2"
+                   )
+
+```
+
+***
+<br>
+
+### Assignment 06
+
+#### Simple Regression
+```{r}
+
+## Fit a linear model using the 'age' variable as the predictor and 'earn' as the outcome
+age_lm <- lm(earn ~ age, data=heights_df)
+
+## Summary of Model
+summary(age_lm)
+
+
+```
+<br>
+
+#### Using predict()
+```{r}
+## Using Age to predict Earn
+age_predict_df <- data.frame(Age=heights_df$age
+           , EarnPredict=predict(age_lm, heights_df["age"])
+           )
+
+rmarkdown::paged_table(age_predict_df, options = list(rows.print=15))
+```
+<br> 
+
+#### Plot - Predict vs. Observed
+```{r}
+## Plotting Prediction Against Observed Value
+
+## First get predicted value with observed in same data frame
+heights_df$earnPredict <- age_lm$fitted.values
+
+heights_df %>% 
+  ggplot(aes(y=earn, x=age)) + 
+  geom_point(color="blue") + 
+  geom_line(color="red", aes(y=earnPredict, x=age))
+
+```
+<br> 
+
+#### Sum of Squares & Test Statistics
+```{r}
+
+## mean of earn
+mean_earn <- mean(heights_df$earn)
+
+## Sum of Squares Total
+sst <- sum((heights_df$earn - mean_earn)^2)
+
+## Sum of Squares of Error
+residuals <- heights_df$earn - heights_df$earnPredict
+sse <- sum(residuals^2)
+
+## Sum of Squares for Model
+ssm <- sst - sse
+
+## R squared
+r2 <- ssm/sst
+
+## Number of observations
+n <- NROW(age_lm$fitted.values)
+
+## Number of regression parameters
+## In simple regression, there are 2 parameters (y-intercept(b0), slope(b1))
+p <- length(age_lm$coefficients)
+
+## Corrected degrees of Freedom for Model (p-1)
+dfm <- p-1
+
+## Degrees of Freedom for Error/Residual (n-p)
+dfe <- n-p
+
+## Degrees of Freedom Total (n-1)
+dft <- n-1
+
+## Mean of Squares for Model (ssm / dfm)
+msm <- ssm/dfm
+
+## Mean of Squares for Error (sse / dfe)
+mse <- sse / dfe
+
+## Mean of Squares for Total (sst / dft)
+mst <- sst / dft
+
+## F Statistic 
+f_score = msm / mse
+
+## Adjusted R^2
+adjust_r2 <- function(r2, n, p) {
+  1-(((1-r2)*(n-1))/(n-p))
+}
+adjusted_r_squared <- adjust_r2(r2=r2, n=n, p=p)
+
+## F-statistic p-value
+p_value <- pf(f_score, dfm, dft, lower.tail = F)
+
+
+message("\nSST: ",sst
+        , "\nSSE: ",sse
+        , "\nSSM: ",ssm
+        , "\nR2: ",r2
+        , "\nRegression Parameters: ",p
+        , "\nDegrees of Freedom for Model:",dfm
+        , "\nDegrees of Freedom for Error/Residual:",dfe
+        , "\nDegrees of Freedom Total: ",dft
+        , "\nMean of Squares for Model: : ",msm
+        , "\nMean of Squares for Error: ",mse
+        , "\nMean of Squares for Total: ",mst
+        , "\nF-statistic: ",f_score
+        , "\nAdjusted R Squared: ",adjusted_r_squared
+        , "\nF-statistic p-value: ",p_value)
+
+
+summary(age_lm)
+
+```
+<br>
+***
+
+### Assignment 07
+
+#### Multiple Regression with Categorical Variables
+```{r}
+
+earn_lm <- lm(earn ~ ed + age + sex + race + height, data=heights_df)
+
+earn_lm_summ <- summary(earn_lm)
+
+earn_lm_summ
+
+heights_df$earnPredict2 <- predict(earn_lm, heights_df[,c("ed","age","sex","race","height")])
+
+rmarkdown::paged_table(heights_df, options=list(rows.print=15))
+
+```
+<br>
+
+#### Regression Statistics
+```{r}
+
+## Mean of Earn
+mean_earn <- mean(heights_df$earn)
+
+
+## Total Sum of Squares (TSS)
+tss <- sum((heights_df$earn - mean_earn)^2)
+
+## Residual Sum of Squares (RSS)
+residuals <- heights_df$earn - heights_df$earnPredict2
+rss <- sum((residuals)^2)
+
+## Explained Sum of Squares (ESS)
+ess <- tss - rss
+
+## R squared
+r2 <- ess / tss
+
+## Number of Observations
+n <- NROW(earn_lm$fitted.values)
+
+## Number of Regression Parameters
+p <- length(earn_lm$coefficients)
+
+## Explained Degrees of Freedom
+edf <- p-1
+
+## Residual Degrees of Freedom
+rdf <- n-p
+
+## Total Degrees of Freedom
+tdf <- n-1
+
+## Explained Mean of Squares
+ems <- ess / edf
+
+## Residual Mean of Squares
+rms <- rss / rdf
+
+## Total Mean Squares
+tms <- tss / tdf
+
+## F statistic
+f_score <- ems / rms
+
+## Adjusted R squared
+adjust_r2 <- function(r2, n, p) {
+  1-(((1-r2)*(n-1))/(n-p))
+}
+adjusted_r_squared <- adjust_r2(r2=r2, n=n, p=p)
+
+
+
+message(
+  "\nMean Earn: ",mean_earn
+  , "\nSum of Squares Total: ",tss
+  , "\nSum of Squares for Error: ",rss
+  , "\nSum of Squares for Model: ",ess
+  , "\nR Squared: ",r2
+  , "\nObservations: ",n
+  , "\nRegression Parameters: ",p
+  , "\nDegrees of Freedom for Model: ",edf
+  , "\nDegrees of Freedom of Error: ",rdf
+  , "\nDegrees of Freeom Total: ",tdf
+  , "\nMean Squares of Model: ",ems
+  , "\nMean Squares of Error: ",rms
+  , "\nMean Squares Total: ",tms
+  , "\nF Statistic: ",f_score
+  , "\nAdjusted R Squared: ",adjusted_r_squared
+)
+
+```
+
+<br>
+***
+
+### Housing Data
+
+> Run a linear regression analysis to find predictors for Sales
+
+```{r}
+
+housing_df2 <- housing_df
+
+```
+
+
+
+#### Data Wrangling
+
+> * Created data set with all of the predictor variables that would be useful for this analysis 
+> * Converted categorical variables to factor data type so that regression analysis would not confuse these variables as a continuous variable. Would also be able to use variables that are categorical non-dichotomous.
+> * Created a variable for house age at the time of sale.
+> * sale_warning variable converted to a variable that states either yes(1) there was a sale warning or no(0) there was not a sale warning. This due to the fact that the data lead me to believe that there could be multiple warnings associated with a sale which would not be discrete and would be hard to tell exactly which warning was correlated.
+> 
+> After initial data set created, will perform a linear model regression for each potential predictor variable to see if they would be good to include in the overall model.
+
+```{r}
+
+housing_df2 <- housing_df2 %>% 
+  dplyr::mutate(`HOUSE_AGE`=as.numeric(format(`Sale Date`, "%Y")) - as.numeric(`year_built`)
+                , `SALE_RSN_ID`=as.factor(`sale_reason`)
+                , `SALE_INSTRUMENT_ID`=as.factor(`sale_instrument`)
+                , `SALE_WARNING_YN`=dplyr::coalesce(dplyr::case_when(!is.na(`sale_warning`) ~ 1),0)
+                , `SITE_TYPE_ID`=as.factor(`sitetype`)
+                , `ZIP`=as.factor(`zip5`)
+                , `CURRENT_ZONING_ID`=as.factor(`current_zoning`)
+                , `PRESENT_USE_ID`=as.factor(`present_use`)
+                ) %>% 
+  dplyr::select(SALE_PRICE=`Sale Price`
+                , `HOUSE_AGE`
+                , `SALE_RSN_ID`
+                , `SALE_INSTRUMENT_ID`
+                , `SALE_WARNING_YN`
+                , `SITE_TYPE_ID`
+                , `ZIP`
+                , `BLDNG_GRADE`=`building_grade`
+                , `SQFT_LVNG`=`square_feet_total_living`
+                , `SQFT_LOT`=`sq_ft_lot`
+                , `BEDROOMS`=`bedrooms`
+                , `FULL_BATH`=`bath_full_count`
+                , `HALF_BATH`=`bath_half_count`
+                , `THREEQTR_BATH`=`bath_3qtr_count`
+                , `CURRENT_ZONING_ID`
+                , `PRESENT_USE_ID`
+                ) %>% 
+  dplyr::filter(!is.na(`SALE_PRICE`))
+  
+
+rmarkdown::paged_table(housing_df2, option=list(rows.print=15))
+
+plot
+
+```
+<br>
+
+#### Assessing Predictor Correlation
+<br>
+
+##### House Age
+
+> * R^2: 0.0519 (5.2%)
+> * p < 0.001 (significant)
+> * SE: 197.4
+> * F-stat: 704.3
+> 
+> RESULT: Explains a small amount of Sale Price and is significant with a high F-stat and low std.Error however, looking at the residuals plotted against the fitted line and the QQ Plot, the house age data clearly violates both the assumption of normally distributed errors and also the assumption of homoscedasticity meaning that the variation is not the same at various levels of the fit. For this reason, I will not include House Age in the regression.
+
+```{r}
+house_age_lm <- lm(SALE_PRICE ~ HOUSE_AGE,  data=housing_df2)
+summary(house_age_lm)
+plot(housing_df2$HOUSE_AGE, housing_df2$SALE_PRICE)
+abline(house_age_lm, col="red", lwd=2)
+plot(house_age_lm)
+
+```
+
+
+##### Sale Reason
+
+> * R^2: 0.0173 (1.7%)
+> * adj.R^2: 0.0161 (1.6%)
+> * p < 0.001 (significant)
+> * SE: 197.4
+> * F-stat: 14.16
+> * No coefficients significant at .05
+> * Std.Error for all coefficients very high
+> 
+> RESULT: No coefficents significant and the also have high std.errors. Visually plotting the data shows no Sale Reason that would cause a significant effect on Sale Price. Will exclude this variable from analysis.
+
+```{r}
+sale_rsn_lm <- lm(SALE_PRICE ~ SALE_RSN_ID,  data=housing_df2)
+summary(sale_rsn_lm)
+plot(sale_rsn_lm$model$SALE_RSN_ID, sale_rsn_lm$model$SALE_PRICE)
+```
+
+##### Sale Instrument
+
+> * R^2: 0.0243 (2.4%)
+> * adj.R^2: 0.0231 (2.3%)
+> * p < 0.001 (significant)
+> * F-stat: 20.07
+>
+> SALE INSTRUMENT 22 Analysis
+>
+> * SALE_INSTRUMENT_22 R^2: 0052 (0.5%)
+> * SALE_INSTRUMENT_22 p < 0.001 (significant)
+> * sALE_INSTRUMENT_22 std.error: 30030
+> * SALE_INSTRUMENT_22 F-stat: 67.84
+> 
+> RESULT: Instrument 22 was the only category value with significance for the 'Sale Instrument' variable. For this reason I ran a linear regression analysis on a dummy variable for this category value and plotted the residuals. It seems that this data although significant, doesn't really explain a lot of the variation in Sale Price thus, it will be excluded from the analysis.
+
+```{r}
+sale_inst_lm <- lm(SALE_PRICE ~ SALE_INSTRUMENT_ID,  data=housing_df2)
+summary(sale_inst_lm)
+plot(housing_df2$SALE_INSTRUMENT_ID, housing_df2$SALE_PRICE)
+
+## Because Instrument 22 is significant, add it as a dummy variable onto existing data set and run a linear regression analysis.
+housing_df2$SALE_INSTRUMENT_22 <- ifelse(housing_df2$SALE_INSTRUMENT_ID == 22, 1, 0)
+sale_inst_22_lm <- lm(SALE_PRICE ~ SALE_INSTRUMENT_22, data=housing_df2)
+summary(sale_inst_22_lm)
+boxplot(housing_df2$SALE_INSTRUMENT_22, housing_df2$SALE_PRICE)
+plot(sale_inst_22_lm)
+```
+
+##### Sale Warning
+
+> * R^2: 0.0069 (0.6%) low!
+> * p < 0.001 (significant)
+> * SE: 9277 (high)
+> * F-stat: 89.69 (low)
+>
+> Sale Warning, although significant, doesn't explain a lot of the variation in Sales Price thus, to reduce the chance of multicollinearity and overfitting, will exclude it from the analysis.
+
+```{r}
+sale_warn_lm <- lm(SALE_PRICE ~ SALE_WARNING_YN,  data=housing_df2)
+summary(sale_warn_lm)
+boxplot(housing_df2$SALE_WARNING_YN, housing_df2$SALE_PRICE)
+```
+
+##### Site Type
+
+> * R^2: 0.0102 (1.0%)
+> * adj.R^2: 0.0097 (0.9%)
+> * p < 0.001 (significant)
+> * F-stat: 22.14 (low)
+>
+> Site Type R2
+>
+> * R^2: 0.0101 (1.0%)
+> * p: < 0.001 (significant)
+> * std.Error: 21032
+> * F-stat: 131
+> 
+> RESULT: Site Type and the categry Site Type=R2, although significant, doesn't explain a lot of the variation in Sales Price thus, to reduce the chance of multicollinearity and overfitting, will exclude it from the analysis.
+
+```{r}
+site_type_lm <- lm(SALE_PRICE ~ SITE_TYPE_ID,  data=housing_df2)
+summary(site_type_lm)
+plot(housing_df2$SITE_TYPE_ID, housing_df2$SALE_PRICE)
+
+housing_df2$SITE_TYPE_R2 <- ifelse(housing_df2$SITE_TYPE_ID == 'R2', 1, 0)
+site_type_R2_lm <- lm(SALE_PRICE ~ SITE_TYPE_R2, data=housing_df2)
+summary(site_type_R2_lm)
+plot(housing_df2$SITE_TYPE_R2, housing_df2$SALE_PRICE)
+```
+
+##### Zip 
+
+> * R^2: 0.0037 (0.3%)
+> * adj.R^2: 0.0035(0.3%)
+> * p < 0.001 (significant)
+> * F-stat: 16.14 (low)
+>
+> Zip 98053
+>
+> * R^2: 0.0006
+> * p: < 0.05 
+> * std.Error: 
+> * F-stat: 7.88
+> 
+> Zip 98074
+>
+> * R^2: 0.0029
+> * p: < 0.001
+> * std.Error: 
+> * F-stat: 38.08
+> 
+> RESULT: After running multiple regression on Zip Code factor variable, 2 zip codes were found to have significance. The 2 variables were ran through a simple linear regression analysis and were found to explain very little about the target variable thus, the Zip variable will be left out of analysis.
+
+```{r}
+zip_lm <- lm(SALE_PRICE ~ ZIP,  data=housing_df2)
+summary(zip_lm)
+
+## Zip 98053 & 98074 seem to be significant so will do further analysis on those. 
+housing_df2$ZIP_98053 <- ifelse(housing_df2$ZIP=="98053",1,0)
+housing_df2$ZIP_98074 <- ifelse(housing_df2$ZIP=="98074",1,0)
+
+zip_98053_lm <- lm(SALE_PRICE ~ ZIP_98053, data=housing_df2)
+zip_98074_lm <- lm(SALE_PRICE ~ ZIP_98074, data=housing_df2)
+
+summary(zip_98053_lm)
+summary(zip_98074_lm)
+```
+
+##### Building Grade
+
+> * R^2: 0.1531 (15.3%)
+> * p < 0.001 
+> * f-stat: 243.8
+> 
+> RESULT: Due to the high adjusted R.squared value and F-stat along with a significant p-value, it make sense to include Building Grade in the model. 
+
+```{r}
+bldng_grade_lm <- lm(SALE_PRICE ~ BLDNG_GRADE,  data=housing_df2)
+summary(bldng_grade_lm) 
+plot(bldng_grade_lm)
+
+housing_df2 %>% 
+  ggplot(aes(BLDNG_GRADE, SALE_PRICE)) +
+  geom_point()
+
+```
+
+
+##### Sq.Ft. Living
+
+> * R^2: 0.2066 (20.6%)
+> * p < 0.001
+> * F-stat: 3351
+> * 
+> * RESULT: Explains a large portion of Sale Price, has a high F-stat, and is significant. plotting the data against the model, it would seem that there are potential outliers but it does not seem that they influence the model a lot due to the line cutting through the majority of the data points. Also, when plotting the linear model variable, there are no cases that fall outside of Cook's distance which is good. It does seem like the outliers are caused by different zones which may be good to include in the model since it would seem they help significantly explain sale price. Will run analysis on zone later to verify.
+
+```{r}
+
+sqft_lvng_lm <- lm(SALE_PRICE ~ SQFT_LVNG,  data=housing_df2)
+summary(sqft_lvng_lm)
+
+housing_df2 %>% 
+  ggplot(aes(x=SQFT_LVNG, y=SALE_PRICE)) +
+  geom_point(alpha=1, aes(color=CURRENT_ZONING_ID)) + 
+  geom_smooth(method = "lm", col="blue")
+
+housing_df2 %>% 
+  ggplot(aes(x=CURRENT_ZONING_ID, y=SALE_PRICE)) + 
+  geom_boxplot(aes(color=CURRENT_ZONING_ID))
+
+plot(sqft_lvng_lm)
+
+```
+
+##### Sq.Ft. Lot
+
+> Outliers Included
+>
+> * R^2: 0.0143 (1.4%)
+> * p < 0.001
+> * F-stat: 187.3
+>
+> RESULT: Currently doesn't explain a lot of the sale price but there seem to be outliers in the data based on Cook's distance. Will remove these cases to see if it significantly improves the model.
+>
+> Outliers Removed
+>
+> * R^2: 0.0126 (1.2%)
+> * p < 0.001
+> * F-stat: 164.8
+> 
+> RESULT: Not a lot of improvement and due to the fact that the neither models adequately explain the sale price very much I will exclude this variable from the model.
+
+```{r}
+sqft_lot_lm <- lm(SALE_PRICE ~ SQFT_LOT,  data=housing_df2)
+summary(sqft_lot_lm) 
+
+housing_df2 %>% 
+  ggplot(aes(x=SQFT_LOT, y=SALE_PRICE)) +
+  geom_point(alpha=.1) + 
+  geom_smooth(method = "lm", col="blue")
+
+plot(sqft_lot_lm)
+
+## Remove instances where Cook's distnace >= 0.05
+housing_df2$cooks.distance <- cooks.distance(sqft_lot_lm) 
+housing_df2_no_out1 <- dplyr::filter(housing_df2, cooks.distance < 0.05)
+
+sqft_lot_lm_no_out1 <- lm(SALE_PRICE ~ SQFT_LOT, data=housing_df2_no_out1)
+summary(sqft_lot_lm_no_out1)
+
+housing_df2_no_out1 %>% 
+  ggplot(aes(x=SQFT_LOT, y=SALE_PRICE)) +
+  geom_point(alpha=.1) + 
+  geom_smooth(method = "lm", col="blue")
+
+plot(sqft_lot_lm_no_out1)
+
+```
+
+##### Bedrooms 
+
+> * R^2: 0.0508 (5.0%)
+> * p < 0.001
+> * F-stat: 688.9
+> 
+> RESULT: Explains only a small portion of sale price but has a high F-stat and is significant. Will include it in the overall multiple regression analysis to see if it makes any significant contribution to predicting sale price. 
+
+```{r}
+
+bedroom_lm <- lm(SALE_PRICE ~ BEDROOMS,  data=housing_df2)
+summary(bedroom_lm)
+
+plot(bedroom_lm)
+
+housing_df2 %>% 
+  ggplot(aes(x=BEDROOMS, y=SALE_PRICE)) + 
+  geom_point(alpha=.1) + 
+  geom_smooth(method="lm")
+
+```
+
+##### Full Bath
+
+> Outlier Included
+>
+> * R^2: 0.0811 (8.1%)
+> * p < 0.001
+> * F-stat: 1136
+>
+> Outlier Excluded
+>
+> * R^2: 0.0899 (8.9%)
+> * p < 0.001
+> * F-stat: 1272
+> 
+> RESULT: Explains a fair amount about sale price and is significant with a high F-stat. Looking at the Cook's distance plot however, it would seem that there is a case that is highly influencing this model. After removing it and re-running the analysis, improvement was minimal due to the large sample size for analysis. Overall though, the variable does a pretty decent job at explaining the sale price so will include it in the overall model and analyze.
+
+
+```{r}
+
+full_bath_lm <- lm(SALE_PRICE ~ FULL_BATH,  data=housing_df2)
+summary(full_bath_lm)
+
+housing_df2 %>% 
+  ggplot(aes(x=FULL_BATH, y=SALE_PRICE)) + 
+  geom_point() + 
+  geom_smooth(method="lm")
+
+plot(full_bath_lm)
+
+## Remove instances where Cook's distnace >= 0.05
+housing_df2$cooks.distance <- cooks.distance(full_bath_lm) 
+housing_df2_no_out1 <- dplyr::filter(housing_df2, cooks.distance < 0.05)
+
+full_bath_lm_no_out1 <- lm(SALE_PRICE ~ FULL_BATH, data=housing_df2_no_out1)
+summary(full_bath_lm_no_out1)
+
+housing_df2_no_out1 %>% 
+  ggplot(aes(x=FULL_BATH, y=SALE_PRICE)) +
+  geom_point(data=housing_df2, aes(x=FULL_BATH, y=SALE_PRICE)) + 
+  geom_smooth(method="lm", data=housing_df2, aes(x=FULL_BATH, y=SALE_PRICE), col="blue") + 
+  geom_smooth(method = "lm", col="red") + 
+
+plot(full_bath_lm_no_out1)
+
+```
+
+##### Half Bath
+
+> * R^2: 0.0275 (2.7%)
+> * p < 0.001
+> * F-stat: 363.7
+> 
+> RESULT: This variable doesn't explain a whole lot of sale price. Also, it is more than likely collinear with Full Bath which explains sale price a lot better so will leave it out of the model. 
+
+```{r}
+half_bath_lm <- lm(SALE_PRICE ~ HALF_BATH,  data=housing_df2)
+summary(half_bath_lm)
+
+housing_df2 %>% 
+  ggplot(aes(x=HALF_BATH, y=SALE_PRICE)) + 
+  geom_point() + 
+  geom_smooth(method="lm")
+
+plot(half_bath_lm)
+```
+
+##### 3/4 Bath
+
+> * R^2: 0.0012 (0.1%)
+> * p < 0.001
+> * F-stat: 16.45
+> 
+> RESULT: This variable doesn't explain a whole lot of sale price. Also, it is more than likely collinear with Full Bath which explains sale price a lot better so will leave it out of the model. 
+
+```{r}
+three_qtr_bath_lm <- lm(SALE_PRICE ~ THREEQTR_BATH,  data=housing_df2)
+summary(three_qtr_bath_lm)
+plot(three_qtr_bath_lm)
+
+
+```
+
+##### Current Zone
+
+> Outliers Included
+>
+> * R^2: 0.0718 (7.1%)
+> * adj.R^2: 0.0702 (7.0%)
+> * p < 0.001
+> * F-stat: 43.24
+>
+> Outliers Excluded
+>
+> * R^2: 0.0701 (7.0%)
+> * adj.R^2:  0.0687 (6.8%)
+> * p < 0.001
+> * F-stat: 48.43
+>
+> RESULT: Variable explains a fair amount of sale price so will include it in the analysis. Analysis on outlier vs. non-outlier reviewed and very little change occurred so will keep the outliers included in the overall regression analysis. Also re-ordered the Zone factor so that the highest frequency would be set as the baseline since we don't know what sort of effect we're looking for.
+
+```{r}
+zone_lm <- lm(SALE_PRICE ~ CURRENT_ZONING_ID,  data=housing_df2)
+summary(zone_lm) 
+plot(zone_lm)
+
+## Remove instances where Cook's distnace >= 0.05
+housing_df2$cooks.distance <- cooks.distance(zone_lm) 
+housing_df2_no_out1 <- dplyr::filter(housing_df2, cooks.distance < 0.05)
+
+zone_lm_no_out1 <- lm(SALE_PRICE ~ CURRENT_ZONING_ID, data=housing_df2_no_out1)
+summary(zone_lm_no_out1)
+
+plot(zone_lm_no_out1)
+
+housing_df2$CURRENT_ZONING_ID <- fct_infreq(housing_df2$CURRENT_ZONING_ID)
+table(housing_df2$CURRENT_ZONING_ID)
+
+```
+
+
+##### Present Use
+
+> * R^2: 0.0237 (2.3%)
+> * adj.R^2: 0.0232 (2.3%)
+> * p < 0.001
+> * F-stat: 44.66
+> 
+> RESULT: Explains very little about sale price. Excluding from model.
+
+```{r}
+
+present_use_lm <- lm(SALE_PRICE ~ PRESENT_USE_ID,  data=housing_df2)
+summary(present_use_lm)
+plot(present_use_lm)
+
+```
+<br> 
+
+#### Regression Analysis
+
+> Variables Being Considered
+>
+> * Building Grade
+>   + R^2: 0.1531 (15.3%)
+>   + p < 0.001 
+>   + f-stat: 243.8
+> 
+>
+> * SQFT Living Space
+>   + R^2: 0.2066 (20.6%)
+>   + p < 0.001
+>   + F-stat: 3351
+> 
+>
+> * Bedrooms
+>   + R^2: 0.0508 (5.0%)
+>   + p < 0.001
+>   + F-stat: 688.9
+> 
+>
+> * Full Bath (Outlier Included)
+>   + R^2: 0.0811 (8.1%)
+>   + p < 0.001
+>   + F-stat: 1136
+>
+>
+> * Current Zone (Outliers Included)
+>   + R^2: 0.0718 (7.1%)
+>   + adj.R^2: 0.0702 (7.0%)
+>   + p < 0.001
+>   + F-stat: 43.24
+
+##### All Predictors
+
+> * R^2: 0.2431 (24.3%)
+> * adj.R^2: 0.2416 (24.1%)
+> * p < 0.001
+> * F-stat: 158.6
+> * Resid. SE: 352200
+>
+> RESULT: With an adjusted R.squared of 0.2416, this multiple regression linear model potentially explains roughly 24% of the variation in Sale Price and at is significant at p < 0.001.
+
+```{r}
+
+multi_lm <- lm(SALE_PRICE 
+               ~ SQFT_LVNG 
+               + BLDNG_GRADE 
+               + FULL_BATH 
+               + CURRENT_ZONING_ID
+                 , data=housing_df2)
+
+summary(multi_lm)
+plot(multi_lm)
+
+
+```
+<br> 
+
+##### Standardized Betas
+
+> * From what I've gathered it is not necessary to standardize the beta coefficients for dummy variables which makes sense to me. For example, if you have dummy variables for let's say color (red, blue, green, yellow, etc.) it would seem illogical to standardize the 0 and 1 dummy variables created for them but maybe I'm missing something here. I mean, the dummy variable is either yes or no so standardizing doesn't really tell us anything.
+> * The standardized beta is a way to interpret the coefficient so that the variables being compared are not dependend on the scale or weight of the variables being compared to each other. It is calculated by subtracting the mean of the variable from the observed value for the variable and then dividing that by the standard deviation of the variable. 
+
+```{r}
+multi_df <- housing_df2 %>% 
+  dplyr::select(
+    SALE_PRICE
+    , BLDNG_GRADE 
+    , SQFT_LVNG
+    , FULL_BATH
+    , CURRENT_ZONING_ID
+  ) %>% 
+  dplyr::mutate(
+    `SALE_PRICE_STD`=scale(SALE_PRICE)
+    , `BLDNG_GRADE_STD`=scale(BLDNG_GRADE)
+    , `SQFT_LVNG_STD`=scale(SQFT_LVNG)
+    , `FULL_BATH_STD`=scale(FULL_BATH)
+  )
+
+## Manual Calculation
+round(coef(lm(SALE_PRICE_STD ~ BLDNG_GRADE_STD + SQFT_LVNG_STD + FULL_BATH_STD, data=multi_df)),2)[-1]
+
+## Using QuantPsyc::lm.beta()
+round(QuantPsyc::lm.beta(lm(SALE_PRICE ~ BLDNG_GRADE + SQFT_LVNG + FULL_BATH, data=multi_df)),2)
+
+
+```
+
+##### Confidence Intervals
+
+> * The confidence intervals tell us the likelihood, given a particular alpha level (in most cases 0.05), that the true population statistic would be in between. With an alpha level at 0.05, we would be confident that 95 out of 100 samples of data would have a statistic that would be inbetween the estimated intervals. 
+> 
+> * When the confidence interval is measuring linear regression coefficients, there are a couple of different indications that the model is doing good or bad. Below are some of the desired traits:
+>   + Small gap in lower bound vs. upper bound. A smaller gap indicates more accurate predictions.
+>   + Interval is far away from 0. The further away from zero, the stronger the correlation is.
+>   + Interval does not cross zero which indicates the true population estimate may be zero which would mean no correlation.
+
+```{r}
+
+confint(multi_lm)
+
+```
+
+##### Simple vs. Multiple Regression
+
+> * F-change: 155.22
+> * p < 0.001
+> * Residual SE:
+>   + Simple: 401,500
+>   + Multi: 352,200
+> * R.squared:
+>   + 0.01435 (1.4%)
+>   + 0.2431 (24.3%) | adj. 0.2416 (24.1%)
+>
+> Interpretation
+> 
+> * With an F-ratio of 155.22, this is significant at p < 0.001 indicating that the multiple regression model likely predicts Sale Price 23% better than the simple regression model which uses Sq.Ft. Lot Size to predict Sale Price. 
+
+
+```{r}
+
+summary(sqft_lot_lm)
+summary(multi_lm)
+
+## Hierarchical 
+anova(sqft_lot_lm, multi_lm)
+
+```
+
+##### Outliers & Influencers
+
+> * After creating variables to indicate outliers based on calculating standard residuals, studentized residuals, cooks distance, and covariance ratio, 319 potential outliers were detected out of 12,865 (2.4%). 
+>   + Studentized Outliers: 317/319
+>   + Cooks Distance Outlier: 1/319
+>   + Standardized Residual Outliers: 319/319
+>   + Covariance Ratio Outliers: 2/319
+
+```{r}
+
+## Adding Outlier & Influencer Columns and Indicators
+multi_df <- multi_df %>% 
+  dplyr::mutate(
+    `FITTED_VALUES`=multi_lm$fitted.values
+    , `RESIDUALS`=resid(multi_lm)
+    , `RESIDUALS_STD`=rstandard(multi_lm)
+    , `RESID_STD_OUTLIER`=ifelse(abs(RESIDUALS_STD) > 1.96, 1, 0)
+    , `RESIDUALS_STDNT`=rstudent(multi_lm)
+    , `RESID_STUDNT_OUTLIER`=ifelse(abs(RESIDUALS_STDNT) > 1.96, 1, 0)
+    , `COOKS_DIST`=cooks.distance(multi_lm)
+    , `COOKS_DST_OUTLIER`=ifelse(COOKS_DIST >= .5, 1, 0)
+    , `DFBETA`=dfbeta(multi_lm)
+    , `DFFIT`=dffits(multi_lm)
+    , `LEVERAGE`=hatvalues(multi_lm)
+    , `COV_RATIO`=covratio(multi_lm)
+    , `COV_RATIO_OUTLIER`=ifelse(COV_RATIO < 1-((3*(NROW(multi_lm$coefficients)+1))/(NROW(multi_lm))) | COV_RATIO > 1+((3*(NROW(multi_lm$coefficients)+1))/(NROW(multi_lm))), 1, 0)
+    , `OVERALL_OUTLIER`=ifelse(RESID_STD_OUTLIER==1 | RESID_STUDNT_OUTLIER==1 | COOKS_DST_OUTLIER==1 | COV_RATIO_OUTLIER==1, "Outlier", "Non-Outlier")
+  )
+
+## Plotting Residuals
+plot(multi_lm)
+
+## Sum of Large Studentized Residuals
+sum(multi_df$RESID_STUDNT_OUTLIER, na.rm=T)
+
+## All Problematic Cases
+outlier_cases <- multi_df %>% 
+  dplyr::filter(RESID_STD_OUTLIER == 1 | RESID_STUDNT_OUTLIER == 1 | COOKS_DST_OUTLIER == 1 | COV_RATIO_OUTLIER == 1)
+
+## Plotting Outliers
+multi_df %>% 
+  ggplot(aes(x=FITTED_VALUES, y=RESIDUALS_STDNT, color=OVERALL_OUTLIER)) + 
+  geom_point() + 
+  scale_color_manual(breaks=c("Outlier","Non-Outlier"), values=c("red","#4d4d4d"))
+
+multi_df %>% 
+  ggplot(aes(x=BLDNG_GRADE_STD, y=SALE_PRICE_STD, color=OVERALL_OUTLIER)) + 
+  geom_point() + 
+  scale_color_manual(breaks=c("Outlier","Non-Outlier"), values=c("red","#4d4d4d"))
+
+multi_df %>% 
+  ggplot(aes(x=SQFT_LVNG, y=SALE_PRICE_STD, color=OVERALL_OUTLIER)) + 
+  geom_point() + 
+  scale_color_manual(breaks=c("Outlier","Non-Outlier"), values=c("red","#4d4d4d"))
+
+multi_df %>% 
+  ggplot(aes(x=FULL_BATH, y=SALE_PRICE_STD, color=OVERALL_OUTLIER)) + 
+  geom_point() + 
+  scale_color_manual(breaks=c("Outlier","Non-Outlier"), values=c("red","#4d4d4d"))
+
+multi_df %>% 
+  ggplot(aes(x=CURRENT_ZONING_ID, y=SALE_PRICE_STD, color=OVERALL_OUTLIER)) + 
+  geom_point() + 
+  scale_color_manual(breaks=c("Outlier","Non-Outlier"), values=c("red","#4d4d4d"))
+  
+
+```
+
+
+##### Assessing Assumption of Independent Errors
+
+> Based on the Durbin-Watson Test for Autocorrelated Errors, we reject the NULL hypothesis that indicates that no correlation exists in the model. This means that the model violates the assumption of Independent Errors.
+
+```{r}
+
+durbinWatsonTest(multi_lm)
+
+```
+
+##### Assessing Assumption of Multicollinearity
+
+> Based on the VIF calculation, multicollinearity is unproblematic meaning that the independent variables are uncorrelated.
+
+```{r}
+
+## Variance Inflation Factor
+vif(multi_lm)
+
+## Mean VIF
+mean(vif(multi_lm))
+
+```
+
+##### Plotting the Model
+
+> **Interpretation**
+>
+> Residuals vs. Fitted
+> * Shows if variance is stable across the linear fit and also the degreee of error in the model. If the model is good at predicting the outcome, the variance will be tightly bound around y=0 and the variance will be consistent at each level of the prediction. In this case, there seem to be abnromal variance at certain points of the prediction. Outliers seem to be present as well. The homoscedasticity looks fairly decent but does seem to funnel out as the predicted value gets higher indicating more error as the model predicts larger sale prices. 
+>
+> Normal QQ Plot
+> * Shows if the residuals are normal which is an assumption for linear regression but from what I've researched, is more relaxed as your sample size gets larger. A non-normal distribution of residuals would make generalizing the model for the population less accurate.In this case, we can see that the residuals have very heavy tails indicating a non-normal distribution of residuals. 
+>
+> Scale-Location
+> * Similar to Residuals vs. Fitted but takes the square root of the absolute value of the standardized residuals and plots them against the predicted values to make the graph a bit easier to confirm if homoscedasticity and and variance. In this graph it is very clear that the variance violates the assumption of homoscedasticity. In a perfect model, the residuals would be tightly bound around the red line and the red line would be completely horizontal.
+>
+> Residuals vs. Leverage
+> * Standardized Residuals plotted against Leverage and also a boundary for Cook's distance. This plot is great for indentifying observation that could be potential outliers that have a great deal of undue influence on the model. This model can also identify homoscedsticity as well. In a perfect model, you'd like to see a sort of hemispherical symmetrical distribution of observation that do not cross the Cooks distance boundary and the horizontal red line is completely straight. In our example, the red line is complete horizant which is good but it probably has a lot to do with the extreme observation at the right side of the graph which is greatly influencing the model. There case 8320, 4648, and 11899 seem to be problematic as well. 
+>
+> Histogram
+> * Looking at the histogram, it would seem that our sampling distribution is Leptokurtic and Positively Skewed. 
+
+```{r}
+
+plot(multi_lm)
+hist(multi_df$RESIDUALS, breaks=1000)
+
+```
+
+
+##### Is The Model Biased?
+
+> Stats from Regression Analysis
+> 
+> * R^2: 0.2431 (24.3%)
+> * adj.R^2: 0.2416 (24.1%)
+> * p < 0.001
+> * F-stat: 158.6
+> * Resid. SE: 352200
+> 
+> Because the model has a R.squared of 0.24, violates the assumption of homoscedasticity, normality,  and independence and also seems to be influenced by outliers, I am fairly confident that the model is biased. More testing would need to be done to confirm this theory such as bootstrapping or data splitting to test the model on new randomized data to see how it performs but at this point, my theory is that it is biased. The R.squared for me, seems to be very telling. If you were a juror in a courtroom and were only presented with 24% of the evidence that could be used to make a good judgement, this would mean that 76% of your prediction about whether or not the defendant is innocent or guilty would have to be made on biased opinion.
+
+

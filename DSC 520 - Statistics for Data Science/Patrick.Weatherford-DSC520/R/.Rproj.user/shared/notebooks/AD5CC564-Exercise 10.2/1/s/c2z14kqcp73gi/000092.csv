@@ -1,0 +1,3 @@
+"0",""
+"0","## Column Chart of Factor Variables"
+"0","ggplot(ts_df, aes(x=DGN, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat=""count"", vjust=1.5)"

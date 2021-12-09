@@ -1,0 +1,7 @@
+"0","scores_df <- read.csv(""C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/scores.csv"""
+"0","         , stringsAsFactors = FALSE"
+"0","         , header = TRUE)"
+"0",""
+"0",""
+"0","scores_df[,c(""Section"", ""Score"")] %>% "
+"0","  paged_table(options = list(rows.print=10)) "

@@ -1,0 +1,7 @@
+"0",""
+"0","housing_df2 %>% "
+"0","  ggplot(aes(x=BEDROOMS, y=SALE_PRICE)) + "
+"0","  geom_point(alpha=.1) + "
+"0","  geom_smooth(method=""lm"")"
+"2","`geom_smooth()` using formula 'y ~ x'
+"

@@ -1,0 +1,8 @@
+"0","price_sd <- hdf[""Sale Price""] %>% "
+"0","  apply(MARGIN=2, sd)"
+"0",""
+"0","message(""Variable = Sale Price"
+"0","SD +/- $"", formatC(price_sd, format=""f"", digits=2, big.mark="",""))"
+"2","Variable = Sale Price
+SD +/- $404,381.08
+"

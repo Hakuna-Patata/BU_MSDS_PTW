@@ -1,0 +1,188 @@
+---
+title: <span style="color:#B7F06C">EXERCISE 6.2</span>
+# title: EXERCISE 6.2
+author: "Patrick Weatherford"
+date: <span style="color:#5c5c5c;font-size:14px">Last modified:\ `r format(Sys.time(), '%d %B %Y')`</span>
+# date: "10/5/2021"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+    css: "DarkTheme.css"
+  word_document:
+    reference_docx: Reference.docx
+  pdf_document: default
+geometry: margin=.5in
+bibliography: bibliography.bib
+---
+
+
+
+```{r, include = FALSE}
+
+base::require("knitr")
+
+knitr::opts_knit$set("~/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/Assignments/Exercise 6.2")
+
+
+```
+
+
+### Markdown Basics
+
+#### Favorite Foods
+1. Pizza
+2. Brisket
+3. Wings
+
+#### Images
+\
+```{r, echo = FALSE, fig.cap="All Cases (Log Plot)", out.height="400px", out.width="350px"}
+
+knitr::include_graphics("C:/users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/completed/assignment04/plots/10-all-cases-log.png")
+
+```
+
+
+\newpage
+#### Add a Quote
+> *"I'm a great believer in luck, and I find the harder I work, the more of it I have."*
+
+#### Add an Equation
+**Sample Standard Deviation**: $s={\frac{\sqrt{\sum(x-\bar{x})^2}}{n-1}}$
+
+#### Add a Footnote
+
+Blah blah blah.^[Footnote about blah blah blah]
+
+
+#### Add Citations
+
+* R for Everyone (Lander 2014)
+* Discovering Statistics Using R (Field et al.2012)
+
+### Inline Code
+```{r, include=FALSE}
+
+library(ggplot2)
+library(tidyr)
+library(scales)
+theme_set(theme_minimal())
+
+
+heights_df <- utils::read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R/data/r4ds/heights.csv")
+
+covid_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/R/data/nytimes/covid-19-data/us-states.csv")
+
+covid_df$date <- as.Date(covid_df$date)
+
+california_df <- dplyr::filter(covid_df, state=="California")
+
+florida_df <- dplyr::filter(covid_df, state=="Florida")
+
+ny_df <- dplyr::filter(covid_df, state=="New York")
+
+
+
+```
+
+#### NY Times COVID-19 Data
+\
+```{r, echo = FALSE}
+
+## Scale the y axis using `scale_y_log10()`
+
+dplyr::filter(covid_df, state %in% c("Florida","California","New York")) %>%
+  ggplot2::ggplot(aes(x=date)) +
+  ggplot2::geom_line(
+    aes(y=cases, col=state)
+    , size=1.1
+    ) +
+  ggplot2::scale_y_log10(labels = scales::comma) + 
+  scale_color_manual(
+    values = c("Florida"="Red","New York"="Green","California"="Blue")
+    , breaks = c("Florida","New York","California")
+    , labels = c("FL","NY","CA")
+    , name=NULL
+  ) + 
+  labs(
+    x=NULL
+    , y="Cases"
+  )
+
+```
+
+\newpage
+#### R4DS Height vs Earnings
+\
+```{r, echo=FALSE, out.width="100%"}
+heights_df %>% 
+  ggplot(
+    aes(x=height, y=earn/1000, col=sex)
+  ) +
+  geom_point() + 
+  ggtitle("Height vs. Earnings") + 
+  xlab("Height (Inches)") + 
+  ylab("Earnings") + 
+  scale_y_continuous(
+    labels = scales::dollar_format(suffix = "k")
+    ) + 
+  scale_color_manual(
+    labels=c("female"="Female","male"="Male")
+    , values=c("female"="#ff59d6", "male"="#5993ff")
+    , name=NULL
+  )
+```
+
+### Tables
+```{r, include=FALSE}
+name <- c("Aragon", "Bilbo", "Frodo", "Galadriel", "Sam", "Gandalf", "Legolas", "Sauron", "Gollum")
+race <- c("Men", "Hobbit", "Hobbit", "Elf", "Hobbit", "Maia", "Elf", "Maia", "Hobbit")
+in_fellowship <- c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE)
+ring_bearer <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
+age <- c(88, 129, 51, 7000, 36, 2019, 2931, 7052, 589)
+
+characters_df <- data.frame(
+  name
+  ,race
+  ,in_fellowship
+  ,ring_bearer
+  ,age)
+```
+#### Knitr Table with Kable
+```{r}
+knitr::kable(characters_df, caption="One Ring to Rule Them All")
+```
+
+\newpage
+#### Pandoc Table
+| Name      | Race      | In Fellowship? | Is Ring Bearer? | Age    |
+|-----------|-----------|----------------|-----------------|-------:|
+| Aragon    | Men       | Yes            | No             | 88     |
+| Bilbo        | Hobbit    | No            | Yes            | 129    |
+| Frodo        | Hobbit   | Yes           | Yes            | 51     |
+| Sam      | Hobbit   | Yes           | Yes            | 36     |
+| Sauron    | Maia     | No            | Yes            | 7052   |
+
+
+\newpage
+### References
+
+@lander2014r
+
+@field2012discovering
+
+\begingroup
+\noindent
+\vspace{-2em}
+\setlength{\parskip}{15pt}
+
+<div id="refs"></div>
+
+\endgroup
+
+
+

@@ -1,0 +1,285 @@
+---
+title: <span style="color:#B7F06C">EXERCISE 11.2</span>
+author: "Patrick Weatherford"
+date: <span style="color:#5c5c5c;font-size:14px">Last modified:\ `r format(Sys.time(), '%d %B %Y')`</span>
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+    css: "DarkTheme.css"
+---
+
+***
+
+\
+
+### Load Packages
+```{r, message=F, warning=F}
+
+library(dplyr)
+library(rmarkdown)
+library(ggplot2)
+library(VIM) 
+library(cluster)
+library(factoextra)
+library(class)
+library(caret)
+library(forcats)
+library(car)
+
+```
+***
+
+\
+
+### Intro to Machine Learning
+
+\
+
+#### Load Data Set
+```{r}
+
+bc_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/binary-classifier-data.csv", header = T)
+
+tc_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/trinary-classifier-data.csv", header = T)
+
+k_clust_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/clustering-data.csv", header = T)
+
+
+## Preview data
+glimpse(bc_df)
+glimpse(tc_df)
+glimpse(k_clust_df)
+
+```
+
+\
+
+#### Count NULLs in Data Set
+```{r, warning=FALSE, message=FALSE, fig.show='hold',results='hold', fig.height=3}
+
+VIM::aggr(bc_df)
+VIM::aggr(tc_df)
+
+## No NULLs between any of the case-pairs
+
+```
+
+\
+
+#### Visualize the Data
+```{r, warning=FALSE, message=FALSE, fig.show='hold',results='hold', fig.height=3}
+
+## Looking at this plot there seem to be a lot of different clusters of data.
+## For this reason, will probably have to increase the number of clusters.
+bc_df %>% 
+  ggplot(aes(x=x, y=y)) +
+  geom_point(aes(col=as.factor(label)), alpha=.3) + 
+  labs(color = "Label")
+
+tc_df %>% 
+  ggplot(aes(x=x, y=y)) +
+  geom_point(aes(col=as.factor(label)), alpha=.3) + 
+  labs(color = "Label")
+
+```
+
+\
+
+#### K-Nearest Neighbor
+
+##### Binary Classifier
+```{r, warning=FALSE, message=FALSE, fig.show='hold',results='hold', fig.height=5}
+
+## Outcome Variable already a numerical category so no need to convert.
+## Will scale the predictor variables to standardize distances.
+
+
+## Binary Classifier Data
+# Scale Data
+bc_df2 <- bc_df %>% 
+  dplyr::mutate( # scale/standardize predictor variables
+    x = scale(x)
+    , y = scale(y)
+  )
+
+# Create Training/Testing data sets (80/20)
+set.seed(777)
+size <- floor(0.8 * nrow(bc_df2))
+bc_df_indices <- sample(seq_len(nrow(bc_df2)), size=size)
+bc_df_train <- bc_df2[bc_df_indices, c("x", "y", "label")]
+bc_df_test <- bc_df2[-bc_df_indices, c("x", "y", "label")]
+  
+## Modeling
+# square root of the number of rows in the training data set. If floor of that number is even then ceiling, else floor.
+k <- if (floor(sqrt(nrow(bc_df_train))) %/% 2 == 0) {
+  ceiling(sqrt(nrow(bc_df_train)))
+} else {
+  floor(sqrt(nrow(bc_df_train)))
+}
+
+bc_prediction <- knn(train = bc_df_train
+                  , test = bc_df_test
+                  , cl = bc_df_train$label
+                  , k = k
+                  # , k = 300
+                  )
+
+conf_matrix <- as.matrix(table(Actual=bc_df_test$label,Predicted=bc_prediction))
+
+model_accuracy <- round(100 * sum(conf_matrix[c(1,4)]) / sum(conf_matrix), 1)
+mis_class <- 100-model_accuracy
+sensitivity <- round(100 * sum(conf_matrix[c(4)]) / sum(conf_matrix[c(2,4)]), 1)
+specificity <- round(100 * sum(conf_matrix[c(1)]) / sum(conf_matrix[c(1,3)]), 1)
+
+
+bc_df_test$predicted <- bc_prediction
+bc_df_test$correct_label <- factor(ifelse(bc_df_test$label == bc_df_test$predicted, "Y", "N"), levels = c("Y","N"))
+bc_df_test$correct <- fct_rev(factor(ifelse( bc_df_test$label == bc_prediction
+                              , paste0("Y: ", bc_df_test$label)
+                              , paste0("N p:",bc_df_test$predicted, ", a:",bc_df_test$label) 
+                              )))
+
+subtitle <- paste0("Model Accuracy: ", model_accuracy, "%\n"
+       , "Misclassification: ", mis_class, "%\n"
+       , "Sensitivity: ", sensitivity, "%\n"
+       , "Specificity: ", specificity, "%\n")
+
+ggplot(data = bc_df_test, mapping = aes(x=x, y=y)) + 
+  geom_point(mapping = aes(fill = correct, color = correct_label, pch = 21), size = 4, pch=21) +
+  labs(fill="Prediction Correct?", title = "Prediction vs. Actual", subtitle = subtitle) + 
+  theme(
+    plot.title = element_text(face = "bold", size = 17)
+  ) + 
+  scale_color_manual(values = c("black", "red")) + 
+  scale_fill_manual(values = c("#1ba30f","#262aff","#e3fce1","#abb3ff")) + 
+  guides(color= FALSE)
+  
+```
+
+##### Trinary Classifier
+```{r, warning=FALSE, message=FALSE, fig.show='hold',results='hold', fig.height=5}
+
+## Outcome Variable already a numerical category so no need to convert.
+## Will scale the predictor variables to standardize distances.
+
+
+## Binary Classifier Data
+# Scale Data
+tc_df2 <- tc_df %>% 
+  dplyr::mutate( # scale/standardize predictor variables
+    x = scale(x)
+    , y = scale(y)
+  )
+
+# Create Training/Testing data sets (80/20)
+set.seed(777)
+size <- floor(0.8 * nrow(tc_df2))
+tc_df_indices <- sample(seq_len(nrow(tc_df2)), size=size)
+tc_df_train <- tc_df2[tc_df_indices, c("x", "y", "label")]
+tc_df_test <- tc_df2[-tc_df_indices, c("x", "y", "label")]
+  
+## Modeling
+# square root of the number of rows in the training data set. If floor of that number is even then ceiling, else floor.
+k <- if (floor(sqrt(nrow(tc_df_train))) %/% 2 == 0) {
+  ceiling(sqrt(nrow(tc_df_train)))
+} else {
+  floor(sqrt(nrow(tc_df_train)))
+}
+
+bc_prediction <- knn(train = tc_df_train
+                  , test = tc_df_test
+                  , cl = tc_df_train$label
+                  , k = k
+                  # , k = 299
+                  )
+
+conf_matrix <- as.matrix(table(Actual=tc_df_test$label,Predicted=bc_prediction))
+
+conf_matrix
+
+model_accuracy <- round(100 * sum(conf_matrix[c(1,5,9)]) / sum(conf_matrix), 1)
+mis_class <- 100-model_accuracy
+sensitivity <- round(100 * sum(conf_matrix[c(4)]) / sum(conf_matrix[c(2,4)]), 1)
+specificity <- round(100 * sum(conf_matrix[c(1)]) / sum(conf_matrix[c(1,3)]), 1)
+
+
+tc_df_test$predicted <- bc_prediction
+tc_df_test$correct_label <- factor(ifelse(tc_df_test$label == tc_df_test$predicted, "Y", "N"), levels = c("Y","N"))
+tc_df_test$correct <- fct_rev(factor(ifelse( tc_df_test$label == bc_prediction
+                              , paste0("Y: ", tc_df_test$label)
+                              , paste0("N p:",tc_df_test$predicted, ", a:",tc_df_test$label) 
+                              )))
+
+matrix1 <- confusionMatrix(as.factor(tc_df_test$predicted), as.factor(tc_df_test$label))
+
+model_accuracy <- paste0("Model Accuracy: ", as.character(round(100 * matrix1$overall["Accuracy"]), 2), "%")
+
+model_cat_info <- matrix1$byClass[,c("Balanced Accuracy", "Sensitivity", "Specificity")]
+
+print(model_cat_info)
+
+ggplot(data = tc_df_test, mapping = aes(x=x, y=y)) + 
+  geom_point(mapping = aes(fill = correct, color = correct_label, pch = 21), size = 4, pch=21) +
+  labs(fill="Prediction Correct?", title = "Prediction vs. Actual", subtitle = model_accuracy) + 
+  theme(
+    plot.title = element_text(face = "bold", size = 17)
+  ) + 
+  scale_color_manual(values = c("black", "red")) + 
+  scale_fill_manual(values = c("#1ba30f","#262aff","#fc38d8","#ccffce","#abb3ff","#ffbff3")) + 
+  guides(color= FALSE)
+  
+```
+
+/
+
+##### Results
+
+> After review, with the data split 80% for the training data set and 20% for the testing/validation data set, the K-nearest neighbor model was 100% accurate at predicting the outcome variable 'label' for both the binary and trinary classifer data set. This compared to 58% when utilizing a linear logistical model. This indicates that a linear classifier classifier would not fit the data very well.
+
+
+/
+
+#### K-Means Clustering
+
+##### Plot the Data
+```{r}
+
+ggplot(data = k_clust_df, aes(x=x, y=y)) + geom_point() + labs(title = "Lol")
+
+```
+
+##### Fit the Data
+```{r}
+
+k_mean_fun <- function(k_var, df) {
+  bc_k <- list()
+  for(i in 1:length(k_var)) {
+    bc_k[[i]] <- kmeans(df, centers = k_var[i]) ## assign list element kmeans model
+    names(bc_k)[i] <- paste0(k_var[i]) ## name list element as k
+  }  
+  return(bc_k)
+}
+
+bc_k <- k_mean_fun(k_var=c(1:12), df=k_clust_df)
+
+bc_k_accuracy <- list()
+for(i in 1:length(bc_k)) {
+  bc_k_accuracy[[i]] <- bc_k[[i]]$betweenss / bc_k[[i]]$totss
+}
+
+plot(as.numeric(names(bc_k)), bc_k_accuracy, type = "b"
+     , ylab = "Avg. Distance", xlab = "Cluster (k)")
+
+
+```
+
+\
+
+##### Result
+
+> Based on the analysis, the elbow or optimal number of clusters 'k', seems to be anywhere from 2-5 clusters. 
+

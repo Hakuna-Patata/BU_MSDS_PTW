@@ -1,0 +1,5 @@
+"0",""
+"0","## Correlation Matrix Between Continuous Variables"
+"0","cor_mat <- round(cor(ts_df[,c(""PRE4"",""PRE5"",""AGE"")]), 1)"
+"0","ggcorrplot(cor_mat, lab = TRUE, hc.order=TRUE, type=""lower"", title=""Variable Correlation"")"
+"0",""

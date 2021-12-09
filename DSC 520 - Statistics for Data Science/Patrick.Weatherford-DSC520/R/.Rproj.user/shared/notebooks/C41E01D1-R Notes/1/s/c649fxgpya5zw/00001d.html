@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+<link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+</head>
+<body>
+<table class="table table-striped table-bordered table-condensed" style="width: auto !important; ">
+<caption>mtcars.csv (first 15 rows)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> mpg </th>
+   <th style="text-align:right;"> cyl </th>
+   <th style="text-align:right;"> disp </th>
+   <th style="text-align:right;"> hp </th>
+   <th style="text-align:right;"> drat </th>
+   <th style="text-align:right;"> wt </th>
+   <th style="text-align:right;"> qsec </th>
+   <th style="text-align:right;"> vs </th>
+   <th style="text-align:right;"> am </th>
+   <th style="text-align:right;"> gear </th>
+   <th style="text-align:right;"> carb </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160.0 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.90 </td>
+   <td style="text-align:right;"> 2.620 </td>
+   <td style="text-align:right;"> 16.46 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 21.0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 160.0 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.90 </td>
+   <td style="text-align:right;"> 2.875 </td>
+   <td style="text-align:right;"> 17.02 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 108.0 </td>
+   <td style="text-align:right;"> 93 </td>
+   <td style="text-align:right;"> 3.85 </td>
+   <td style="text-align:right;"> 2.320 </td>
+   <td style="text-align:right;"> 18.61 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 21.4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 258.0 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 3.08 </td>
+   <td style="text-align:right;"> 3.215 </td>
+   <td style="text-align:right;"> 19.44 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 18.7 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 360.0 </td>
+   <td style="text-align:right;"> 175 </td>
+   <td style="text-align:right;"> 3.15 </td>
+   <td style="text-align:right;"> 3.440 </td>
+   <td style="text-align:right;"> 17.02 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 18.1 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 225.0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 2.76 </td>
+   <td style="text-align:right;"> 3.460 </td>
+   <td style="text-align:right;"> 20.22 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 14.3 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 360.0 </td>
+   <td style="text-align:right;"> 245 </td>
+   <td style="text-align:right;"> 3.21 </td>
+   <td style="text-align:right;"> 3.570 </td>
+   <td style="text-align:right;"> 15.84 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 24.4 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 146.7 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 3.69 </td>
+   <td style="text-align:right;"> 3.190 </td>
+   <td style="text-align:right;"> 20.00 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 22.8 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 140.8 </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 3.92 </td>
+   <td style="text-align:right;"> 3.150 </td>
+   <td style="text-align:right;"> 22.90 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 19.2 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 167.6 </td>
+   <td style="text-align:right;"> 123 </td>
+   <td style="text-align:right;"> 3.92 </td>
+   <td style="text-align:right;"> 3.440 </td>
+   <td style="text-align:right;"> 18.30 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 17.8 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 167.6 </td>
+   <td style="text-align:right;"> 123 </td>
+   <td style="text-align:right;"> 3.92 </td>
+   <td style="text-align:right;"> 3.440 </td>
+   <td style="text-align:right;"> 18.90 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 16.4 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 275.8 </td>
+   <td style="text-align:right;"> 180 </td>
+   <td style="text-align:right;"> 3.07 </td>
+   <td style="text-align:right;"> 4.070 </td>
+   <td style="text-align:right;"> 17.40 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 17.3 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 275.8 </td>
+   <td style="text-align:right;"> 180 </td>
+   <td style="text-align:right;"> 3.07 </td>
+   <td style="text-align:right;"> 3.730 </td>
+   <td style="text-align:right;"> 17.60 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 15.2 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 275.8 </td>
+   <td style="text-align:right;"> 180 </td>
+   <td style="text-align:right;"> 3.07 </td>
+   <td style="text-align:right;"> 3.780 </td>
+   <td style="text-align:right;"> 18.00 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10.4 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 472.0 </td>
+   <td style="text-align:right;"> 205 </td>
+   <td style="text-align:right;"> 2.93 </td>
+   <td style="text-align:right;"> 5.250 </td>
+   <td style="text-align:right;"> 17.98 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+</tbody>
+</table> <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}})</script><script async src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

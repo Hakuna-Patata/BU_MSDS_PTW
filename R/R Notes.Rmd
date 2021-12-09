@@ -1,0 +1,1560 @@
+---
+title: <span style="color:#B7F06C;font-size:60px">R</span>
+output:
+  html_document: 
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+author: |
+  <span style="color:grey;font-size:17px">Author: Patrick Weatherford</span>
+date: |
+  <span style="color:#5c5c5c;font-size:14px">Last modified: `r format(Sys.time(), '%d %B %Y')`</span>
+    
+---
+
+
+<!-- CSS Style -->
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 16px;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>
+
+```{r default-chunk-settings, include=FALSE}
+
+knitr::opts_chunk$set(
+  comment=''
+)
+options(width = 125) 
+# matrix(runif(100), ncol = 30)
+
+```
+
+
+
+<hr style="border:2px solid ! important;">
+
+<br>
+
+### BASICS
+
+#### Assign value(s) to variables 
+```{r Assign variables, eval=FALSE}
+
+nl <- "\n"
+
+num_value <- 100
+
+str_value <- "Hello world!"
+
+multi_val <- 1:3
+
+global_var <<- 3  # global variable
+
+3 -> num_three  # if desired, assignment operator can be reversed
+```
+
+<br>
+
+#### Data Types
+```{r basic-data-types, eval=FALSE}
+
+numeric_type <- 10.5
+
+integer_type <- 1000L  # 'L' declares this as an integer
+
+complex_type <- 9i + 3  # 'i' is the imaginary part
+
+character_type <- "this is a string"
+
+logical_type <- FALSE
+
+date_type <- Sys.date()
+
+datetime_type <- Sys.time()
+
+```
+
+<br>
+
+#### Converting Data Types
+```{r convert-data-type, eval=FALSE}
+
+x <- 1L  # integer
+y <- 2  # numeric
+
+as.numeric(x) 
+
+as.integer(y) 
+
+as.complex(y)
+
+as.Date("2021-03-15")
+
+strptime("2021-03-15 13:25", format="%Y-%m-%d %H:%M")
+
+```
+<br>
+
+#### Arithmetic Operators
+```{r math-operators, eval=FALSE}
+
+# addition
+10+5
+
+# subtraction
+10-5
+
+# multiply
+10*5
+
+# divide
+10/5
+
+# modulus (remainder from division)
+7%%2
+
+# exponent
+2^3
+
+# integer division
+10%/%5
+
+# square root
+sqrt(144)
+
+# absolute value
+abs(-5)
+
+# round
+round(144.123456789, 4)
+
+# ceiling
+ceiling(144.123456789)
+
+# floor
+floor(144.123456789)
+
+# 
+
+```
+
+
+<br>
+
+#### Logical/Comparison Operators
+
+<BLOCKQUOTE>
+The & and | operator will always evaluate ALL elements. That is, if you type x & y, R will always try to work out what x and y are. There are some cases where this is inefficient. For example, if x is FALSE, then x & y will always be FALSE, regardless of the value of y. Thus, you can save a little processing time by not calculating it. The && and || operators takes advantage of this trick, and doesn't bother to calculate y if it doesn't make a difference to the overall result.
+</BLOCKQUOTE>
+
+```{r logical-comparison-operators, eval=FALSE}
+
+# & - Element-wise AND
+1==2 & 2==2  # all elements evaluated.
+
+# | - Element-wise OR
+1==2 | 2==2  # all elements evaluated.
+
+# && - Logical AND
+# For below evaluation, because the first element is FALSE the entire 
+# expression will be FALSE. If using && this would mean that the other elements 
+# would NOT be evaluated. This would make the code more efficient. This makes && 
+# useful in if,then,else statements and other control-flow processes.
+1==2 && 2==2
+
+# || - Logical OR
+# For below evaluation, because the first element is TRUE the entire 
+# expression will be TRUE. If using || this would mean that the other elements
+# would NOT be evaluated. This would make the code more efficient. This makes ||
+# useful in if,then,else statements and other control-flow processes.
+1==2 || 2==2
+
+# == - Evaluate if equal
+1==1
+
+# != - Evaluate if not equal
+1!=2
+
+# > - Greater than
+2 > 1
+
+# >= - Greater than or equal to
+2 >= 2
+
+# < - Less than
+2 < 1
+
+# <= - Less than or equal to
+2 <= 2
+
+# %in% - element in vector
+2 %in% c(1,2,3)
+
+```
+
+#### Simple Analysis
+```{r simpl-analysis-code, results='hide', eval=FALSE}
+
+start_vect <- c(15,30,70,5,100,20,25)
+
+min(start_vect)
+max(start_vect)
+mean(start_vect)
+median(start_vect)
+
+# summary function outputs min, 1st qu., median, mean, 3rd qu., max
+summary(start_vect)
+
+# mean of start vector where values are less than 25
+avg_less_than_25 <- mean(start_vect[start_vect < 25])
+
+# total numbers less than 25
+num_less_than_25 <- length(start_vect[start_vect < 25])
+
+```
+```{r simple-analysis-output, echo=FALSE}
+start_vect <- c(15,30,70,5,100,20,25)
+
+cat("Minimum value:",min(start_vect))
+
+cat("Maximum value:",max(start_vect))
+
+cat("Mean:",mean(start_vect))
+
+cat("Median: ",median(start_vect))
+
+cat("Summary:") 
+summary(start_vect)
+
+# mean of start vector where values are less than 25
+cat("Mean of values less than 25:",mean(start_vect[start_vect < 25]))
+
+# total numbers less than 25
+cat("Total numbers less than 25:",length(start_vect[start_vect < 25]))
+```
+<br>
+
+#### Date/Time Formatting
+
+Date Formatting
+<ul>
+  <li> Sys.Date(): current date
+  <li> %Y %y: 4-digit year | 2-digit year
+  <li> %m: 2-digit month
+  <li> %d: 2-digit day of month
+  <li> %A %a: weekday (full name) | weekday (abbreviated)
+  <li> %B %b,%h: month (full name) | month (abbreviated)
+  <li> %j: day of the year
+  <li> %U: week number of year (Sunday first)
+  <li> %W: week number of year (Monday first)
+  <li> %w: weekday number 0-6 (Sunday 0)
+  <li> %u: weekday number 1-7 (Monday 1)
+  <li> %x: date, locale-specific (%y/%m/%d)
+  <li> %D: date formatted as (mm/dd/yy)
+  <li> %C: Century
+</ul>
+Time Formatting
+<ul>
+  <li> Sys.time(): current datetime
+  <li> %c: datetime, locale-specific
+  <li> %H: hour as decimal (01-23)
+  <li> %I: hour as decimal (01-12)
+  <li> %M: minute as decimal (00-59)
+  <li> %p: AM/PM indicator, locale-specific
+  <li> %r: 12-hour clock time
+  <li> %R: hour:minute - equivalent to %H:%M
+  <li> %S: second as integer (00-61)
+  <li> %T: hour:minute:second - equivalent to %H:%M:%S
+  <li> %X: time, locale-specific
+  <li> %Z: timezone (abbreviated)
+  <li> %z: offset minutes/hours from UTC
+</ul>
+```{r date-time-formatting}
+
+nl="\n"
+
+date <- Sys.Date()
+datetime <- Sys.time()
+
+am_time <- format(datetime, "%m/%d/%y %I:%M %p (%Z) UTC%z")  # AM/PM 12-hour time formatted
+week_num <- format(datetime, "%U")  # week number (Sunday first)
+weekday_name <- format(date, "%A")  # abbreviated weekday
+weekday_num <- format(date, "%w")  # weekday number 1-7 (Monday=1)
+day_of_year <- format(date, "%j")
+
+message(
+  "sys date: ", date, nl
+  , "sys datetime: ", datetime, nl
+  , "datetime 12hr: ", am_time, nl
+  , "week: ", week_num, nl
+  , "weekday: ", weekday_name, " (", weekday_num, ")", nl
+  , "day of year: ", day_of_year
+)
+
+```
+```{r date-time-formatting-output}
+
+
+
+```
+
+
+
+
+***
+
+<br>
+
+### BUILT-IN FUNCTIONS
+
+#### **nchar()** - Character Length
+```{r character-length}
+#Character length of string
+
+nchar("pneumonoultramicroscopicsilicovolcanoconiosis")
+```
+
+<br>
+
+#### **length()** - Number of Elements
+```{r length-function, eval}
+
+# number of elements in a vector
+length(c("abc","345if","g"))
+
+```
+<br>
+
+#### **c()** - Create a Vector
+```{r vector-function}
+
+c(1,4,3,3,3)
+
+```
+<br>
+
+#### **print()** - Output Expression to Vector
+
+<BLOCKQUOTE>Compared to many other programming languages, you do not have to use a function to print/output variables in R. You can just type the name of the variable. However, when your code is inside an R expression (for example inside curly braces {}, use the print() function if you want to output the result.
+
+<br>
+One caveat of print() in R is that it cannot concatenate values together. This however is usually accomplished using a combination of print() AND paste() 
+</BLOCKQUOTE>
+
+```{r print-function-code, eval=FALSE}
+
+print("hello")
+
+for (x in 1:3) {
+  print(x)
+}
+
+# Using combination of print() & paste()
+print(paste0("Print", " concat'd", " values"))
+
+```
+```{r print-function-output, echo=FALSE}
+print("hello")
+
+for (x in 1:3) {
+  print(x)
+}
+
+print(paste0("Print", " concat'd", " values"))
+```
+
+<br>
+
+#### **paste()** - Concat Into Single-Element Vector
+```{r paste-function-code, eval=FALSE}
+
+# Paste() separator governed by sep= parameter.
+paste("this is","paste text", sep="||")
+
+# Past0() has no separator
+paste0("text with no"," seperator")
+```
+```{r past-function-output, echo=FALSE}
+paste("this is","paste text", sep="||")
+paste0("text with no"," seperator")
+```
+
+<br>
+
+#### **cat()** - Concat & Output to Console
+
+<BLOCKQUOTE>Less process intensive than print but does not output result into a vector like print.</BLOCKQUOTE>
+```{r cat-function}
+
+#concatenates and outputs 
+cat("f dk kd", "asdf", c(1,2,3), sep="\n")
+
+```
+<br>
+
+#### **message()** - Concat & Output Message
+```{r message-function}
+
+#concatenate and output message. No separator parameter.
+var1 <- "YO!"
+message(var1," This is", " a message!")
+
+```
+
+<br>
+
+#### **head()** - First [n] Rows
+<BLOCKQUOTE>When working with a data frame use this function to bring back a limited amount of rows.</BLOCKQUOTE>
+
+```{r head-function}
+
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+head(data_frame, 3)  # get first 2 rows of the data frame
+
+```
+
+<br>
+
+#### **nrow()** - Row Count
+```{r nrow-function}
+
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+nrow(data_frame)
+
+```
+<br>
+
+#### **ncol()** - Column Count
+```{r ncol-function}
+
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+ncol(data_frame)
+```
+<br>
+
+#### **names()** - Get/Set Name
+
+```{r names-function-code, results=FALSE, eval=FALSE}
+
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+# output current col names
+col_names <- names(data_frame)
+col_names
+
+# change "name" column to "first_name" and output
+names(data_frame)[2] <- "first_name"
+new_col_names <- names(data_frame)
+new_col_names
+```
+```{r names-function-output, echo=FALSE}
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+# output current col names
+col_names <- names(data_frame)
+col_names
+
+# change "name" column to "first_name" and output
+names(data_frame)[2] <- "first_name"
+new_col_names <- names(data_frame)
+new_col_names
+```
+
+<br>
+
+#### **str()** - Display R Object Structure
+
+```{r str-function-code, results='hide'}
+
+data_frame <- data.frame(
+  id = c(1,2,3,4)
+  , name = c("Bob","Sue","Frank","Betty")
+  , age = c(50,44,31,35)
+)
+
+vector1 <- c(1,2,5,7)
+str1 <- ("yo")
+
+# If object is data-frame, R will retrieve:
+# - Number of observations (rows)
+# - Number of variables (columns)
+# - Column names, their data type, and first few observation values
+str(data_frame)
+
+str(vector1)
+
+str(str1)
+
+```
+```{r str-function-output, echo=FALSE}
+
+str(data_frame)
+cat("\n")
+str(vector1)
+cat("\n")
+str(str1)
+```
+
+<br>
+
+#### **table()** - Frequency Count
+```{r table-function}
+
+data(iris)
+
+iris_df <- iris
+
+table(iris$Species)
+
+```
+
+<br>
+
+#### **date.frame()** - Create Data Frame
+```{r data-frame-function}
+
+# Create a data frame
+data_frame <- data.frame (
+  Training = c("Strength", "Stamina", "Other"),
+  Pulse = c(100, 150, 120),
+  Duration = c(60, 30, 45)
+)
+
+data_frame
+
+```
+
+<br>
+
+#### **format()** - Format Object
+```{r format-function}
+
+nl="\n"
+
+date <- Sys.Date()
+datetime <- Sys.time()
+
+
+year <- format(date, format="%Y")  # year
+hour24 <- format(datetime, format="%H")  # hour (0-23)
+
+message(
+  "datetime: ", datetime, nl, nl
+  , "year: ", year, nl
+  , "24hr: ", hour24
+)
+
+```
+
+<br>
+
+#### **rbind()** - Union Data Frames
+```{r union-data-frame-code, results='hide'}
+
+data_frame1 <- data.frame(
+  Item = c("TV","Desk")
+  , Cost = c(500,300)
+)
+
+data_frame2 <- data.frame(
+  Item = c("Chair")
+  , Cost = c(200)
+)
+
+rbind_data_frame <- rbind(data_frame1, data_frame2)
+rbind_data_frame
+
+```
+```{r union-data-frame-output, echo=FALSE}
+
+library(kableExtra)
+
+data_frame1 %>%
+  kableExtra::kbl(caption = "data_frame1") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left"
+    , full_width = FALSE
+  )
+
+message("------------------------------------------------------")
+
+data_frame2 %>%
+  kableExtra::kbl(caption = "data_frame2") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left"
+    , full_width = FALSE
+  )
+
+message("------------------------------------------------------")
+
+rbind_data_frame %>%
+  kableExtra::kbl(caption = "rbind_data_frame") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left" 
+    , full_width = FALSE
+  )
+
+```
+
+
+
+
+<br>
+
+#### **merge()** - Join Data Frames
+```{r merge-function-code, results='hide'}
+
+left_table <- data.frame(
+  ID = c("e100","e101","e102","e103")
+  , COLOR = c("Red","Green","Red","Blue")
+)
+
+right_table <- data.frame(
+  ID = c("e100","e102","e103","e104")
+  , COST = c(100,250,15,75)
+)
+
+# Inner Join
+inner_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID")
+
+# Left Join
+left_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all.x = TRUE)
+
+# Right Join
+right_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all.y = TRUE)
+
+# Full Join
+full_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all=TRUE)
+
+```
+```{r merge-function-output, echo=FALSE}
+left_table %>%
+  kableExtra::kbl(caption = "left_table") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "float_left"
+    , full_width = FALSE
+  )
+
+right_table %>%
+  kableExtra::kbl(caption = "right_table") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left" 
+    , full_width = FALSE
+  )
+
+
+inner_join %>%
+  kableExtra::kbl(caption = "inner_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+left_join %>%
+  kableExtra::kbl(caption = "left_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+
+right_join %>%
+  kableExtra::kbl(caption = "right_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+full_join %>%
+  kableExtra::kbl(caption = "full_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+
+
+```
+
+
+#### **read/write.csv()** - read CSV file
+```{r read-csv-code}
+
+# first writing mtcars.csv to working directors from data frame
+write.csv(mtcars, "mtcars.csv", row.names = FALSE)
+
+# reading mtcars.csv file
+# !! Makes sure strings as factors is FALSE unless this is intended
+mtcars_csv <- read.csv("mtcars.csv", stringsAsFactors = FALSE)
+
+head(mtcars_csv, 15) %>%
+  kableExtra::kbl(caption = "mtcars.csv (first 15 rows)") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left"
+    , full_width = FALSE
+  )
+
+
+```
+
+
+
+***
+
+<br>
+
+### VECTORS 
+
+<BLOCKQUOTE>Allows you to work with a collection (sequence) of elements. Technically speaking, when a single value is assigned to a variable and the variable is then called, it is a vector. This is indicated by the square brackets [] around the line number in the output.</BLOCKQUOTE>
+
+#### Vector Basics 
+```{r vector-basics-code, results='hide'}
+library(glue)
+nl <- "\n"
+
+#define numeric vector
+vector1 <- c(398,349,187,489)
+vector1_g <- glue_collapse(vector1, sep=",")  # collapse vector & delimit
+
+#define numeric vector with range
+vector2 <- c(1:5)
+vector2_g <- glue_collapse(vector2, sep=",")  # collapse vector & delimit
+vector3 <- 88:96
+vector3_g <- glue_collapse(vector3, sep=",")  # collapse vector & delimit
+
+#string vector
+vector4 <- c("string1", "abc")
+vector4_g <- glue_collapse(vector4, sep=",")  # collapse vector & delimit
+
+#logical vector
+log_vect <- c(TRUE,FALSE,TRUE,TRUE)
+log_vect_g <- glue_collapse(log_vect, sep=",")
+
+#Mismatched data types get converted to the same data type
+vector5 <- c("abc", 123, 24, "blah")
+vector5_g <- glue_collapse(vector5, sep=",")  # collapse vector & delimit
+
+#changing values in a vector
+vector7 <- c(1,2,3)
+vector7 <- vector7 + 10  # add 10 to every element in the vector
+vector7_g <- glue_collapse(vector7, sep=",")
+
+```
+```{r vector-basics-results, echo=FALSE}
+
+glue("numeric vector: {vector1_g}
+
+     range c(1:5): {vector2_g}
+     
+     range 88:96: {vector3_g}
+     
+     string vector: {vector4_g}
+     
+     logical vector: {log_vect_g}
+     
+     mixed data types: {vector5_g}
+     
+     change values: {vector7_g}"
+)
+```
+
+
+<br>
+
+#### Combining Vectors
+```{r combining-vectors}
+vector1 <- c(1,2,3)
+vector2 <- c(11,12,13)
+
+vector3 <- c(vector1,vector2) 
+vector3
+```
+
+<br>
+
+#### Changing Vector Values
+```{r changing-vector-values}
+vector1 <- c(1,2,3)
+vector1 <- vector1 + 10  # adds 10 to each element in the vector
+vector1
+```
+<br>
+
+#### Number of Elements in Vector
+```{r elements-in-vector}
+
+vector1 <- c("a","b","c")
+
+length(vector1)
+```
+
+
+<br>
+
+#### Arithmetic with Vectors
+
+<BLOCKQUOTE>
+Be careful when working with vectors that are not of the same size as you will get unexpected results. When you try to sum two vectors of different lengths, R responds by stretching the smaller vector so it matches the length of the longer vector. It does this by recycling each element from the start of the smaller vector, one by one, and  appending them to its end. Example below.
+</BLOCKQUOTE>
+
+```{r arithmetic-with-vectors, warning=FALSE}
+library(glue)
+nl = "\n"
+
+# adding vectors
+vector1 <- c(1,2,3)
+vector2 <- c(10,100,1000)
+
+vector3 <- vector1 + vector2
+vector3_g <- glue_collapse(vector3, sep=",")
+
+vector4 <- c(1,2,3,4,5)
+vector5 <- c(10,100)
+vector6 <- vector4 + vector5
+vector6_g <- glue_collapse(vector6, sep=",")
+
+glue("vector3: {vector3_g}
+     vector6: {vector6_g}"
+)
+```
+
+<br>
+
+#### Access Element(s) in Vector
+```{r access-vector-element}
+library(glue)
+nl = "\n"
+
+vector1 <- c("a","b","c","d")
+
+# access single element
+element2 <- vector1[2]
+
+# access multiple elements
+element1_3_4 <- vector1[c(1,3,4)]
+
+# print stuff
+element1_3_4_g <- glue_collapse(element1_3_4, sep=",")
+vector1_g <- glue_collapse(vector1, sep="")
+glue("vector1: {vector1_g}
+    element 2 = \"{element2}\"
+    element 1,3,4 = \"{element1_3_4_g}\"")
+
+```
+
+<br>
+
+#### Filtering with Logical Vector
+```{r filtering-via-logical_vector}
+library(glue)
+nl = "\n"
+
+start_vect <- c(20,3,15,8,7,11)  # starting vector
+
+# Example1: filtering based on 1 expression (simple)
+filter_vect <- start_vect > 10  # compare each value to see if greater than 10
+end_vect <- start_vect[start_vect > 10]  # will filter where element in start_vect > 10
+
+# Example2: filtering based on multiple expressions
+filter_vect2 <- start_vect > 10 & start_vect < 20 
+end_vect2 <- start_vect[start_vect > 10 & start_vect < 20]
+
+#print stuff
+start_vect_g <- glue_collapse(start_vect, sep=",")
+filter_vect_g <- glue_collapse(filter_vect, sep=",")
+filter_vect2_g <- glue_collapse(filter_vect2, sep=",")
+end_vect_g <- glue_collapse(end_vect, sep=",")
+end_vect2_g <- glue_collapse(end_vect2, sep=",")
+
+glue("Example1
+    1: {start_vect_g}
+    2: {filter_vect_g}
+    3: {end_vect_g}
+    
+    Example2
+    1: {start_vect_g}
+    2: {filter_vect2_g}
+    3: {end_vect2_g}")
+
+```
+
+***
+
+<br>
+
+### DATA FRAME
+
+<BLOCKQUOTE>
+Data in the form of a table.
+</BLOCKQUOTE>
+
+
+#### Create Data Frame
+```{r create-data-frame}
+library(knitr)
+library(kableExtra)
+
+data_frame <- data.frame(
+  ROW_ID = c("e5838","e5839","e5840","e5841","e5842","e5843","e5844")
+  , DATE = c(as.Date("2020-02-29"), as.Date("2021-03-15"), as.Date("2021-01-27"), as.Date("2019-07-18"), as.Date("2019-10-18"), as.Date("2018-10-04"), as.Date("2020-12-25"))
+  , DATE_TIME = c(strptime("2020-02-29 3:05", format="%Y-%m-%d %H:%M"), strptime("2021-03-15 13:25", format="%Y-%m-%d %H:%M"), strptime("2021-01-27 15:45", format="%Y-%m-%d %H:%M"), strptime("2019-07-18 08:00", format="%Y-%m-%d %H:%M"), strptime("2019-10-18 17:21", format="%Y-%m-%d %H:%M"), strptime("2018-10-04 16:55", format="%Y-%m-%d %H:%M"), strptime("2020-12-25 07:15", format="%Y-%m-%d %H:%M"))
+  , SEASON = c("WINTER","WINTER","WINTER","SUMMER","FALL","FALL","WINTER")
+  , ITEM = c("TV","COMPUTER","COUCH","DESK","HYUNDAI IONIQ","SQUAT RACK","TREADMILL")
+  , ITEM_CAT = c("ELECTRONICS","ELECTRONICS","FURNITURE","FURNITURE","CAR","FITNESS","FITNESS")
+  , COST = c(500.25,1235.75,875.98,305.86,15000.00,350.19,1139.05)
+  )
+
+data_frame %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+  )
+
+
+```
+
+<br>
+
+#### Built-In Data Sets
+<BLOCKQUOTE>
+R has built in Data Sets to work with. To see a list of all built-in data sets run the function: <span style="color:#f73e7f">data</span><span style="color:white">()</span>.
+<br>
+<br>
+Also, if you make changes to the data set and want to restore the data back to the way it was, run the script <span style="color:#f73e7f">data</span><span style="color:white">(</span>[data_frame_variable]<span style="color:white">)</span>
+</BLOCKQUOTE>
+```{r built-in-data-sets-code, eval=FALSE}
+
+# Built-in Data Set mtcars:
+
+head(mtcars, 20)
+
+```
+```{r built-in-data-sets-output, echo=FALSE}
+
+head(mtcars, 20) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+  )
+
+```
+
+<br>
+
+#### Get Data Frame Details
+
+```{r data-frame-details-code, eval=FALSE}
+
+# Number of rows in Data Frame
+nrow(data_frame)
+
+# Number of columns in Data Frame
+ncol(data_frame) 
+
+# Get Data Frame column names
+names(data_frame)
+
+# Get summary of Data Frame
+summary(data_frame)
+
+```
+```{r data-frame-details-output, echo=FALSE}
+nl="\n"
+library(knitr)
+library(kableExtra)
+
+message(
+  "Rows: ", nrow(data_frame), nl, nl
+  , "Columns: ", ncol(data_frame), nl, nl
+  , "Column Names: "
+)
+
+cat(names(data_frame), sep=" | ")
+
+message(nl, "Summary: ")
+
+summary(data_frame) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+  )
+
+```
+
+<br>
+
+#### Top [n] Rows
+```{r get-top-n-rows-code, eval=FALSE}
+
+# Get top 5 rows
+head(data_frame, 5)
+
+```
+```{r get-top-n-rows-output, echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+
+head(data_frame, 5) %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+  )
+
+```
+
+<br>
+
+#### Selecting Columns
+<BLOCKQUOTE>
+  <ul>
+    <li> $, [[]] - returns column values as a vector
+  </ul> [] - returns columns as a data frame
+</BLOCKQUOTE>
+```{r accessing-data-frame-elements-code, eval=FALSE}
+
+data(iris)
+
+# Retrieve column(s) as data frame
+iris_data <- iris[c("Sepal.Length","Sepal.Width")]  # retrieve column(s) as data frame
+
+# Retrieve column values into vector(s)
+iris$Sepal.Length
+# OR
+iris[["Sepal.Length"]]
+
+```
+```{r accessing-data-frame-elements-output, echo=FALSE}
+data(iris)
+
+# Retrieve column(s) as data frame
+df1 <- iris[c("Sepal.Length","Sepal.Width")]  # retrieve column(s) as data frame
+
+# Retrieve column values into vector(s)
+v1 <- iris$Sepal.Length
+
+v2 <- iris[["Sepal.Length"]]
+
+head(df1, 10) %>%
+  kableExtra::kbl(caption = "[] - Retrieve Column(s) as Data Frame") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = FALSE
+    , position = "float_left"
+  )
+
+message("Retrieve Column Values into Vector: \n")
+v1
+```
+<br style="clear:both"/>
+
+#### Rename Column
+```{r rename-column-code, results='hide'}
+
+# Change column name based on current column name
+column_names_to_change <- "COST"
+columns_to_change <- which(colnames(data_frame) == column_names_to_change) # get index of column to change
+names(data_frame)[columns_to_change] <- "COST_OF_ITEM" 
+
+# Change column name based on 
+names(data_frame)[7] <- "ITEM_COST"
+
+data_frame
+
+```
+```{r rename-column-output, echo=FALSE}
+
+data_frame %>%
+  kableExtra::kbl() %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+  )
+
+```
+<br>
+
+#### Add/Remove Columns/Rows
+```{r add-remove-row-column-code, results='hide'}
+
+# Filter iris data frame
+iris_sub <- iris[c(1,50,60,70,80,120,127),]
+iris_sub
+
+# Add Row
+new_row_iris <- rbind(iris_sub, c(5.3,3.2,1.5,0.3,"setosa"))
+new_row_iris
+
+# Remove Row
+remove_row_iris <- new_row_iris[-c(3), ]  # remove 3rd row
+remove_row_iris
+
+# Add Column
+new_col_iris <- cbind(remove_row_iris, Main.Color = c("white","yellow","purple","pink","yellow","purple","white"))
+new_col_iris
+
+# Remove Column
+remove_col_iris <- new_col_iris[, -c(1:4)]  # remove columns 1-4
+remove_col_iris
+```
+```{r add-remove-row-column-output, echo=FALSE}
+library(kableExtra)
+
+iris_sub %>%
+  kableExtra::kbl(caption = "Beginning Data Set") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+
+new_row_iris %>%
+  kableExtra::kbl(caption = "Add Row") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left" 
+  )
+
+remove_row_iris %>%
+  kableExtra::kbl(caption = "Remove Row") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left" 
+  )
+```
+<br style="clear:both">
+```{r add-remove-row-column-output2, echo=FALSE}
+library(kableExtra)
+
+new_col_iris %>%
+  kableExtra::kbl(caption = "Add Column") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+remove_col_iris %>%
+  kableExtra::kbl(caption = "Remove Column") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+
+```
+
+<br>
+
+#### Filter Data Frame
+```{r filter-data-frame-code, eval=FALSE}
+
+data(iris)  # reset data set back to built-in values.
+
+# Filter where sepal.length between 5.2 - 5.5 (exclusive)
+iris[iris["Sepal.Length"] > 5.2 & iris["Sepal.Length"] < 5.5, ]
+
+```
+```{r filter-data-frame-output, echo=FALSE}
+library(kableExtra)
+
+data(iris)
+
+iris_data <- iris[iris["Sepal.Length"] > 5.2 & iris["Sepal.Length"] < 5.5, ]
+
+iris_data %>%
+  kableExtra::kbl(caption = "Filtered Data") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+```
+
+
+
+<br>
+
+#### Union Data Frames
+```{r df-union-data-frame-code, results='hide'}
+
+data_frame1 <- data.frame(
+  Item = c("TV","Desk")
+  , Cost = c(500,300)
+)
+
+data_frame2 <- data.frame(
+  Item = c("Chair")
+  , Cost = c(200)
+)
+
+rbind_data_frame <- rbind(data_frame1, data_frame2)
+rbind_data_frame
+
+```
+```{r df-union-data-frame-output, echo=FALSE}
+
+library(kableExtra)
+
+data_frame1 %>%
+  kableExtra::kbl(caption = "data_frame1") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left" 
+  )
+
+message("--------------------------")
+
+data_frame2 %>%
+  kableExtra::kbl(caption = "data_frame2") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+
+message("--------------------------")
+
+rbind_data_frame %>%
+  kableExtra::kbl(caption = "rbind_data_frame") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left" 
+  )
+
+```
+
+<br>
+
+#### Join Data Frames
+```{r df-merge-function-code, results='hide'}
+
+left_table <- data.frame(
+  ID = c("e100","e101","e102","e103")
+  , COLOR = c("Red","Green","Red","Blue")
+)
+
+right_table <- data.frame(
+  ID = c("e100","e102","e103","e104")
+  , COST = c(100,250,15,75)
+)
+
+# Inner Join
+inner_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID")
+
+# Left Join
+left_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all.x = TRUE)
+
+# Right Join
+right_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all.y = TRUE)
+
+# Full Join
+full_join <- merge(left_table, right_table, by.x = "ID", by.y = "ID", all=TRUE)
+
+```
+```{r df-merge-function-output, echo=FALSE}
+left_table %>%
+  kableExtra::kbl(caption = "left_table") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "float_left"
+    , full_width = FALSE
+  )
+
+right_table %>%
+  kableExtra::kbl(caption = "right_table") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , position = "left" 
+    , full_width = FALSE
+  )
+
+
+inner_join %>%
+  kableExtra::kbl(caption = "inner_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+left_join %>%
+  kableExtra::kbl(caption = "left_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+
+right_join %>%
+  kableExtra::kbl(caption = "right_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "float_left"
+  )
+
+
+full_join %>%
+  kableExtra::kbl(caption = "full_join") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped","bordered","condensed")
+    , full_width = F
+    , position = "left"
+  )
+
+
+```
+
+<br>
+
+
+***
+
+### DATA VISUALIZATION
+
+<br>
+
+#### Histogram
+```{r simple-histogram, fig.width=4, fig.height=3, fig.cap="This is a figure caption!"}
+
+data(iris)
+
+data_vect <- iris$Sepal.Length
+
+hist(data_vect, col="#a56cf0", main="Histogram", xlab="Sepal Length", border="black")
+```
+
+<br>
+
+#### Barplot
+
+```{r freq-count-in-vector, fig.width=4, fig.height=3}
+# Use the table() function to first get frequency count. Then plot the results.
+
+
+str_vector <- c("a","c","df","c","b","a","c","d","df")
+
+
+barplot(table(str_vector)
+        , col="#a56cf0"
+        , main="Barplot"
+        , xlab="Element"
+        , border="black"
+        , ylab="Frequency")
+```
+
+<br>
+
+#### ggplot
+
+##### - Histogram w/Lines
+```{r ggplot-histogram-with-lines}
+library(ggplot2)
+
+mtcars_df <- mtcars
+
+mtcars_df %>% 
+  ggplot(
+    aes(x=disp)
+  ) +
+  geom_histogram(mapping = aes(y =..density..)
+                 , binwidth = 20
+                 , color="darkgreen"
+                 , fill="lightgreen"
+                 , alpha=0.5) + 
+  geom_density(size = 1.2, aes(color = "Density")) + 
+  stat_function(fun = dnorm,
+                args = list(mean = mean(mtcars_df$disp, na.rm=TRUE)
+                            , sd = sd(mtcars_df$disp, na.rm=TRUE))
+                , aes(color = "Normal Curve")
+                , size = 1.2
+  ) + 
+  ggtitle("Histogram with Normal & Density Lines") +
+  labs(
+    x = "Displacement (cu.in.)"
+    , y = "Density"
+  ) +
+  scale_color_manual("Legend", values = c("darkgrey", "purple"))
+
+```
+<br> 
+<br>
+
+
+##### - Plot w/Regression
+```{r ggplot-plot-with-regression}
+library(ggplot2)
+
+d_df <- diamonds
+
+d_df %>% 
+  ggplot(
+    aes(x=carat, y=price)
+  ) + 
+  facet_grid(rows=vars(cut)) + 
+  geom_point(aes(col=cut), alpha=.2) + 
+  geom_smooth()
+
+```
+
+<br>
+
+#### Q-Q (quantile-quantile) Plot
+```{r ggplot-qqplot}
+
+qqnorm(iris$Sepal.Length); qqline(iris$Sepal.Length)
+
+```
+

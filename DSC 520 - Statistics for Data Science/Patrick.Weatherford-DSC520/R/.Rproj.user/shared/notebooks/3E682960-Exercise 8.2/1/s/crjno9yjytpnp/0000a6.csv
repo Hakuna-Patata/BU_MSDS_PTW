@@ -1,0 +1,3 @@
+"0","housing_df2 %>% "
+"0","  ggplot(aes(x=CURRENT_ZONING_ID, y=SALE_PRICE)) + "
+"0","  geom_boxplot(aes(color=CURRENT_ZONING_ID))"

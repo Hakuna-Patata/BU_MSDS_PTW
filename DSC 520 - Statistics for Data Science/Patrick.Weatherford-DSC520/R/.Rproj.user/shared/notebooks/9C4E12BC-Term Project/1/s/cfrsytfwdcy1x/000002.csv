@@ -1,0 +1,1 @@
+"0","ggplot(data = Lahman_df, mapping = aes(x=`League WHIP`, y=OPS)) + geom_point() + geom_smooth(method = ""lm"", formula = y~x)"

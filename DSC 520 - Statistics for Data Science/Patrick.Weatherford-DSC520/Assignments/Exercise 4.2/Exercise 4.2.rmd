@@ -1,0 +1,392 @@
+---
+title: <span style="color:#B7F06C;font-size:60px">Assignment 4.2</span>
+output:
+  html_document: 
+    toc: yes
+    toc_float: yes
+    toc_depth: 5
+    theme: darkly
+    highlight: tango
+author: |
+  <span style="color:grey;font-size:17px">Author: Patrick Weatherford</span>
+date: |
+  <span style="color:#5c5c5c;font-size:14px">Last modified: `r format(Sys.time(), '%d %B %Y')`</span>
+    
+---
+
+<!-- CSS Style -->
+<style>
+
+  h3 {
+    color: #a56cf0;
+    font: bold;
+    }
+
+  
+  h4 {
+    color: white;
+    }
+  
+  .tocify-header {
+    color: #a56cf0;
+    }
+    
+  
+  .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: #4b2b75;
+    border-color: #4b2b75;
+    }
+    
+  div.main-container {
+    max-width: 2000px
+    }
+    
+  #TOC {
+    margin: 25px 20px 20px 0px;
+    width: 30%;
+    max-width: 300px
+    }
+    
+  .list-group-item {
+    background-color: #2b2b2b
+    }
+  
+  .tocify-subheader {
+    color: white;
+    }
+    
+  .tocify-subheader .tocify-subheader {
+    color: #b0b0b0;
+    }
+  
+  body {
+    color: grey;
+    background-color: #222222;
+    }
+  
+  
+  hr {
+    border: 1px solid;
+    color: grey;
+    }
+    
+  BLOCKQUOTE {
+    font-size: 15px;
+    color: #ebc634;
+    }
+    
+  pre:not([class]) {
+    background-color: #222222;
+    color: #B7F06C;
+    border: none;
+    }
+    
+  pre.sourceCode {
+    background-color: #454545;
+    color: white;
+    white-space: pre-line;
+    }
+    
+  pre.numberSource {
+    margin-left: 2em;
+    }
+
+  /*quotations and string characters*/
+  code span.st, code span.sc {
+    color: #f5ea78;
+    }
+
+  /*numbers | TRUE/FALSE*/
+  code span.dv, code span.fl, code span.cn {
+    color: #63aaff;
+    }
+
+  /*keyword*/
+  code span.fu, code span.cf {
+    color: #f73e7f;
+    }
+
+  /*comment | operators*/
+  code span.co, code span.ot {
+    color: #8c8c8c;
+  }
+    
+  tbody {
+    color: #adadad
+    }
+    
+  thead {
+    color: #B7F06C
+    }
+    
+  tr:hover, .table-striped>tbody>tr:nth-of-type(odd):hover {
+    background-color: #4b632b
+    }
+    
+  code {
+    box-sizing: initial
+    }
+    
+</style>
+
+***
+<br>
+```{r default-chunk-settings, include=FALSE}
+knitr::opts_chunk$set(
+  comment=''
+)
+options(width = 125) 
+# matrix(runif(100), ncol = 30)
+```
+
+Load appropriate packages for the assignment
+```{r, message=FALSE}
+library(tidyr)
+library(dplyr)
+library(rmarkdown)
+library(gridExtra)
+library(ggplot2)
+library(readxl)
+```
+
+
+### 1. Test Scores
+
+A professor has recently taught two sections of the same course with only one difference between the sections. In one section, he used only examples taken from sports applications, and in the other section, he used examples taken from a variety of application areas. The sports themed section was advertised as such; so students knew which type of section they were enrolling in. The professor has asked you to compare student performance in the two sections using course grades and total points earned in the course. You will need to import the Scores.csv dataset that has been provided for you.
+
+Use the appropriate R functions to answer the following questions:
+
+<ol>
+    <li>What are the observational units in this study?
+<BLOCKQUOTE>
+The observational unit is what makes each row unique in the data set. In the scores.csv file, each row represents a unique score obtained in a particular section of a course."
+</BLOCKQUOTE>
+    
+```{r}
+scores_df <- read.csv("C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/scores.csv"
+         , stringsAsFactors = FALSE
+         , header = TRUE)
+
+
+scores_df[,c("Section", "Score")] %>% 
+  paged_table(options = list(rows.print=10)) 
+
+```
+<br>
+    <li>Identify the variables mentioned in the narrative paragraph and determine which are categorical and quantitative?
+<BLOCKQUOTE>
+The categorical variable would be 'Section'. The 'Count' and 'Score' variables would be quantitative"
+</BLOCKQUOTE>
+```{r}
+summary(scores_df)
+```
+
+<br>
+    <li>Create one variable to hold a subset of your data set that contains only the Regular Section and one variable for the Sports Section.
+```{r}
+sport_scores_df <- dplyr::filter(scores_df, Section=="Sports")
+regular_scores_df <- dplyr::filter(scores_df, Section=="Regular")
+```
+<br>
+    <li>Use the Plot function to plot each Sections scores and the number of students achieving that score. Use additional Plot Arguments to label the graph and give each axis an appropriate label. Once you have produced your Plots answer the following questions:
+```{r}
+sport_mean <- sum(sport_scores_df$Score * sport_scores_df$Count) / sum(sport_scores_df$Count)
+sport_sd <- sqrt((sum(sport_scores_df$Count * ((sport_scores_df$Score - sport_mean)^2))) / (sum(sport_scores_df$Count)-1))
+
+sport_scores_plot <- sport_scores_df %>% 
+  ggplot(aes(x=Score, y=Count, label=..y..)) +
+  theme_dark() +
+  stat_summary_bin(fun=sum, aes(x=Score, y=Count), geom="bar", binwidth=10, na.rm=TRUE, color="black", fill="#64cc52") + 
+  stat_summary_bin(fun=sum, aes(x=Score, y=Count), geom="text", binwidth=10, na.rm=TRUE, vjust=1, color="white", size=3.5, fontface="bold") +
+  labs(
+    title="Sport Section"
+    , x="Score"
+    , y="Frequency"
+    , subtitle = paste0("Mean = ",round(sport_mean,2), " , SD = ", round(sport_sd,2))
+  ) + 
+  scale_x_continuous(breaks=seq(min(scores_df$Score)-15, max(scores_df$Score)+15, by=15), limits=c(min(scores_df$Score)-15,max(scores_df$Score)+15)) 
+
+reg_mean <- sum(regular_scores_df$Score * regular_scores_df$Count) / sum(regular_scores_df$Count)
+reg_sd <- sqrt((sum(regular_scores_df$Count * ((regular_scores_df$Score - reg_mean)^2))) / (sum(regular_scores_df$Count)-1))
+
+regular_scores_plot <- regular_scores_df %>% 
+  ggplot(aes(x=Score, y=Count, label=..y..)) +
+  theme_dark() + 
+  stat_summary_bin(fun=sum, aes(x=Score, y=Count), geom="bar", binwidth=10, na.rm=TRUE, color="black", fill="#7e52cc") + 
+  stat_summary_bin(fun=sum, aes(x=Score, y=Count), geom="text", binwidth=10, na.rm=TRUE, vjust=1, color="white", size=3.5, fontface="bold") +
+  labs(
+    title="Regular Section"
+    , x="Score"
+    , y="Frequency"
+    , subtitle = paste0("Mean = ",round(reg_mean,2), " , SD = ", round(reg_sd,2))
+  ) + 
+  scale_x_continuous(breaks=seq(min(scores_df$Score)-15, max(scores_df$Score)+15, by=15), limits=c(min(scores_df$Score)-15,max(scores_df$Score)+15)) 
+
+
+grid.arrange(
+  sport_scores_plot, regular_scores_plot
+  , nrow=2, ncol=1
+)
+```
+<br>
+<br>
+        <ol style="list-style-type: lower-alpha">
+            <li>Comparing and contrasting the point distributions between the two section, looking at both tendency and consistency: Can you say that one section tended to score more points than the other? Justify and explain your answer.
+<BLOCKQUOTE>
+Yes, when looking visually at the distribution, the data looks less dispersed and clustered more on the higher end of the scores for the <b>'Regular'</b> section. This was validated by calculating the mean and standard deviation for the data. I was a bit stumped at first on how to plot this graph and calculate the standard deviation because the data is pre-summarized. 
+</BLOCKQUOTE>
+<br>
+            <li>Did every student in one section score more points than every student in the other section? If not, explain what a statistical tendency means in this context.
+<BLOCKQUOTE>
+No, there is overlap in the distributions for both samples (aka sections). A pretty fair amount of overlap as well. Statistically speaking, the more overlap there is between samples, the more confident we can be that the samples came from the same population thus, there is likely no effect, thus we are more confident in accepting the NULL hypothesis. 
+</BLOCKQUOTE>
+<br>
+            <li>What could be one additional variable that was not mentioned in the narrative that could be influencing the point distributions between the two sections?
+<BLOCKQUOTE>
+Because the experiment uses an <b>Independent Design</b> data collection method where different groups receive different conditions, the experiment is more prone to unsystematic variation, especially since randomization efforts were not enforced and students were allowed to choose their own class. Because each group has different experiences, cultures, IQ's, GPA, etc. any variable that is attributed to something which differentiates one person from another could be a variable that could effect the results. I imagine a bunch of dumb jocks signed up for the sports section which lowered the scores. All brawn and no brain!
+</BLOCKQUOTE>
+<br>
+        </ol>
+</ol>
+
+
+
+<br>
+<br>
+
+### 2. Data Transformation
+
+We interact with a few datasets in this course, one you are already familiar with, the 2014 American Community Survey and the second is a Housing dataset, that provides real estate transactions recorded from 1964 to 2016.  For this exercise, you need to start practicing some data transformation steps – which will carry into next week, as you learn some additional methods.  For this week, using either dataset (or one of your own – although I will let you know ahead of time that the Housing dataset is used for a later assignment, so not a bad idea for you to get more comfortable with now!), perform the following data transformations:
+```{r}
+housing_df <- readxl::read_excel(path="C:/Users/patwea/OneDrive - Bellevue University/BU/DSC 520 - Statistics for Data Science/Patrick.Weatherford-DSC520/dsc520-clone/data/week-7-housing.xlsx"
+                   , sheet="Sheet2")
+
+hdf <- housing_df
+```
+
+<br>
+<ol style="list-style-type: lower-alpha">
+    <li>Use the apply function on a variable in your dataset
+```{r}
+price_sd <- hdf["Sale Price"] %>% 
+  apply(MARGIN=2, sd)
+
+message("Variable = Sale Price
+SD +/- $", formatC(price_sd, format="f", digits=2, big.mark=","))
+
+```
+<br>
+    <li>Use the aggregate function on a variable in your dataset
+    <BLOCKQUOTE>
+    Median sale price grouped by the 'current zone' variable.
+    </BLOCKQUOTE>
+```{r}
+
+hdf$`Sale Price` %>% 
+  aggregate(
+    by=list("Current Zone"=hdf$current_zoning)
+    , FUN=median
+  ) %>% 
+  dplyr::rename(`Median Price`=x) %>% 
+  dplyr::arrange(desc(`Median Price`))
+  
+```
+<br>
+    <li>Use the plyr function on a variable in your dataset – more specifically, I want to see you split some data, perform a modification to the data, and then bring it back together
+<BLOCKQUOTE>
+In below code, I first got the median sale price for each zone. Then I used a right join to join the zone median price onto the housing data. From there a created a new variable that looks to see if the sale price was above the median price for the zone specified for the observation.
+</BLOCKQUOTE>
+```{r}
+
+hdf %>% 
+  dplyr::group_by(current_zoning) %>% 
+  dplyr::summarise("Zone Median Price"=median(`Sale Price`)) %>% 
+  dplyr::right_join(hdf, by="current_zoning") %>% 
+  dplyr::mutate("Above Median Price?"=ifelse(`Sale Price`>`Zone Median Price`,"Y","N")) %>% 
+  dplyr::select("Sale Date", "Sale Price", "Zone"="current_zoning", "Zone Median Price", "Above Median Price?") %>%
+  rmarkdown::paged_table()
+
+```
+<br>
+    <li>Check distributions of the data
+```{r}
+
+
+sale_box <- hdf %>% 
+  ggplot(aes(x=`Sale Price`, y=..density..)) + 
+  geom_histogram() + 
+  labs(
+    x="Sale Price"
+    , y="Density"
+  )
+
+living_sqft_box <- hdf %>% 
+  ggplot(aes(x=`square_feet_total_living`)) + 
+  geom_histogram() + 
+  labs(
+    x="Living Area Sqft."
+    , y="Density"
+  )
+
+lot_sqft_box <- hdf %>% 
+  ggplot(aes(x=`sq_ft_lot`)) + 
+  geom_histogram() + 
+  labs(
+    x="Lot Sqft."
+    , y="Density"
+  )
+
+gridExtra::grid.arrange(
+  sale_box, living_sqft_box, lot_sqft_box
+  , nrow=3, ncol=1
+)
+
+```
+<br>
+<br>
+    <li>Identify if there are any outliers
+```{r}
+
+sale_box <- hdf %>% 
+  ggplot(aes(y=`Sale Price`)) + 
+  geom_boxplot(outlier.color="red") + 
+  labs(
+    y="Sale Price"
+  )
+
+living_sqft_box <- hdf %>% 
+  ggplot(aes(y=`square_feet_total_living`)) + 
+  geom_boxplot(outlier.color="red") + 
+  labs(
+    y="Living Area Sqft."
+  )
+
+lot_sqft_box <- hdf %>% 
+  ggplot(aes(y=`sq_ft_lot`)) + 
+  geom_boxplot(outlier.color="red") + 
+  labs(
+    y="Lot Sqft."
+  )
+
+gridExtra::grid.arrange(
+  sale_box, living_sqft_box, lot_sqft_box
+  , nrow=1, ncol=3
+)
+
+```
+<br>
+<br>
+    <li>Create at least 2 new variables
+```{r}
+
+hdf %>% 
+  dplyr::mutate("Price per Living Sqft."=round(`Sale Price` / `square_feet_total_living`, 2)) %>% 
+  dplyr::mutate("Price per Lot Sqft."=round(`Sale Price` / `sq_ft_lot`, 2)) %>% 
+  rmarkdown::paged_table()
+
+```
+<br>
+</ol>
+
+
+

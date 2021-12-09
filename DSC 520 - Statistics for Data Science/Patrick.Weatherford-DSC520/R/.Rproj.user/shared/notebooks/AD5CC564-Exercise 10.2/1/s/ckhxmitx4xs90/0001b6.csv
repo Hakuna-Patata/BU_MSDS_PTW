@@ -1,0 +1,4 @@
+"0","boxplot(ts_df$PRE4, main=""PRE4"")
+boxplot(ts_df$PRE5, main=""PRE5"")
+"
+"0","boxplot(ts_df$AGE, main=""Age"")"
