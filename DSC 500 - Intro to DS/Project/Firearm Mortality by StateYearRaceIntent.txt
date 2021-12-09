@@ -1,0 +1,500 @@
+"Notes"	"State"	"State Code"	"Year"	"Year Code"	"Single Race 6"	"Single Race 6 Code"	"UCD - Injury Intent"	"UCD - Injury Intent Code"	Deaths	Population	Crude Rate
+	"Alabama"	"01"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	62	1310802	4.72993
+	"Alabama"	"01"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	331	1310802	25.25172
+	"Alabama"	"01"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	15	3379955	Unreliable
+	"Alabama"	"01"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	485	3379955	14.34930
+	"Alabama"	"01"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	132	3379955	3.90538
+	"Alabama"	"01"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	12	3379955	Unreliable
+	"Alabama"	"01"	"2019"	"2019"	"Black or African American"	"2054-5"	"Unintentional"	"1"	10	1313291	Unreliable
+	"Alabama"	"01"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	59	1313291	4.49253
+	"Alabama"	"01"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	349	1313291	26.57446
+	"Alabama"	"01"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	19	3389396	Unreliable
+	"Alabama"	"01"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	478	3389396	14.10281
+	"Alabama"	"01"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	133	3389396	3.92400
+	"Alabama"	"01"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	10	3389396	Unreliable
+	"Alaska"	"02"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	18	113516	Unreliable
+	"Alaska"	"02"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	78	481879	16.18664
+	"Alaska"	"02"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	31	113953	27.20420
+	"Alaska"	"02"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	16	113953	Unreliable
+	"Alaska"	"02"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	72	477488	15.07891
+	"Alaska"	"02"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	24	477488	5.02630
+	"Arizona"	"04"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	22	380160	5.78704
+	"Arizona"	"04"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	21	380160	5.52399
+	"Arizona"	"04"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	30	364280	8.23542
+	"Arizona"	"04"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	55	364280	15.09828
+	"Arizona"	"04"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	729	5937806	12.27726
+	"Arizona"	"04"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	195	5937806	3.28404
+	"Arizona"	"04"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	13	5937806	Unreliable
+	"Arizona"	"04"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	22	5937806	0.37051
+	"Arizona"	"04"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	17	205915	Unreliable
+	"Arizona"	"04"	"2018"	"2018"	"More than one race"	"M"	"Homicide"	"3"	17	205915	Unreliable
+	"Arizona"	"04"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	12	385903	Unreliable
+	"Arizona"	"04"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	26	385903	6.73744
+	"Arizona"	"04"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	21	376997	5.57034
+	"Arizona"	"04"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	48	376997	12.73220
+	"Arizona"	"04"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	758	6013442	12.60509
+	"Arizona"	"04"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	189	6013442	3.14296
+	"Arizona"	"04"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	15	6013442	Unreliable
+	"Arizona"	"04"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	12	213483	Unreliable
+	"Arizona"	"04"	"2019"	"2019"	"More than one race"	"M"	"Homicide"	"3"	17	213483	Unreliable
+	"Arkansas"	"05"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	16	472287	Unreliable
+	"Arkansas"	"05"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	129	472287	27.31390
+	"Arkansas"	"05"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	327	2385213	13.70947
+	"Arkansas"	"05"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	63	2385213	2.64127
+	"Arkansas"	"05"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	11	2385213	Unreliable
+	"Arkansas"	"05"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	22	473048	4.65069
+	"Arkansas"	"05"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	136	473048	28.74973
+	"Arkansas"	"05"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	314	2385258	13.16419
+	"Arkansas"	"05"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	70	2385258	2.93469
+	"California"	"06"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	11	651076	Unreliable
+	"California"	"06"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	13	651076	Unreliable
+	"California"	"06"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	68	6063600	1.12145
+	"California"	"06"	"2018"	"2018"	"Asian"	"A"	"Homicide"	"3"	47	6063600	0.77512
+	"California"	"06"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	74	2556000	2.89515
+	"California"	"06"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	320	2556000	12.51956
+	"California"	"06"	"2018"	"2018"	"Black or African American"	"2054-5"	"Legal Intervention / Operations of War"	"5"	11	2556000	Unreliable
+	"California"	"06"	"2018"	"2018"	"Native Hawaiian or Other Pacific Islander"	"NHOPI"	"Homicide"	"3"	10	199872	Unreliable
+	"California"	"06"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	24	28531740	0.08412
+	"California"	"06"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	1430	28531740	5.01196
+	"California"	"06"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	836	28531740	2.93007
+	"California"	"06"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	14	28531740	Unreliable
+	"California"	"06"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	63	28531740	0.22081
+	"California"	"06"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	42	1554757	2.70139
+	"California"	"06"	"2018"	"2018"	"More than one race"	"M"	"Homicide"	"3"	49	1554757	3.15162
+	"California"	"06"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	73	6110945	1.19458
+	"California"	"06"	"2019"	"2019"	"Asian"	"A"	"Homicide"	"3"	45	6110945	0.73638
+	"California"	"06"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	58	2552757	2.27205
+	"California"	"06"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	374	2552757	14.65083
+	"California"	"06"	"2019"	"2019"	"Black or African American"	"2054-5"	"Legal Intervention / Operations of War"	"5"	11	2552757	Unreliable
+	"California"	"06"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	18	28424739	Unreliable
+	"California"	"06"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	1403	28424739	4.93584
+	"California"	"06"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	762	28424739	2.68076
+	"California"	"06"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	49	28424739	0.17239
+	"California"	"06"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	42	1574115	2.66817
+	"California"	"06"	"2019"	"2019"	"More than one race"	"M"	"Homicide"	"3"	48	1574115	3.04933
+	"Colorado"	"08"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	18	259711	Unreliable
+	"Colorado"	"08"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	47	259711	18.09704
+	"Colorado"	"08"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	613	4959310	12.36059
+	"Colorado"	"08"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	123	4959310	2.48018
+	"Colorado"	"08"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	19	4959310	Unreliable
+	"Colorado"	"08"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	13	176856	Unreliable
+	"Colorado"	"08"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	13	264479	Unreliable
+	"Colorado"	"08"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	37	264479	13.98977
+	"Colorado"	"08"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	617	5006612	12.32370
+	"Colorado"	"08"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	116	5006612	2.31694
+	"Colorado"	"08"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	17	5006612	Unreliable
+	"Connecticut"	"09"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	32	429298	7.45403
+	"Connecticut"	"09"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	123	2859280	4.30178
+	"Connecticut"	"09"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	21	2859280	0.73445
+	"Connecticut"	"09"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	13	434585	Unreliable
+	"Connecticut"	"09"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	38	434585	8.74397
+	"Connecticut"	"09"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	105	2841541	3.69518
+	"Connecticut"	"09"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	26	2841541	0.91500
+	"Delaware"	"10"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	39	222070	17.56203
+	"Delaware"	"10"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	48	672019	7.14266
+	"Delaware"	"10"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	36	225544	15.96141
+	"Delaware"	"10"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	41	674075	6.08241
+	"District of Columbia"	"11"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	112	326181	34.33676
+	"District of Columbia"	"11"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	124	324484	38.21452
+	"Florida"	"12"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	119	3600121	3.30544
+	"Florida"	"12"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	554	3600121	15.38837
+	"Florida"	"12"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	10	16472125	Unreliable
+	"Florida"	"12"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	1729	16472125	10.49652
+	"Florida"	"12"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	414	16472125	2.51334
+	"Florida"	"12"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	18	16472125	Unreliable
+	"Florida"	"12"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	17	634827	Unreliable
+	"Florida"	"12"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	112	3633515	3.08241
+	"Florida"	"12"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	597	3633515	16.43037
+	"Florida"	"12"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	1665	16597392	10.03170
+	"Florida"	"12"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	392	16597392	2.36182
+	"Florida"	"12"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	19	16597392	Unreliable
+	"Florida"	"12"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	11	478412	Unreliable
+	"Florida"	"12"	"2019"	"2019"	"More than one race"	"M"	"Homicide"	"3"	16	478412	Unreliable
+	"Georgia"	"13"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	14	453488	Unreliable
+	"Georgia"	"13"	"2018"	"2018"	"Asian"	"A"	"Homicide"	"3"	12	453488	Unreliable
+	"Georgia"	"13"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	156	3411145	4.57324
+	"Georgia"	"13"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	474	3411145	13.89563
+	"Georgia"	"13"	"2018"	"2018"	"Black or African American"	"2054-5"	"Legal Intervention / Operations of War"	"5"	15	3411145	Unreliable
+	"Georgia"	"13"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	813	6360528	12.78196
+	"Georgia"	"13"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	156	6360528	2.45263
+	"Georgia"	"13"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	10	6360528	Unreliable
+	"Georgia"	"13"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	16	463966	Unreliable
+	"Georgia"	"13"	"2019"	"2019"	"Asian"	"A"	"Homicide"	"3"	10	463966	Unreliable
+	"Georgia"	"13"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	154	3458147	4.45325
+	"Georgia"	"13"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	521	3458147	15.06587
+	"Georgia"	"13"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	14	6391505	Unreliable
+	"Georgia"	"13"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	782	6391505	12.23499
+	"Georgia"	"13"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	155	6391505	2.42509
+	"Hawaii"	"15"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	17	363549	Unreliable
+	"Hawaii"	"15"	"2018"	"2018"	"More than one race"	"M"	"Homicide"	"3"	11	340718	Unreliable
+	"Hawaii"	"15"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	10	532190	Unreliable
+	"Hawaii"	"15"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	18	361317	Unreliable
+	"Hawaii"	"15"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	12	342288	Unreliable
+	"Idaho"	"16"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	241	1632188	14.76546
+	"Idaho"	"16"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	29	1632188	1.77676
+	"Idaho"	"16"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	214	1662365	12.87323
+	"Idaho"	"16"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	15	1662365	Unreliable
+	"Illinois"	"17"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	42	1860190	2.25783
+	"Illinois"	"17"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	622	1860190	33.43744
+	"Illinois"	"17"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	521	9791840	5.32076
+	"Illinois"	"17"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	159	9791840	1.62380
+	"Illinois"	"17"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	44	1852516	2.37515
+	"Illinois"	"17"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	610	1852516	32.92819
+	"Illinois"	"17"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	10	9726915	Unreliable
+	"Illinois"	"17"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	486	9726915	4.99645
+	"Illinois"	"17"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	172	9726915	1.76829
+	"Illinois"	"17"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	11	9726915	Unreliable
+	"Indiana"	"18"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	33	658729	5.00965
+	"Indiana"	"18"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	229	658729	34.76392
+	"Indiana"	"18"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	548	5694468	9.62337
+	"Indiana"	"18"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	132	5694468	2.31804
+	"Indiana"	"18"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	37	669596	5.52572
+	"Indiana"	"18"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	226	669596	33.75170
+	"Indiana"	"18"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	11	5709592	Unreliable
+	"Indiana"	"18"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	528	5709592	9.24760
+	"Indiana"	"18"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	120	5709592	2.10173
+	"Iowa"	"19"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	12	124819	Unreliable
+	"Iowa"	"19"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	227	2864126	7.92563
+	"Iowa"	"19"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	24	2864126	0.83795
+	"Iowa"	"19"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	17	128105	Unreliable
+	"Iowa"	"19"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	223	2859080	7.79971
+	"Iowa"	"19"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	29	2859080	1.01431
+	"Kansas"	"20"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	14	178618	Unreliable
+	"Kansas"	"20"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	43	178618	24.07372
+	"Kansas"	"20"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	268	2515351	10.65458
+	"Kansas"	"20"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	71	2515351	2.82267
+	"Kansas"	"20"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	13	178725	Unreliable
+	"Kansas"	"20"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	36	178725	20.14268
+	"Kansas"	"20"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	266	2513846	10.58140
+	"Kansas"	"20"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	62	2513846	2.46634
+	"Kansas"	"20"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	11	89131	Unreliable
+	"Kentucky"	"21"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	20	375972	5.31955
+	"Kentucky"	"21"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	81	375972	21.54416
+	"Kentucky"	"21"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	18	3913936	Unreliable
+	"Kentucky"	"21"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	487	3913936	12.44272
+	"Kentucky"	"21"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	122	3913936	3.11707
+	"Kentucky"	"21"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	11	3913936	Unreliable
+	"Kentucky"	"21"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	17	378479	Unreliable
+	"Kentucky"	"21"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	101	378479	26.68576
+	"Kentucky"	"21"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	17	3909923	Unreliable
+	"Kentucky"	"21"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	420	3909923	10.74190
+	"Kentucky"	"21"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	96	3909923	2.45529
+	"Louisiana"	"22"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	64	1526090	4.19372
+	"Louisiana"	"22"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	405	1526090	26.53841
+	"Louisiana"	"22"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	395	2930432	13.47924
+	"Louisiana"	"22"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	87	2930432	2.96885
+	"Louisiana"	"22"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	66	1524733	4.32863
+	"Louisiana"	"22"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	431	1524733	28.26724
+	"Louisiana"	"22"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	371	2918843	12.71052
+	"Louisiana"	"22"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	102	2918843	3.49454
+	"Maine"	"23"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	144	1265648	11.37757
+	"Maine"	"23"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	142	1269326	11.18704
+	"Maine"	"23"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	11	1269326	Unreliable
+	"Maryland"	"24"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	31	1867592	1.65989
+	"Maryland"	"24"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	362	1867592	19.38325
+	"Maryland"	"24"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	229	3552355	6.44643
+	"Maryland"	"24"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	56	3552355	1.57642
+	"Maryland"	"24"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	44	1878645	2.34211
+	"Maryland"	"24"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	423	1878645	22.51623
+	"Maryland"	"24"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	220	3539444	6.21567
+	"Maryland"	"24"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	41	3539444	1.15837
+	"Massachusetts"	"25"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	56	617097	9.07475
+	"Massachusetts"	"25"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	138	5577194	2.47436
+	"Massachusetts"	"25"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	46	5577194	0.82479
+	"Massachusetts"	"25"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	46	621902	7.39666
+	"Massachusetts"	"25"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	133	5554165	2.39460
+	"Massachusetts"	"25"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	46	5554165	0.82821
+	"Michigan"	"26"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	12	337336	Unreliable
+	"Michigan"	"26"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	67	1408392	4.75720
+	"Michigan"	"26"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	369	1408392	26.20009
+	"Michigan"	"26"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	714	7923927	9.01068
+	"Michigan"	"26"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	102	7923927	1.28724
+	"Michigan"	"26"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	11	248619	Unreliable
+	"Michigan"	"26"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	70	1407890	4.97198
+	"Michigan"	"26"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	369	1407890	26.20943
+	"Michigan"	"26"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	652	7911567	8.24110
+	"Michigan"	"26"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	80	7911567	1.01118
+	"Michigan"	"26"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	13	252965	Unreliable
+	"Minnesota"	"27"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	32	380414	8.41189
+	"Minnesota"	"27"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	332	4718176	7.03662
+	"Minnesota"	"27"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	23	4718176	0.48748
+	"Minnesota"	"27"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	11	292507	Unreliable
+	"Minnesota"	"27"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	11	395556	Unreliable
+	"Minnesota"	"27"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	55	395556	13.90448
+	"Minnesota"	"27"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	319	4723931	6.75285
+	"Minnesota"	"27"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	33	4723931	0.69857
+	"Mississippi"	"28"	"2018"	"2018"	"Black or African American"	"2054-5"	"Unintentional"	"1"	13	1128912	Unreliable
+	"Mississippi"	"28"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	39	1128912	3.45465
+	"Mississippi"	"28"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	256	1128912	22.67670
+	"Mississippi"	"28"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	15	1766301	Unreliable
+	"Mississippi"	"28"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	268	1766301	15.17295
+	"Mississippi"	"28"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	62	1766301	3.51016
+	"Mississippi"	"28"	"2019"	"2019"	"Black or African American"	"2054-5"	"Unintentional"	"1"	11	1124559	Unreliable
+	"Mississippi"	"28"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	48	1124559	4.26834
+	"Mississippi"	"28"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	284	1124559	25.25434
+	"Mississippi"	"28"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	256	1758081	14.56133
+	"Mississippi"	"28"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	78	1758081	4.43666
+	"Missouri"	"29"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	43	724529	5.93489
+	"Missouri"	"29"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	363	724529	50.10151
+	"Missouri"	"29"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	669	5082571	13.16263
+	"Missouri"	"29"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	182	5082571	3.58086
+	"Missouri"	"29"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	10	143702	Unreliable
+	"Missouri"	"29"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	34	725579	4.68591
+	"Missouri"	"29"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	403	725579	55.54185
+	"Missouri"	"29"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	13	5086188	Unreliable
+	"Missouri"	"29"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	639	5086188	12.56344
+	"Missouri"	"29"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	121	5086188	2.37899
+	"Montana"	"30"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	148	945132	15.65919
+	"Montana"	"30"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	13	945132	Unreliable
+	"Montana"	"30"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	156	950211	16.41741
+	"Montana"	"30"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	18	950211	Unreliable
+	"Nebraska"	"31"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	10	98757	Unreliable
+	"Nebraska"	"31"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	142	1703446	8.33604
+	"Nebraska"	"31"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	12	1703446	Unreliable
+	"Nebraska"	"31"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	15	100763	Unreliable
+	"Nebraska"	"31"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	145	1704129	8.50875
+	"Nebraska"	"31"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	21	1704129	1.23230
+	"Nevada"	"32"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	15	264411	Unreliable
+	"Nevada"	"32"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	15	305848	Unreliable
+	"Nevada"	"32"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	62	305848	20.27151
+	"Nevada"	"32"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	329	2253711	14.59815
+	"Nevada"	"32"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	86	2253711	3.81593
+	"Nevada"	"32"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	10	2253711	Unreliable
+	"Nevada"	"32"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	11	268166	Unreliable
+	"Nevada"	"32"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	19	316303	Unreliable
+	"Nevada"	"32"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	33	316303	10.43303
+	"Nevada"	"32"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	313	2277552	13.74283
+	"Nevada"	"32"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	70	2277552	3.07348
+	"New Hampshire"	"33"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	134	1264217	10.59945
+	"New Hampshire"	"33"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	13	1264217	Unreliable
+	"New Hampshire"	"33"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	128	1266097	10.10981
+	"New Hampshire"	"33"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	19	1266097	Unreliable
+	"New Jersey"	"34"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	15	1337754	Unreliable
+	"New Jersey"	"34"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	164	1337754	12.25935
+	"New Jersey"	"34"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	176	6416347	2.74299
+	"New Jersey"	"34"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	52	6416347	0.81043
+	"New Jersey"	"34"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	13	1337457	Unreliable
+	"New Jersey"	"34"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	155	1337457	11.58916
+	"New Jersey"	"34"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	158	6388804	2.47308
+	"New Jersey"	"34"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	36	6388804	0.56349
+	"New Mexico"	"35"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	14	228493	Unreliable
+	"New Mexico"	"35"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	18	228493	Unreliable
+	"New Mexico"	"35"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	11	53576	Unreliable
+	"New Mexico"	"35"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	254	1718901	14.77688
+	"New Mexico"	"35"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	104	1718901	6.05038
+	"New Mexico"	"35"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	15	1718901	Unreliable
+	"New Mexico"	"35"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	14	229794	Unreliable
+	"New Mexico"	"35"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	15	229794	Unreliable
+	"New Mexico"	"35"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	12	54772	Unreliable
+	"New Mexico"	"35"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	257	1716656	14.97097
+	"New Mexico"	"35"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	130	1716656	7.57286
+	"New Mexico"	"35"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	13	1716656	Unreliable
+	"New York"	"36"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	24	3447729	0.69611
+	"New York"	"36"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	227	3447729	6.58404
+	"New York"	"36"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	413	13619931	3.03232
+	"New York"	"36"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	123	13619931	0.90309
+	"New York"	"36"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	30	3421123	0.87691
+	"New York"	"36"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	215	3421123	6.28449
+	"New York"	"36"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	414	13546776	3.05608
+	"New York"	"36"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	96	13546776	0.70866
+	"North Carolina"	"37"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	22	163078	13.49048
+	"North Carolina"	"37"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	71	2306797	3.07786
+	"North Carolina"	"37"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	328	2306797	14.21885
+	"North Carolina"	"37"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	19	7334411	Unreliable
+	"North Carolina"	"37"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	786	7334411	10.71661
+	"North Carolina"	"37"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	133	7334411	1.81337
+	"North Carolina"	"37"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	13	7334411	Unreliable
+	"North Carolina"	"37"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	15	165597	Unreliable
+	"North Carolina"	"37"	"2019"	"2019"	"Black or African American"	"2054-5"	"Unintentional"	"1"	16	2330563	Unreliable
+	"North Carolina"	"37"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	83	2330563	3.56137
+	"North Carolina"	"37"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	384	2330563	16.47671
+	"North Carolina"	"37"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	21	7399487	0.28380
+	"North Carolina"	"37"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	687	7399487	9.28443
+	"North Carolina"	"37"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	136	7399487	1.83797
+	"North Carolina"	"37"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	10	7399487	Unreliable
+	"North Carolina"	"37"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	16	7399487	Unreliable
+	"North Dakota"	"38"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	68	661549	10.27891
+	"North Dakota"	"38"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	73	662555	11.01795
+	"Ohio"	"39"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	70	1517999	4.61133
+	"Ohio"	"39"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	369	1517999	24.30832
+	"Ohio"	"39"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	887	9571522	9.26707
+	"Ohio"	"39"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	173	9571522	1.80745
+	"Ohio"	"39"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	13	9571522	Unreliable
+	"Ohio"	"39"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	13	9571522	Unreliable
+	"Ohio"	"39"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	77	1525570	5.04729
+	"Ohio"	"39"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	395	1525570	25.89196
+	"Ohio"	"39"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	11	9552736	Unreliable
+	"Ohio"	"39"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	891	9552736	9.32717
+	"Ohio"	"39"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	155	9552736	1.62257
+	"Oklahoma"	"40"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	26	367043	7.08364
+	"Oklahoma"	"40"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	19	367043	Unreliable
+	"Oklahoma"	"40"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	19	306890	Unreliable
+	"Oklahoma"	"40"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	65	306890	21.18023
+	"Oklahoma"	"40"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	395	2924365	13.50721
+	"Oklahoma"	"40"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	85	2924365	2.90661
+	"Oklahoma"	"40"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	20	245034	8.16213
+	"Oklahoma"	"40"	"2018"	"2018"	"More than one race"	"M"	"Homicide"	"3"	11	245034	Unreliable
+	"Oklahoma"	"40"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	28	371104	7.54505
+	"Oklahoma"	"40"	"2019"	"2019"	"American Indian or Alaska Native"	"1002-5"	"Homicide"	"3"	20	371104	5.38932
+	"Oklahoma"	"40"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	24	307819	7.79679
+	"Oklahoma"	"40"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	91	307819	29.56283
+	"Oklahoma"	"40"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	400	2927354	13.66422
+	"Oklahoma"	"40"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	119	2927354	4.06510
+	"Oklahoma"	"40"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	17	247860	Unreliable
+	"Oklahoma"	"40"	"2019"	"2019"	"More than one race"	"M"	"Homicide"	"3"	12	247860	Unreliable
+	"Oregon"	"41"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	408	3635926	11.22135
+	"Oregon"	"41"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	51	3635926	1.40267
+	"Oregon"	"41"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	11	3635926	Unreliable
+	"Oregon"	"41"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	444	3655136	12.14729
+	"Oregon"	"41"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	61	3655136	1.66888
+	"Oregon"	"41"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	11	3655136	Unreliable
+	"Pennsylvania"	"42"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	12	474071	Unreliable
+	"Pennsylvania"	"42"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	50	1531457	3.26486
+	"Pennsylvania"	"42"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	399	1531457	26.05362
+	"Pennsylvania"	"42"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	16	10476085	Unreliable
+	"Pennsylvania"	"42"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	960	10476085	9.16373
+	"Pennsylvania"	"42"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	170	10476085	1.62274
+	"Pennsylvania"	"42"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	11	10476085	Unreliable
+	"Pennsylvania"	"42"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	58	1540092	3.76601
+	"Pennsylvania"	"42"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	395	1540092	25.64782
+	"Pennsylvania"	"42"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	12	10447062	Unreliable
+	"Pennsylvania"	"42"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	894	10447062	8.55743
+	"Pennsylvania"	"42"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	141	10447062	1.34966
+	"Rhode Island"	"44"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	22	887259	2.47955
+	"Rhode Island"	"44"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	32	885518	3.61370
+	"South Carolina"	"45"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	57	1380145	4.13000
+	"South Carolina"	"45"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	263	1380145	19.05597
+	"South Carolina"	"45"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	11	3483455	Unreliable
+	"South Carolina"	"45"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	431	3483455	12.37277
+	"South Carolina"	"45"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	106	3483455	3.04296
+	"South Carolina"	"45"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	70	1388017	5.04317
+	"South Carolina"	"45"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	324	1388017	23.34265
+	"South Carolina"	"45"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	11	3532048	Unreliable
+	"South Carolina"	"45"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	452	3532048	12.79711
+	"South Carolina"	"45"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	120	3532048	3.39746
+	"South Dakota"	"46"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	80	744733	10.74210
+	"South Dakota"	"46"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	92	748070	12.29831
+	"Tennessee"	"47"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	62	1155631	5.36503
+	"Tennessee"	"47"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	334	1155631	28.90196
+	"Tennessee"	"47"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	618	5315272	11.62687
+	"Tennessee"	"47"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	157	5315272	2.95375
+	"Tennessee"	"47"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	13	5315272	Unreliable
+	"Tennessee"	"47"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	62	1164461	5.32435
+	"Tennessee"	"47"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	310	1164461	26.62176
+	"Tennessee"	"47"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	13	5354405	Unreliable
+	"Tennessee"	"47"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	671	5354405	12.53174
+	"Tennessee"	"47"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	154	5354405	2.87614
+	"Tennessee"	"47"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	16	5354405	Unreliable
+	"Tennessee"	"47"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	10	5354405	Unreliable
+	"Texas"	"48"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	10	290961	Unreliable
+	"Texas"	"48"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	55	1486266	3.70055
+	"Texas"	"48"	"2018"	"2018"	"Asian"	"A"	"Homicide"	"3"	18	1486266	Unreliable
+	"Texas"	"48"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	149	3673855	4.05569
+	"Texas"	"48"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	482	3673855	13.11973
+	"Texas"	"48"	"2018"	"2018"	"Black or African American"	"2054-5"	"Legal Intervention / Operations of War"	"5"	10	3673855	Unreliable
+	"Texas"	"48"	"2018"	"2018"	"White"	"2106-3"	"Unintentional"	"1"	32	22624867	0.14144
+	"Texas"	"48"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	2041	22624867	9.02105
+	"Texas"	"48"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	642	22624867	2.83759
+	"Texas"	"48"	"2018"	"2018"	"White"	"2106-3"	"Undetermined "	"4"	34	22624867	0.15028
+	"Texas"	"48"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	29	22624867	0.12818
+	"Texas"	"48"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	41	1510470	2.71439
+	"Texas"	"48"	"2019"	"2019"	"Asian"	"A"	"Homicide"	"3"	18	1510470	Unreliable
+	"Texas"	"48"	"2019"	"2019"	"Black or African American"	"2054-5"	"Unintentional"	"1"	10	3739221	Unreliable
+	"Texas"	"48"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	152	3739221	4.06502
+	"Texas"	"48"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	540	3739221	14.44151
+	"Texas"	"48"	"2019"	"2019"	"Black or African American"	"2054-5"	"Undetermined "	"4"	12	3739221	Unreliable
+	"Texas"	"48"	"2019"	"2019"	"Black or African American"	"2054-5"	"Legal Intervention / Operations of War"	"5"	10	3739221	Unreliable
+	"Texas"	"48"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	39	22806130	0.17101
+	"Texas"	"48"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	2031	22806130	8.90550
+	"Texas"	"48"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	728	22806130	3.19212
+	"Texas"	"48"	"2019"	"2019"	"White"	"2106-3"	"Undetermined "	"4"	30	22806130	0.13154
+	"Texas"	"48"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	41	22806130	0.17978
+	"Utah"	"49"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	320	2865634	11.16681
+	"Utah"	"49"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	28	2865634	0.97710
+	"Utah"	"49"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	14	2865634	Unreliable
+	"Utah"	"49"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	309	2904132	10.64001
+	"Utah"	"49"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	38	2904132	1.30848
+	"Vermont"	"50"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	68	589986	11.52570
+	"Vermont"	"50"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	59	588102	10.03227
+	"Virginia"	"51"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	69	1691267	4.07978
+	"Virginia"	"51"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	222	1691267	13.12625
+	"Virginia"	"51"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	596	5918670	10.06983
+	"Virginia"	"51"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	100	5918670	1.68957
+	"Virginia"	"51"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	11	589710	Unreliable
+	"Virginia"	"51"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	73	1696911	4.30193
+	"Virginia"	"51"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	235	1696911	13.84869
+	"Virginia"	"51"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	567	5922648	9.57342
+	"Virginia"	"51"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	103	5922648	1.73909
+	"Washington"	"53"	"2018"	"2018"	"American Indian or Alaska Native"	"1002-5"	"Suicide"	"2"	13	144450	Unreliable
+	"Washington"	"53"	"2018"	"2018"	"Asian"	"A"	"Suicide"	"2"	13	703455	Unreliable
+	"Washington"	"53"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	18	322826	Unreliable
+	"Washington"	"53"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	33	322826	10.22222
+	"Washington"	"53"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	539	5944924	9.06656
+	"Washington"	"53"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	113	5944924	1.90078
+	"Washington"	"53"	"2018"	"2018"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	21	5944924	0.35324
+	"Washington"	"53"	"2018"	"2018"	"More than one race"	"M"	"Suicide"	"2"	12	360935	Unreliable
+	"Washington"	"53"	"2018"	"2018"	"More than one race"	"M"	"Homicide"	"3"	11	360935	Unreliable
+	"Washington"	"53"	"2019"	"2019"	"Asian"	"A"	"Suicide"	"2"	14	727986	Unreliable
+	"Washington"	"53"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	12	331924	Unreliable
+	"Washington"	"53"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	41	331924	12.35223
+	"Washington"	"53"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	584	5977696	9.76965
+	"Washington"	"53"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	100	5977696	1.67289
+	"Washington"	"53"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	19	5977696	Unreliable
+	"Washington"	"53"	"2019"	"2019"	"More than one race"	"M"	"Suicide"	"2"	17	370139	Unreliable
+	"West Virginia"	"54"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	13	65231	Unreliable
+	"West Virginia"	"54"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	250	1687993	14.81049
+	"West Virginia"	"54"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	53	1687993	3.13982
+	"West Virginia"	"54"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	13	64610	Unreliable
+	"West Virginia"	"54"	"2019"	"2019"	"White"	"2106-3"	"Unintentional"	"1"	14	1675122	Unreliable
+	"West Virginia"	"54"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	192	1675122	11.46185
+	"West Virginia"	"54"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	61	1675122	3.64153
+	"Wisconsin"	"55"	"2018"	"2018"	"Black or African American"	"2054-5"	"Suicide"	"2"	12	389047	Unreliable
+	"Wisconsin"	"55"	"2018"	"2018"	"Black or African American"	"2054-5"	"Homicide"	"3"	94	389047	24.16161
+	"Wisconsin"	"55"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	397	5063526	7.84039
+	"Wisconsin"	"55"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	50	5063526	0.98745
+	"Wisconsin"	"55"	"2019"	"2019"	"Black or African American"	"2054-5"	"Suicide"	"2"	14	390543	Unreliable
+	"Wisconsin"	"55"	"2019"	"2019"	"Black or African American"	"2054-5"	"Homicide"	"3"	86	390543	22.02062
+	"Wisconsin"	"55"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	404	5067781	7.97193
+	"Wisconsin"	"55"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	58	5067781	1.14449
+	"Wisconsin"	"55"	"2019"	"2019"	"White"	"2106-3"	"Legal Intervention / Operations of War"	"5"	10	5067781	Unreliable
+	"Wyoming"	"56"	"2018"	"2018"	"White"	"2106-3"	"Suicide"	"2"	104	534943	19.44132
+	"Wyoming"	"56"	"2018"	"2018"	"White"	"2106-3"	"Homicide"	"3"	12	534943	Unreliable
+	"Wyoming"	"56"	"2019"	"2019"	"White"	"2106-3"	"Suicide"	"2"	107	535371	19.98614
+	"Wyoming"	"56"	"2019"	"2019"	"White"	"2106-3"	"Homicide"	"3"	12	535371	Unreliable
+"---"
+"Dataset: Multiple Cause of Death, 2018-2019, Single Race"
+"Query Parameters:"
+"Title: Firearm Mortality by State/Year/Race/Intent"
+"UCD - Injury Mechanism & All Other Leading Causes: Firearm"
+"Group By: State; Year; Single Race 6; UCD - Injury Intent"
+"Show Totals: Disabled"
+"Show Zero Values: False"
+"Show Suppressed: False"
+"Calculate Rates Per: 100,000"
+"Rate Options: Default intercensal populations for years 2001-2009 (except Infant Age Groups)"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/mcd-expanded.html for more information."
+"---"
+"Query Date: Apr 25, 2021 12:23:20 PM"
+"---"
+"Suggested Citation: Centers for Disease Control and Prevention, National Center for Health Statistics. Multiple Cause of Death"
+"2018-2019 on CDC WONDER Online Database, released in 2020. Data are from the Multiple Cause of Death Files, 2018-2019, as"
+"compiled from data provided by the 57 vital statistics jurisdictions through the Vital Statistics Cooperative Program. Accessed"
+"at http://wonder.cdc.gov/mcd-icd10-expanded.html on Apr 25, 2021 12:23:20 PM"
+"---"
+Messages:
+"1. Totals are not available for these results due to suppression constraints. More Information:"
+"http://wonder.cdc.gov/wonder/help/faq.html#Privacy."
+"2. Rows with suppressed Deaths are hidden. Use Quick Options above to show suppressed rows."
+"---"
+Caveats:
+"1. Data are Suppressed when the data meet the criteria for confidentiality constraints. More information:"
+"http://wonder.cdc.gov/wonder/help/mcd-expanded.html#Assurance of Confidentiality."
+"2. Death rates are flagged as Unreliable when the rate is calculated with a numerator of 20 or less. More information:"
+"http://wonder.cdc.gov/wonder/help/mcd-expanded.html#Unreliable."
+"3. The population figures for year 2019 are single-race estimates of the July 1 resident population, from the Vintage 2019"
+"postcensal series released by the Census Bureau on June 25, 2020. The population figures for year 2018 are single-race estimates"
+"of the July 1 resident population, from the Vintage 2018 postcensal series released by the Census Bureau on June 20, 2019."
+"4. The population figures used in the calculation of death rates for the age group 'under 1 year' are the estimates of the"
+"resident population that is under one year of age. More information: http://wonder.cdc.gov/wonder/help/mcd-expanded.html#Age"
+"Group."
