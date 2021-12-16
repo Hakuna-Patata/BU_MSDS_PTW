@@ -1,7 +1,0 @@
-"0","# Use the table() function to first get frequency count. Then plot the results."
-"0",""
-"0",""
-"0","str_vector <- c(""a"",""c"",""df"",""c"",""b"",""a"",""c"",""d"",""df"")"
-"0",""
-"0",""
-"0","barplot(table(str_vector), col=""#a56cf0"", main=""Barplot"", xlab=""Element"", border=""black"", ylab=""Frequency"")"

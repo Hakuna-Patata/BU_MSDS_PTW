@@ -1,7 +1,0 @@
-"0",""
-"0","## Looking at this plot there seem to be a lot of different clusters of data."
-"0","## For this reason, will probably have to increase the number of clusters."
-"0","bc_df %>% "
-"0","  ggplot(aes(x=x, y=y)) +"
-"0","  geom_point(aes(col=as.factor(label)), alpha=.3) + "
-"0","  labs(color = ""Label"")"

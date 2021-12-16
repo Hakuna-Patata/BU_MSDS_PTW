@@ -1,1 +1,0 @@
-"0","ggplot(ts_df, aes(x=PRE17, fill=Risk1Yr)) + geom_bar() + geom_text(aes(label=..count..), stat=""count"", vjust=1.5)"

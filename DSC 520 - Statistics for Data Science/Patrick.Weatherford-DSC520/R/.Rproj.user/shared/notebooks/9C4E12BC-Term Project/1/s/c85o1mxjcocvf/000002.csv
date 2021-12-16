@@ -1,3 +1,0 @@
-"0",""
-"0","ggplot(data = Lahman_df, mapping = aes(x=Bats, y=OPS)) + geom_boxplot()"
-"0",""

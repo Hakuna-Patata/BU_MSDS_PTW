@@ -1,4 +1,0 @@
-"0",""
-"0","hdf %>% "
-"0","  dplyr::mutate(""Price per Living Sqft.""=round(`Sale Price` / `square_feet_total_living`, 2)) %>% "
-"0","  dplyr::mutate(""Price per Lot Sqft.""=round(`Sale Price` / `sq_ft_lot`, 2))"

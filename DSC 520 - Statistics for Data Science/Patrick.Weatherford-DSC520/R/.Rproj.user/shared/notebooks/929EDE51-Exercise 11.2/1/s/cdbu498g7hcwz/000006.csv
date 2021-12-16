@@ -1,3 +1,0 @@
-"0",""
-"0","ggplot(data = k_clust_df, aes(x=x, y=y)) + geom_point() + labs(title = ""Lol"")"
-"0",""

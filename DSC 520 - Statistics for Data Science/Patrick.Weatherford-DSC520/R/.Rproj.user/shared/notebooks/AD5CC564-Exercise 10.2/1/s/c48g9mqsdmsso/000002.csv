@@ -1,6 +1,0 @@
-"0",""
-"0","set.seed(200)"
-"0","indices = sample.split(ts_df$Risk1Yr, SplitRatio = 0.7)"
-"0","train = ts_df[indices,]"
-"0","test = ts_df[!indices,]"
-"0",""

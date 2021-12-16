@@ -1,9 +1,0 @@
-"0",""
-"0","## Plot of Studentized Residuals vs. Fitted Values"
-"0","album2 %>% "
-"0","  ggplot(aes(fitted.values, studentized.residuals)) + "
-"0","  geom_point() + "
-"0","  geom_smooth(method=""lm"", color=""blue"") + "
-"0","  labs(x=""Fitted Values"", y=""Studentized Residuals"")"
-"2","`geom_smooth()` using formula 'y ~ x'
-"

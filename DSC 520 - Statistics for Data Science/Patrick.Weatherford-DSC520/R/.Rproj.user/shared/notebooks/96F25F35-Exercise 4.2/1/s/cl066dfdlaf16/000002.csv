@@ -1,2 +1,0 @@
-"0","sport_scores_df <- dplyr::filter(scores_df, Section==""Sports"")"
-"0","regular_scores_df <- dplyr::filter(scores_df, Section==""Regular"")"

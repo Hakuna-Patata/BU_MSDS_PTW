@@ -1,5 +1,0 @@
-"0",""
-"0","multi_df %>% "
-"0","  ggplot(aes(x=CURRENT_ZONING_ID, y=SALE_PRICE_STD, color=OVERALL_OUTLIER)) + "
-"0","  geom_point() + "
-"0","  scale_color_manual(breaks=c(""Outlier"",""Non-Outlier""), values=c(""red"",""#4d4d4d""))"

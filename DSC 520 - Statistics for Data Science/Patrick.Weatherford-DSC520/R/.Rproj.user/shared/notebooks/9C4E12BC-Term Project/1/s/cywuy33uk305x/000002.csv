@@ -1,4 +1,0 @@
-"0","model_list <- list()"
-"0","model_list[[1]] <- lm1"
-"0","model_list[[2]] <- lm2"
-"0","model_names <- c(""lm1"", ""lm2"")"

@@ -1,1 +1,0 @@
-"0","ggplot(data = Lahman_df, mapping = aes(x=`Out of Zone Swing %`, y=OPS)) + geom_point() + geom_smooth(method = ""lm"", formula = y~x)"
