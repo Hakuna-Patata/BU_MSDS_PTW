@@ -1,2 +1,2 @@
-# Bellevue_University
+# Bellevue University
  Masters in Data Science
