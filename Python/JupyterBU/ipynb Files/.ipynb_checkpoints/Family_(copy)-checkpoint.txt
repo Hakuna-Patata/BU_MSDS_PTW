@@ -1,4 +1,0 @@
-ID	Name	Sex
-1	Patrick	Male
-2	Leigha	Female
-3	Blake	Male
