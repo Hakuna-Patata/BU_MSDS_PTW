@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\AppData\\Local\\Python\\venv"
+		}
+	],
+	"settings": {
+		"editor.autoClosingBrackets": "beforeWhitespace",
+		"files.autoSave": "afterDelay",
+	}
+}
