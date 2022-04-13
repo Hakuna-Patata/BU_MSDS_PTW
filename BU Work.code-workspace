@@ -8,7 +8,6 @@
 		}
 	],
 	"settings": {
-		"editor.autoClosingBrackets": "beforeWhitespace",
-		"files.autoSave": "afterDelay",
+		
 	}
 }
