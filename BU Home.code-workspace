@@ -6,6 +6,6 @@
 	],
 	"settings": {
 		"editor.autoClosingBrackets": "beforeWhitespace",
-		"files.autoSave": "afterDelay"
+		"files.autoSave": "off"
 	}
 }
