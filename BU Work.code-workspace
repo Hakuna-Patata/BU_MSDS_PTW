@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.defaultInterpreterPath": "C:\\Users\\patwea\\AppData\\Local\\Python\\venv\\BU_work\\Scripts\\python"
+		"python.defaultInterpreterPath": "C:\\Users\\patwea\\AppData\\Local\\Python\\venv\\BU_work\\Scripts\\python",
+		"jupyter.jupyterServerType": "local"
 	}
 }
