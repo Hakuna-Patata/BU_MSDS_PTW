@@ -1,12 +1,9 @@
 """
 
 """
-
-
-import sqlite3
-import pandas as _pd
 from fuzzywuzzy import fuzz as _fuzz, process as _process
-
+import pandas as _pd
+import sqlite3 as _sqlite3
 
 def fuzzy_match_df(col1, col2, threshold=90, fuzz_type='token_sort_ratio'):
     """Create intermediate pandas DataFrame that fuzzy matches 2 arrays of strings.
@@ -50,7 +47,7 @@ def sql_to_df(db_path, sql_txt):
         pandas.DataFrame
     """
 
-    with sqlite3.connect(db_path) as conn:
+    with _sqlite3.connect(db_path) as conn:
         df = _pd.read_sql_query(sql_txt, conn)
         return df
     conn.close()
@@ -83,7 +80,7 @@ def sqlite_tables(db_path):
     """
 
     sql_txt = r"SELECT name AS TABLE_NAME FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%'"
-    with sqlite3.connect(db_path) as conn:
+    with _sqlite3.connect(db_path) as conn:
         df = _pd.read_sql_query(sql_txt, conn)
         return df
     conn.close()
@@ -98,6 +95,6 @@ def sqlite_drop_table(db_path, table_name):
     """
 
     sql_txt = f'DROP TABLE IF EXISTS {table_name}'
-    with sqlite3.connect(db_path) as conn:
+    with _sqlite3.connect(db_path) as conn:
         conn.execute(sql_txt)
     conn.close()
