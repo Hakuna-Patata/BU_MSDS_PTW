@@ -4,12 +4,29 @@ Developer: Patrick Weatherford
 """
 import os as _os
 import sqlite3 as _sqlite3
-from fuzzywuzzy import fuzz as _fuzz, process as _process
+import re as _re
+import sys as _sys
 import pandas as _pd
+import unicodedata as _unicodedata
+from fuzzywuzzy import fuzz as _fuzz, process as _process
 from pprint import pprint as _pprint
 from io import StringIO as _StringIO
 from contextlib import redirect_stdout as _redirect_stdout
-import re as _re
+
+
+def remove_punctuations(string):
+    """Removes unicode punctuation characters from string
+
+    Args:
+        string (str): String to remove punctuations from.
+
+    Returns:
+        str: Returns string with no punctuations chars.
+    """
+    punctuation = dict.fromkeys(i for i in range(_sys.maxunicode)
+                                if _unicodedata.category(chr(i)).startswith('P'))
+    return string.translate(punctuation)
+
 
 
 def kaggle_api(username, api_key):
