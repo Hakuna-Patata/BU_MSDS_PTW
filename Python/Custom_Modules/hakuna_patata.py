@@ -70,7 +70,7 @@ def kaggle_dataset_info(kaggle_api, search_criteria):
         _pprint(search_match)
 
 
-def kaggle_dataset_download(kaggle_api, dataset, download_path=_os.getcwd(), unzip=False, rename=None, overwrite=True):
+def kaggle_dataset_download(kaggle_api, dataset, download_path=_os.getcwd(), unzip=False, overwrite=True):
     """Download kaggle file(s) into zip file
 
     Args:
@@ -78,7 +78,6 @@ def kaggle_dataset_download(kaggle_api, dataset, download_path=_os.getcwd(), unz
         dataset (str): Try dataset owner/dataset in Kaggle URL.
         download_path (str, optional): Download directory. Defaults to current working dir
         unzip (bool, optional): Unzip file?. Defaults to False.
-        rename (str, optional): New name for file. Defaults is to leave as-is.
         overwrite (bool, optional): If file exists, overwrite?
     """
     captured_output = _StringIO()
@@ -91,20 +90,6 @@ def kaggle_dataset_download(kaggle_api, dataset, download_path=_os.getcwd(), unz
     re_search = r'(downloading )(.*)( to )(.*)'
     match = _re.search(re_search, captured_string, flags=_re.IGNORECASE)
     download_file_path = _os.path.join(download_path, match.group(2))
-
-    if rename is None:
-        print(f"Download successful! File path below:\n{download_file_path}")
-
-    else:
-        try:
-            _, file_ext = _os.path.splitext(download_file_path)
-            new_file_path = _os.path.join(download_path, f"{rename}{file_ext}")
-
-            _os.rename(download_file_path, dst=new_file_path)
-            print(f"Download and rename succesful! File path below:\n{new_file_path}")
-        except Exception as e:
-            print(f"Download successful but rename FAILED! File path below:\n{download_file_path}\n\nException: {e}")
-
 
 def fuzzy_match_df(col1, col2, threshold=90, fuzz_type='token_sort_ratio'):
     """Create intermediate pandas DataFrame that fuzzy matches 2 arrays of strings.
