@@ -1,12 +1,34 @@
+"""
+This module is used to combine SKlearn with Pandas
+"""
+
+from functools import reduce as _reduce
 import pandas as _pd
 from pandas import DataFrame as _DF
-from functools import reduce as _reduce
-from sklearn.preprocessing import FunctionTransformer as _FunctionTransformer
-from sklearn.base import TransformerMixin as _TransformerMixin, BaseEstimator as _BaseEstimator
-from sklearn.feature_extraction import DictVectorizer as _DictVectorizer
+import numpy as _np
+from itertools import chain as _chain
+from joblib import Parallel as _Parallel, delayed as _delayed
+from sklearn.compose import ColumnTransformer as _ColumnTransformer
+from sklearn.preprocessing import (
+    FunctionTransformer as _FunctionTransformer
+    , OneHotEncoder as _OneHotEncoder
+)
+from sklearn.base import (
+    TransformerMixin as _TransformerMixin
+    , BaseEstimator as _BaseEstimator
+)
+from sklearn.pipeline import (
+    FeatureUnion as _FeatureUnion
+    , _fit_transform_one
+    , _transform_one
+)
+from scipy import sparse as _sparse
+from typing import List as _List, Any as _Any
 
 
-class DFFunctionTransformer(_TransformerMixin):
+class DFFunctionTransformer(_TransformerMixin, _BaseEstimator):
+    """Class for applying any sklearn transformer as step in pipeline.
+    """
     def __init__(self, *args, **kwargs):
         self.FT = _FunctionTransformer(*args, **kwargs)
 
@@ -20,21 +42,25 @@ class DFFunctionTransformer(_TransformerMixin):
 
 
 class DFFeatureUnion(_TransformerMixin, _BaseEstimator):
+    # FeatureUnion but for pandas DataFrames
+
     def __init__(self, transformer_list):
         self.transformer_list = transformer_list
 
     def fit(self, X, y=None):
-        for (name, transformer) in self.transformer_list:
-            transformer.fit(X, y)
+        for (name, t) in self.transformer_list:
+            t.fit(X, y)
         return self
 
     def transform(self, X):
-        X_xfrm = [transformer.transform(X) for _, transformer in self.transformer_list]
-        X_union = _reduce(lambda X1, X2: _pd.merge(X1, X2, left_index=True, right_index=True), X_xfrm)
-        return X_union
-
+        # assumes X is a DataFrame
+        Xts = [t.transform(X) for _, t in self.transformer_list]
+        Xunion = _reduce(lambda X1, X2: _pd.merge(X1, X2, left_index=True, right_index=True), Xts)
+        return Xunion
 
 class DFColumnExtractor(_TransformerMixin, _BaseEstimator):
+    """Class for extracting column in sklearn pipeline.
+    """
     def __init__(self, cols):
         self.cols = cols
 
@@ -47,6 +73,8 @@ class DFColumnExtractor(_TransformerMixin, _BaseEstimator):
 
 
 class DFColumnDropper(_TransformerMixin, _BaseEstimator):
+    """Class for dropping column step in sklearn pipeline.
+    """
     def __init__(self, cols):
         self.cols = cols
 
@@ -58,26 +86,25 @@ class DFColumnDropper(_TransformerMixin, _BaseEstimator):
 
 
 class DFDummyTransformer(_TransformerMixin, _BaseEstimator):
-    def __init__(self):
-        self.dv = None
+    """Class for One-Hot Encoding step in sklearn pipeline.
+    """
+    def __init__(self, **kwargs):
+        self.ohe = _OneHotEncoder(handle_unknown='ignore', sparse=False, **kwargs)
 
     def fit(self, X, y=None):
-        X_dict = X.to_dict('records')
-        self.dv = _DictVectorizer(sparse=False)
-        self.dv.fit(X_dict)
+        self.ohe.fit(X)
+        self.cols = self.ohe.get_feature_names_out()
         return self
 
     def transform(self, X):
-        X_dict = X.to_dict('records')
-        X_xfrm = self.dv.transform(X_dict)
-        xfrm_cols = self.dv.get_feature_names_out()
-        X_dum = _DF(X_xfrm, index=X.index, columns=xfrm_cols)
-        nan_cols = [c for c in xfrm_cols if '=' not in c]
-        X_dum = X_dum.drop(nan_cols, axis=1)
-        return X_dum
+        xfrm_array = self.ohe.transform(X)
+        xfrm_df = _DF(xfrm_array, columns=self.cols, index=X.index)
+        return xfrm_df
 
 
 class DFStringTransformer(_TransformerMixin, _BaseEstimator):
+    """Class for string conversion step in sklearn pipeline.
+    """
     def fit(self, X, y=None):
         return self
 
@@ -87,6 +114,8 @@ class DFStringTransformer(_TransformerMixin, _BaseEstimator):
 
 
 class DFImputer(_TransformerMixin, _BaseEstimator):
+    """Class for imputing step in sklearn pipeline.
+    """
     def __init__(self, imputer):
         self.imputer = imputer
         self.stats_ = None
@@ -103,6 +132,8 @@ class DFImputer(_TransformerMixin, _BaseEstimator):
 
 
 class DFScaler(_TransformerMixin, _BaseEstimator):
+    """Class for scaling step in sklearn pipeline.
+    """
     def __init__(self, scaler):
         self.scaler = scaler
 
@@ -116,10 +147,15 @@ class DFScaler(_TransformerMixin, _BaseEstimator):
         return X_scaled_df
 
 
-class DFDropNaN():
+class DFDropNaN(_TransformerMixin, _BaseEstimator):
+    """Class for NaN dropping step in sklearn pipeline.
+    """
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
     def fit(self, X, y=None):
         return self 
 
-    def transform(self, X, *args, **kwargs):
-        return X.dropna(*args, **kwargs)
+    def transform(self, X):
+        return X.dropna(**self.kwargs)
         
